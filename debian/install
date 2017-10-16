@@ -1,0 +1,7 @@
+mx-conky 		usr/bin
+mx-conky.desktop	 	usr/share/applications
+mx-conky.conf	 	etc
+translations/*.qm 	usr/share/mx-conky/locale
+mx-conky.png		usr/share/pixmaps
+license.html            usr/share/doc/mx-conky
+
