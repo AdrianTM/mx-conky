@@ -1,0 +1,14 @@
+Source: mx-conky
+Section: admin
+Priority: optional
+Maintainer: Adrian <adrian@mxlinux.org>
+Build-Depends: qt5-qmake,
+	debhelper (>=7.0.50~)
+Standards-Version: 3.9.5
+Vcs-Git: git://github.com/AdrianTM/mx-conky
+
+Package: mx-conky
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, mx-viewer
+Description: MX Conky
+ MX Conky is a tool used for testing code
