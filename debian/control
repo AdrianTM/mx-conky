@@ -9,6 +9,6 @@ Vcs-Git: git://github.com/AdrianTM/mx-conky
 
 Package: mx-conky
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, mx-viewer
+Depends: ${misc:Depends}, ${shlibs:Depends}, leafpad
 Description: MX Conky
  MX Conky is a tool used for testing code

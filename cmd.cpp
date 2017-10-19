@@ -98,7 +98,7 @@ bool Cmd::kill()
 // terminate process, return true for success
 bool Cmd::terminate()
 {
-    qDebug() << "terminate cmd called";
+    //qDebug() << "terminate cmd called";
     if (!this->isRunning()) {
         return true; // returns true because process is not running
     }

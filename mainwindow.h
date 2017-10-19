@@ -29,8 +29,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QTimer>
-#include <QSettings>
-#include <QFile>
+#include <QDir>
 
 #include <cmd.h>
 
@@ -44,14 +43,23 @@ class MainWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0, QString file = "");
     ~MainWindow();
 
-    QString getVersion(QString name);
-    QString version;
+    QString file_name;
 
-    void setColor(QWidget *widget);
+    void parseContent();
+    void pickColor(QWidget *widget);
+    void setColor(QWidget *widget, QColor color);
     void setup();
+    void writeColor(QWidget *widget, QColor color);
+    void writeFile(QString file_name, QString content);
+
+    bool checkConkyRunning();
+    bool readFile(QString file_name);
+
+    QColor strToColor(QString colorstr);
+    QString getVersion(QString name);
 
 public slots:
 
@@ -63,17 +71,22 @@ private slots:
     void on_buttonAbout_clicked();
     void on_buttonHelp_clicked();
     void on_buttonDefaultColor_clicked();
-
+    void on_buttonColor0_clicked();
     void on_buttonColor1_clicked();
-
     void on_buttonColor2_clicked();
-
     void on_buttonColor3_clicked();
+    void on_buttonColor4_clicked();
+    void on_buttonToggleOn_clicked();
+
+    void on_buttonRestore_clicked();
+
+    void on_buttonEdit_clicked();
 
 private:
     Ui::MainWindow *ui;
     Cmd *cmd;
     QTimer *timer;
+    QString file_content;
 };
 
 
