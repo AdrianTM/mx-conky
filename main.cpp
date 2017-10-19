@@ -60,7 +60,6 @@ QString openFile(QDir dir)
 {
     QFileDialog dialog;
     QString file_name = getRunningConky();
-    qDebug() << "File name" << file_name;
 
     if (file_name != "") {
         return file_name;

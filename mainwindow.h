@@ -82,6 +82,8 @@ private slots:
 
     void on_buttonEdit_clicked();
 
+    void on_buttonChange_clicked();
+
 private:
     Ui::MainWindow *ui;
     Cmd *cmd;
