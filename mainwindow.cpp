@@ -27,6 +27,7 @@
 #include "ui_mainwindow.h"
 
 #include <QColorDialog>
+#include <QFileDialog>
 
 #include <QDebug>
 
@@ -119,7 +120,7 @@ void MainWindow::setup()
     }
 
     QString conky_name = QFileInfo(file_name).fileName();
-    ui->labelConkyName->setText(conky_name);
+    ui->buttonChange->setText(conky_name);
 
     checkConkyRunning();
 
@@ -316,5 +317,16 @@ void MainWindow::on_buttonRestore_clicked()
 void MainWindow::on_buttonEdit_clicked()
 {
     system("leafpad " + file_name.toUtf8());
+    setup();
+}
+
+void MainWindow::on_buttonChange_clicked()
+{
+    QFileDialog dialog;
+
+    QString selected = dialog.getOpenFileName(0, QObject::tr("Select Conky Manager config file"), QFileInfo(file_name).path());
+    if (selected != "") {
+        file_name = selected;
+    }
     setup();
 }
