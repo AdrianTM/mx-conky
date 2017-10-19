@@ -316,7 +316,7 @@ void MainWindow::on_buttonRestore_clicked()
 
 void MainWindow::on_buttonEdit_clicked()
 {
-    system("leafpad " + file_name.toUtf8());
+    system("leafpad '" + file_name.toUtf8() + "'");
     setup();
 }
 
