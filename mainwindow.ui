@@ -148,6 +148,9 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Conky Name</string>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
      </layout>

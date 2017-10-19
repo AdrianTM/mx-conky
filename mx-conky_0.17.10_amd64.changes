@@ -18,26 +18,26 @@ Changes:
  .
    * Initial build
 Checksums-Sha1:
- 61a28a0405e7b2189000ec68173243da16938223 1094 mx-conky_0.17.10.dsc
- 00b14c1cb4797be3161cd01c66f40e8e4af6ba8a 24720 mx-conky_0.17.10.tar.xz
- c3612163ab8d4ca0b20fe1f43ba3fc9527b3b734 42660 mx-conky_0.17.10_amd64.deb
+ fb951b65be63d73e51bcb9bce138b5218c8d4315 1094 mx-conky_0.17.10.dsc
+ a9140bedbb55b4562dc513cf3339eb874ad3624a 64420 mx-conky_0.17.10.tar.xz
+ 3b0d51800bff5fcabd6883e9e8a0d4aae51dc980 43090 mx-conky_0.17.10_amd64.deb
 Checksums-Sha256:
- f76c798445ebdff5180743d2e87c9fd8560e10d4dbb95a105fe42b19326c429a 1094 mx-conky_0.17.10.dsc
- 7047ddf492785c1020a98778dae6a62f07f6e1a20592adbed42e7bb1b8d29cb8 24720 mx-conky_0.17.10.tar.xz
- f06a6a771cdc6a3e8ea03c05045b37eac2d501aff7c660f4816d902ff33a4c5d 42660 mx-conky_0.17.10_amd64.deb
+ 87e97b429510d3d811298aa8b11fd162970c7fcf591a31df83e74579a03e76ff 1094 mx-conky_0.17.10.dsc
+ 276a588b939993b384f4c1b0320ecff6329319e16ef02e0c6061a0b5f21c9b28 64420 mx-conky_0.17.10.tar.xz
+ 621afc92300bf7b5029eb047634af8d02dedde7da83a0a1ce583a729ec0c9615 43090 mx-conky_0.17.10_amd64.deb
 Files:
- 902bc38db9a44916b1476795eab46095 1094 admin optional mx-conky_0.17.10.dsc
- 10f6c5b5020818297b00d6dd37e2d1a1 24720 admin optional mx-conky_0.17.10.tar.xz
- d5f14d6c161eb97e828c631510890ce0 42660 admin optional mx-conky_0.17.10_amd64.deb
+ ca686e9df27442e971ca6c12d0a713a1 1094 admin optional mx-conky_0.17.10.dsc
+ e193c27661c5543e0bf85f767e4ee91b 64420 admin optional mx-conky_0.17.10.tar.xz
+ 8a9bec28d82058c540ab75f13f4c3669 43090 admin optional mx-conky_0.17.10_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJZ6P52AAoJEHCTjHgGee6Y7MgIAI4l087de7xqXqFtH4VKy+Z6
-V4K764IRMkwhoFMo+9nBWLmO/cCrZmXy0jwz5nwY57KfBuTQCYt4bUdGQL1UlXEf
-SWVdGItSNqrJVufOdYYDYoo80nhwLEpjLvYGXGXxBpSjFW4oT4btKh/CvQ8MtuI7
-2jAzll5NNRs04V2UVuq6l1KoGaNbwFRW26FL61xVw5oNBT0koVGMgff8vbs0cU5W
-Th00OohiT3709Ka7bQKdQBr1A6i/uil6UC4fx89U9Vt3JHqg1ad6n6tmRK5TdHWY
-qKGTcNR7WHt0ZCrWpl7kFfrSNjFVqFpcr2n0K7nK3d+TG4OqsDnmYmZkhHB/DvQ=
-=2nQ8
+iQEcBAEBAgAGBQJZ6P8sAAoJEHCTjHgGee6YcmQIAMlTdkkAe7jOT+M9r4RDdrII
+fa4+lK3f1xdEev5RCmmiej7CrJZS4I9/fX1xRartip28NRa7XTNp2zBsmmPfWGkG
+ITM4WSIw1i1hC3isq/H5iDlPYx/lrGvkk8e886PgQvbP773LwWuClHkvmw8YzKJm
+JrlPb3LBa1X43fmC6YNhOkMiGZbsIyXTbUnDhrOjGHZXDELz8Y95dOlnnCI603oo
+Jg096cMQHBfxV6FsjViC4pRpjtAxwpsbMEm+Nz8+XQ8lmCcny4jHr011X9OmTx0N
+ONO9SWnA6XDFbDboJvpLtDdp/011WINZXZub7RgEnZKuKBaKj3T5QHhHJ7ijnWM=
+=yIHO
 -----END PGP SIGNATURE-----
