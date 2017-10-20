@@ -11,4 +11,4 @@ Package: mx-conky
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, leafpad
 Description: MX Conky
- MX Conky is a tool used for testing code
+ MX Conky is a tool used for manipulating detailed attributes such as color or formats
