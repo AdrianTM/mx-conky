@@ -36,8 +36,12 @@ MainWindow::MainWindow(QWidget *parent, QString file) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    cmd = new Cmd(this);
+    connect(qApp, &QApplication::aboutToQuit, this, &MainWindow::cleanup);
+
     file_name = file;
-    setup();
+    this->setWindowTitle(tr("MX Conky"));
+    refresh();
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +55,8 @@ void MainWindow::parseContent()
     QStringList list = file_content.split("\n");
     foreach(QString row, list) {
         if (!row.startsWith("#")) {
+
+            // Deal with colors
             if(row.startsWith("default_color")) {
                 setColor(ui->widgetDefaultColor, strToColor(row.section(" ", 1)));
             } else if (row.startsWith("color0")) {
@@ -63,6 +69,8 @@ void MainWindow::parseContent()
                 setColor(ui->widgetColor3, strToColor(row.section(" ", 1)));
             } else if (row.startsWith("color4")) {
                 setColor(ui->widgetColor4, strToColor(row.section(" ", 1)));
+
+            // Desktop config
             } else if (row.startsWith("own_window_hints ")) {
                 if (row.contains("sticky")) {
                     ui->radioAllDesktops->setChecked(true);
@@ -71,6 +79,19 @@ void MainWindow::parseContent()
                 }
             } else if (row.trimmed() == "own_window_hints") { // if empty options, assume default
                 ui->radioDesktop1->setChecked(true);
+
+            // Day/Month format
+            } else {
+                if (row.contains("%A")) {
+                    ui->radioButtonDayLong->setChecked(true);
+                } else if (row.contains("%a")) {
+                    ui->radioButtonDayShort->setChecked(true);
+                }
+                if (row.contains("%B")) {
+                    ui->radioButtonMonthLong->setChecked(true);
+                } else if (row.contains("%b")) {
+                    ui->radioButtonMonthShort->setChecked(true);
+                }
             }
         }
     }
@@ -112,14 +133,9 @@ QColor MainWindow::strToColor(QString colorstr)
     return color;
 }
 
-// setup versious items first time program runs
-void MainWindow::setup()
+// refresh windows content
+void MainWindow::refresh()
 {
-    cmd = new Cmd(this);
-    connect(qApp, &QApplication::aboutToQuit, this, &MainWindow::cleanup);
-    this->setWindowTitle(tr("MX Conky"));
-    this->adjustSize();
-
     // hide all color frames by default, display only the ones in the config file
     QList<QWidget *> frames;
     frames << ui->frameDefault << ui->frame0 << ui->frame1 << ui->frame2 << ui->frame3 << ui->frame4;
@@ -138,6 +154,7 @@ void MainWindow::setup()
     if (readFile(file_name)) {
         parseContent();
     }
+    this->adjustSize();
 }
 
 // write color change back to the file
@@ -317,14 +334,14 @@ void MainWindow::on_buttonRestore_clicked()
         QFile(file_name).remove();
     }
     if (QFile::copy(file_name + ".bak", file_name)) {
-        setup();
+        refresh();
     }
 }
 
 void MainWindow::on_buttonEdit_clicked()
 {
     system("leafpad '" + file_name.toUtf8() + "'");
-    setup();
+    refresh();
 }
 
 void MainWindow::on_buttonChange_clicked()
@@ -335,7 +352,7 @@ void MainWindow::on_buttonChange_clicked()
     if (selected != "") {
         file_name = selected;
     }
-    setup();
+    refresh();
 }
 
 void MainWindow::on_radioDesktop1_clicked()
@@ -382,5 +399,29 @@ void MainWindow::on_radioAllDesktops_clicked()
 
     file_content = new_list.join("\n");
 
+    writeFile(file_name, file_content);
+}
+
+void MainWindow::on_radioButtonDayLong_clicked()
+{
+    file_content.replace("%a", "%A");
+    writeFile(file_name, file_content);
+}
+
+void MainWindow::on_radioButtonDayShort_clicked()
+{
+    file_content.replace("%A", "%a");
+    writeFile(file_name, file_content);
+}
+
+void MainWindow::on_radioButtonMonthLong_clicked()
+{
+    file_content.replace("%b", "%B");
+    writeFile(file_name, file_content);
+}
+
+void MainWindow::on_radioButtonMonthShort_clicked()
+{
+    file_content.replace("%B", "%b");
     writeFile(file_name, file_content);
 }

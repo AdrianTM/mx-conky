@@ -50,8 +50,8 @@ public:
 
     void parseContent();
     void pickColor(QWidget *widget);
+    void refresh();
     void setColor(QWidget *widget, QColor color);
-    void setup();
     void writeColor(QWidget *widget, QColor color);
     void writeFile(QString file_name, QString content);
 
@@ -82,6 +82,10 @@ private slots:
     void on_buttonChange_clicked();
     void on_radioDesktop1_clicked();
     void on_radioAllDesktops_clicked();
+    void on_radioButtonDayLong_clicked();
+    void on_radioButtonDayShort_clicked();
+    void on_radioButtonMonthLong_clicked();
+    void on_radioButtonMonthShort_clicked();
 
 private:
     Ui::MainWindow *ui;
