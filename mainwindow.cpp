@@ -63,6 +63,14 @@ void MainWindow::parseContent()
                 setColor(ui->widgetColor3, strToColor(row.section(" ", 1)));
             } else if (row.startsWith("color4")) {
                 setColor(ui->widgetColor4, strToColor(row.section(" ", 1)));
+            } else if (row.startsWith("own_window_hints ")) {
+                if (row.contains("sticky")) {
+                    ui->radioAllDesktops->setChecked(true);
+                } else {
+                    ui->radioDesktop1->setChecked(true);
+                }
+            } else if (row.trimmed() == "own_window_hints") { // if empty options, assume default
+                ui->radioDesktop1->setChecked(true);
             }
         }
     }
@@ -153,7 +161,6 @@ void MainWindow::writeColor(QWidget *widget, QColor color)
     QStringList list = file_content.split("\n");
     QStringList new_list;
     foreach(QString row, list) {
-        QString new_row;
         if (row.startsWith(item_name)) {
             row = item_name + " " + color.name().remove('#');
         }
@@ -329,4 +336,51 @@ void MainWindow::on_buttonChange_clicked()
         file_name = selected;
     }
     setup();
+}
+
+void MainWindow::on_radioDesktop1_clicked()
+{
+    bool found = false;
+    QStringList list = file_content.split("\n");
+    QStringList new_list;
+    foreach(QString row, list) {
+        if (row.startsWith("own_window_hints ")) {
+            row.remove(",sticky");
+            row.remove("sticky"); // if first item
+            found = true;
+        }
+        new_list << row;
+    }
+    if (!found) {
+        new_list << "own_window_hints ";
+    }
+
+    file_content = new_list.join("\n");
+
+    writeFile(file_name, file_content);
+}
+
+void MainWindow::on_radioAllDesktops_clicked()
+{
+    bool found = false;
+    QStringList list = file_content.split("\n");
+    QStringList new_list;
+    foreach(QString row, list) {
+        if (row.startsWith("own_window_hints ")) {;
+            row.append(",sticky");
+            found = true;
+        }
+        if (row == "own_window_hints") {
+            row.append(" sticky");
+            found = true;
+        }
+        new_list << row;
+    }
+    if (!found) {
+        new_list << "own_window_hints sticky";
+    }
+
+    file_content = new_list.join("\n");
+
+    writeFile(file_name, file_content);
 }

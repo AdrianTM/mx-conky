@@ -77,12 +77,11 @@ private slots:
     void on_buttonColor3_clicked();
     void on_buttonColor4_clicked();
     void on_buttonToggleOn_clicked();
-
     void on_buttonRestore_clicked();
-
     void on_buttonEdit_clicked();
-
     void on_buttonChange_clicked();
+    void on_radioDesktop1_clicked();
+    void on_radioAllDesktops_clicked();
 
 private:
     Ui::MainWindow *ui;
