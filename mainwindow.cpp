@@ -142,6 +142,12 @@ void MainWindow::refresh()
     foreach (QWidget *w, frames) {
         w->hide();
     }
+    // draw borders around color widgets
+    QList<QWidget *> widgets;
+    widgets << ui->widgetDefaultColor << ui->widgetColor0 << ui->widgetColor1 << ui->widgetColor2 << ui->widgetColor3 << ui->widgetColor4;
+    foreach (QWidget *w, widgets) {
+        w->setStyleSheet("border: 1px solid black");
+    }
 
     QString conky_name = QFileInfo(file_name).fileName();
     ui->buttonChange->setText(conky_name);
@@ -234,7 +240,6 @@ void MainWindow::setColor(QWidget *widget, QColor color)
     if (color.isValid()) {
         QPalette pal = palette();
         pal.setColor(QPalette::Background, color);
-        widget->setStyleSheet("");
         widget->setAutoFillBackground(true);
         widget->setPalette(pal);
     }
@@ -322,7 +327,7 @@ void MainWindow::on_buttonToggleOn_clicked()
     if (checkConkyRunning()) {
         system("pkill -x conky");
     } else {
-        system("conky -c " + file_name.toUtf8() + "&");
+        system("conky -c '" + file_name.toUtf8() + "'&");
     }
     checkConkyRunning();
 }

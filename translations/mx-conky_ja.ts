@@ -6,7 +6,7 @@
     <message>
         <location filename="../mainwindow.ui" line="14"/>
         <location filename="../mainwindow.cpp" line="43"/>
-        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="274"/>
         <source>MX Conky</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25,94 +25,99 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="162"/>
+        <location filename="../mainwindow.ui" line="109"/>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="168"/>
         <source>Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="181"/>
+        <location filename="../mainwindow.ui" line="187"/>
         <source>Desktop 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="204"/>
+        <location filename="../mainwindow.ui" line="210"/>
         <source>All Desktops</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="230"/>
+        <location filename="../mainwindow.ui" line="236"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="282"/>
+        <location filename="../mainwindow.ui" line="288"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="311"/>
-        <location filename="../mainwindow.ui" line="441"/>
+        <location filename="../mainwindow.ui" line="317"/>
+        <location filename="../mainwindow.ui" line="447"/>
         <source>Long</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="340"/>
+        <location filename="../mainwindow.ui" line="346"/>
         <source>Abbreviated name, e.g. Tu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="343"/>
-        <location filename="../mainwindow.ui" line="473"/>
+        <location filename="../mainwindow.ui" line="349"/>
+        <location filename="../mainwindow.ui" line="479"/>
         <source>Short</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="412"/>
+        <location filename="../mainwindow.ui" line="418"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="470"/>
+        <location filename="../mainwindow.ui" line="476"/>
         <source>Abbreviated name, e.g. Oct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="536"/>
+        <location filename="../mainwindow.ui" line="542"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="582"/>
+        <location filename="../mainwindow.ui" line="588"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="694"/>
+        <location filename="../mainwindow.ui" line="703"/>
         <source>Color0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1030"/>
+        <location filename="../mainwindow.ui" line="1042"/>
         <source>Color3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="806"/>
+        <location filename="../mainwindow.ui" line="815"/>
         <source>Color1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="918"/>
+        <location filename="../mainwindow.ui" line="927"/>
         <source>Color2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="631"/>
-        <location filename="../mainwindow.ui" line="743"/>
-        <location filename="../mainwindow.ui" line="855"/>
-        <location filename="../mainwindow.ui" line="967"/>
-        <location filename="../mainwindow.ui" line="1079"/>
-        <location filename="../mainwindow.ui" line="1191"/>
+        <location filename="../mainwindow.ui" line="640"/>
+        <location filename="../mainwindow.ui" line="752"/>
+        <location filename="../mainwindow.ui" line="864"/>
+        <location filename="../mainwindow.ui" line="979"/>
+        <location filename="../mainwindow.ui" line="1094"/>
+        <location filename="../mainwindow.ui" line="1209"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -122,97 +127,92 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="107"/>
-        <source>Restore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="120"/>
+        <location filename="../mainwindow.ui" line="124"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="149"/>
+        <location filename="../mainwindow.ui" line="155"/>
         <source>Conky Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1142"/>
+        <location filename="../mainwindow.ui" line="1157"/>
         <source>Color4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1256"/>
+        <location filename="../mainwindow.ui" line="1274"/>
         <source>About this application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1259"/>
+        <location filename="../mainwindow.ui" line="1277"/>
         <source>About...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1267"/>
+        <location filename="../mainwindow.ui" line="1285"/>
         <source>Alt+B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1283"/>
+        <location filename="../mainwindow.ui" line="1301"/>
         <source>Display help </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1286"/>
+        <location filename="../mainwindow.ui" line="1304"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1294"/>
+        <location filename="../mainwindow.ui" line="1312"/>
         <source>Alt+H</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1342"/>
+        <location filename="../mainwindow.ui" line="1360"/>
         <source>Quit application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1345"/>
+        <location filename="../mainwindow.ui" line="1363"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1353"/>
+        <location filename="../mainwindow.ui" line="1371"/>
         <source>Alt+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="268"/>
+        <location filename="../mainwindow.cpp" line="273"/>
         <source>About MX Conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="274"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="270"/>
+        <location filename="../mainwindow.cpp" line="275"/>
         <source>GUI program for configuring Conky in MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="272"/>
+        <location filename="../mainwindow.cpp" line="277"/>
         <source>Copyright (c) MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="273"/>
+        <location filename="../mainwindow.cpp" line="278"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="274"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -221,7 +221,7 @@ p, li { white-space: pre-wrap; }
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="68"/>
-        <location filename="../mainwindow.cpp" line="351"/>
+        <location filename="../mainwindow.cpp" line="356"/>
         <source>Select Conky Manager config file</source>
         <translation type="unfinished"></translation>
     </message>
