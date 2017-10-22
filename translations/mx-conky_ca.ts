@@ -221,7 +221,7 @@ p, li { white-space: pre-wrap; }
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="68"/>
-        <location filename="../mainwindow.cpp" line="356"/>
+        <location filename="../mainwindow.cpp" line="367"/>
         <source>Select Conky Manager config file</source>
         <translation type="unfinished"></translation>
     </message>
