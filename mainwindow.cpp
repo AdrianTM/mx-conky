@@ -345,7 +345,18 @@ void MainWindow::on_buttonRestore_clicked()
 
 void MainWindow::on_buttonEdit_clicked()
 {
-    system("leafpad '" + file_name.toUtf8() + "'");
+    QString editor;
+
+    if (QFile("/usr/bin/featherpad").exists()) {
+        editor = "featherpad";
+    } else if (QFile("/usr/bin/leafpad").exists()) {
+        editor = "leafpad";
+    } else {
+        qDebug() << "could not find either leafpad or featherpad";
+        return;
+    }
+
+    system(editor.toUtf8() + " '" + file_name.toUtf8() + "'");
     refresh();
 }
 
