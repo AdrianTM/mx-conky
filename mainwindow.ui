@@ -52,7 +52,9 @@ p, li { white-space: pre-wrap; }
          <string>Run</string>
         </property>
         <property name="icon">
-         <iconset theme="start"/>
+         <iconset theme="start">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -104,10 +106,12 @@ p, li { white-space: pre-wrap; }
       <item row="1" column="5">
        <widget class="QPushButton" name="buttonRestore">
         <property name="text">
-         <string>Restore</string>
+         <string>Undo</string>
         </property>
         <property name="icon">
-         <iconset theme="reload"/>
+         <iconset theme="reload">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -120,7 +124,9 @@ p, li { white-space: pre-wrap; }
          <string>Edit</string>
         </property>
         <property name="icon">
-         <iconset theme="edit"/>
+         <iconset theme="edit">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -558,7 +564,7 @@ p, li { white-space: pre-wrap; }
           <number>0</number>
          </property>
          <item>
-          <spacer name="horizontalSpacer_23">
+          <spacer name="horizontalSpacer_12">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -606,6 +612,9 @@ p, li { white-space: pre-wrap; }
              <width>100</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -943,6 +952,9 @@ p, li { white-space: pre-wrap; }
              <height>0</height>
             </size>
            </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -1055,6 +1067,9 @@ p, li { white-space: pre-wrap; }
              <height>0</height>
             </size>
            </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -1166,6 +1181,9 @@ p, li { white-space: pre-wrap; }
              <width>100</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
