@@ -163,6 +163,17 @@ void MainWindow::refresh()
     this->adjustSize();
 }
 
+void MainWindow::saveBackup()
+{
+    int ans = QMessageBox::question(this, "Backup config file" , "Do you want to preserve the original file?");
+    if (ans == QMessageBox::Yes) {
+        QString time_stamp = cmd->getOutput("date +%y.%m.%d_%H:%m:%S");
+        QFile::copy(file_name + ".bak", file_name + "_" + time_stamp + ".bak");
+        QMessageBox::information(this, "Backed up config file", "The original configuration was backed up to " + file_name + "_" + time_stamp + ".bak");
+    }
+    QFile(file_name + ".bak").remove();
+}
+
 // write color change back to the file
 void MainWindow::writeColor(QWidget *widget, QColor color)
 {
@@ -211,6 +222,8 @@ void MainWindow::writeFile(QString file_name, QString content)
 // cleanup environment when window is closed
 void MainWindow::cleanup()
 {
+    saveBackup();
+
     if(!cmd->terminate()) {
         cmd->kill();
     }
