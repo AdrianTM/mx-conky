@@ -51,6 +51,7 @@ public:
     void parseContent();
     void pickColor(QWidget *widget);
     void refresh();
+    void saveBackup();
     void setColor(QWidget *widget, QColor color);
     void writeColor(QWidget *widget, QColor color);
     void writeFile(QString file_name, QString content);
