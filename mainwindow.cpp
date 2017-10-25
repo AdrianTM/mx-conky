@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent, QString file) :
 {
     ui->setupUi(this);
     cmd = new Cmd(this);
+
     connect(qApp, &QApplication::aboutToQuit, this, &MainWindow::cleanup);
 
     file_name = file;
@@ -136,6 +137,8 @@ QColor MainWindow::strToColor(QString colorstr)
 // refresh windows content
 void MainWindow::refresh()
 {
+    modified = false;
+
     // hide all color frames by default, display only the ones in the config file
     QList<QWidget *> frames;
     frames << ui->frameDefault << ui->frame0 << ui->frame1 << ui->frame2 << ui->frame3 << ui->frame4;
@@ -165,11 +168,13 @@ void MainWindow::refresh()
 
 void MainWindow::saveBackup()
 {
-    int ans = QMessageBox::question(this, "Backup config file" , "Do you want to preserve the original file?");
-    if (ans == QMessageBox::Yes) {
-        QString time_stamp = cmd->getOutput("date +%y.%m.%d_%H:%m:%S");
-        QFile::copy(file_name + ".bak", file_name + "_" + time_stamp + ".bak");
-        QMessageBox::information(this, "Backed up config file", "The original configuration was backed up to " + file_name + "_" + time_stamp + ".bak");
+    if (modified) {
+        int ans = QMessageBox::question(this, "Backup config file" , "Do you want to preserve the original file?");
+        if (ans == QMessageBox::Yes) {
+            QString time_stamp = cmd->getOutput("date +%y.%m.%d_%H:%m:%S");
+            QFile::copy(file_name + ".bak", file_name + "_" + time_stamp + ".bak");
+            QMessageBox::information(this, "Backed up config file", "The original configuration was backed up to " + file_name + "_" + time_stamp + ".bak");
+        }
     }
     QFile(file_name + ".bak").remove();
 }
@@ -213,6 +218,7 @@ void MainWindow::writeFile(QString file_name, QString content)
         QTextStream out(&file);
         out << content;
         file.close();
+        modified = true;
     } else {
         qDebug() << "Error opening file " + file_name  + " for output";
     }
@@ -298,7 +304,7 @@ void MainWindow::on_buttonAbout_clicked()
 // Help button clicked
 void MainWindow::on_buttonHelp_clicked()
 {
-    QString cmd = QString("xdg-open https://mxlinux.org/user_manual_mx15/mxum.html");
+    QString cmd = QString("xdg-open https://mxlinux.org/wiki/help-files/help-mx-conky");
     system(cmd.toUtf8());
 }
 
@@ -376,6 +382,8 @@ void MainWindow::on_buttonEdit_clicked()
 void MainWindow::on_buttonChange_clicked()
 {
     QFileDialog dialog;
+
+    saveBackup();
 
     QString selected = dialog.getOpenFileName(0, QObject::tr("Select Conky Manager config file"), QFileInfo(file_name).path());
     if (selected != "") {

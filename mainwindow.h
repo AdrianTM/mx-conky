@@ -47,6 +47,7 @@ public:
     ~MainWindow();
 
     QString file_name;
+    bool modified;
 
     void parseContent();
     void pickColor(QWidget *widget);
