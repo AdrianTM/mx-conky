@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>446</width>
-    <height>617</height>
+    <height>626</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,6 +154,9 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>Conky Name</string>
         </property>
+        <property name="icon">
+         <iconset theme="document-open"/>
+        </property>
         <property name="autoDefault">
          <bool>false</bool>
         </property>
@@ -198,7 +201,7 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>5</width>
+          <width>10</width>
           <height>20</height>
          </size>
         </property>

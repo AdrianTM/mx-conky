@@ -288,6 +288,7 @@ void MainWindow::setConnections()
 // About button clicked
 void MainWindow::on_buttonAbout_clicked()
 {
+    QString url = "file:///usr/share/doc/mx-conky/license.html";
     QMessageBox msgBox(QMessageBox::NoIcon,
                        tr("About MX Conky"), "<p align=\"center\"><b><h2>" +
                        tr("MX Conky") + "</h2></b></p><p align=\"center\">" + tr("Version: ") + getVersion("mx-conky") + "</p><p align=\"center\"><h3>" +
@@ -297,14 +298,24 @@ void MainWindow::on_buttonAbout_clicked()
     msgBox.addButton(tr("License"), QMessageBox::AcceptRole);
     msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
     if (msgBox.exec() == QMessageBox::AcceptRole) {
-        system("xdg-open file:///usr/share/doc/mx-conky/license.html");
+        if (QFile("/usr/bin/mx-viewer").exists()) {
+            system("mx-viewer " + url.toUtf8() + " " + tr("MX Snapshot License").toUtf8());
+        } else {
+            system("xdg-open " + url.toUtf8());
+        }
     }
 }
 
 // Help button clicked
 void MainWindow::on_buttonHelp_clicked()
 {
-    QString cmd = QString("xdg-open https://mxlinux.org/wiki/help-files/help-mx-conky");
+    QString url = "https://mxlinux.org/wiki/help-files/help-mx-conky";
+    QString cmd;
+    if (QFile("/usr/bin/mx-viewer").exists()) {
+        cmd = QString("mx-viewer " + url + " " + tr("MX Conky Help"));
+    } else {
+        cmd = QString("xdg-open " + url);
+    }
     system(cmd.toUtf8());
 }
 
