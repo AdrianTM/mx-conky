@@ -35,11 +35,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="187"/>
-        <source>Move:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="232"/>
         <source>+ Left Click</source>
         <translation type="unfinished"></translation>
@@ -149,6 +144,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../mainwindow.ui" line="155"/>
         <source>Conky Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="187"/>
+        <source>To Move</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
