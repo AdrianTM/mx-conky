@@ -13,20 +13,20 @@ Build-Depends: qt5-qmake, debhelper (>= 7.0.50~)
 Package-List:
  mx-conky deb admin optional arch=any
 Checksums-Sha1:
- 63aeec7d54fbd1bfa0d6b1f1d7e5a91ed1d933fb 28740 mx-conky_0.17.10.tar.xz
+ 73902a05442017fb2536b74cca88f92b7e0916dc 28768 mx-conky_0.17.10.tar.xz
 Checksums-Sha256:
- dfc3f52a2721e219c44cabeb2395e0395db1b15271b104b33ffe059f14bc5949 28740 mx-conky_0.17.10.tar.xz
+ a260e19ee9fd1cb703b3f7a9b404981866062ad0ed6e2ff36ec455ed142e9cae 28768 mx-conky_0.17.10.tar.xz
 Files:
- 2db3eea85695aa1dfe6373c850be7a87 28740 mx-conky_0.17.10.tar.xz
+ e256b355689fd7c17f14a022f6fb5a5b 28768 mx-conky_0.17.10.tar.xz
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJZ9NBCAAoJEHCTjHgGee6Y54IH/2XHZowKujpvODtYULyTnLpB
-GK49KilBairdPlxSj/QIObKhw5eWdL2uRz8TEe5x7v8CrxbZXRbi7x29nyzpvw6S
-vW3rjIycMscD9m8vWLqyyL3uz0cs78T4igcXwrFKhs9u5MnriyAIoELGezJMMwh5
-PUl9KtT5kxoRDeFmC1DPGXoE8wLJt29uwfF/+m/jCbkvb9WndhFNn04YVVkAJpaL
-t24v158SblSfVRNBMcTB0JEpGUT19qBpbeti77y0UBN1T0+pG+0RGHM/xf87Zufk
-30PBTxb1QO5xsm/df2NsjbGhx1hTU8zB8WyT++q0WDLt5IKVcctffsqTlCpwhF8=
-=a7BK
+iQEcBAEBAgAGBQJZ9QLGAAoJEHCTjHgGee6YamQH/3l+2XMbqGYmIyNPXzsx6RqE
+dhJ1+4wajH8hUN54vjqrFfXimVNBzNXTVUu/fiSZ6Jm0OYDuRvBYC6VBhgPQzhsS
+Z4Uw0P2tDiCoP+thgszD9JyWs9eGgtd4AvbdMUbdeABJDkfA8WWwko+cwOWpvw0E
+B/729R9lvrwjOWOrYgQlN4e3Dfyq8gPGqJP3iGhArlL1UyU9NzlyiaFgfnXFnLiA
+SfIXVY5Z0KI5C5uh3+dx8jXPqq72FekZoqIPZ8GNB8f7UyrWe8lf5cCe5mau0WsD
+TuPCjma/IMCUwZ9bidH6DRoZORQMOAOqKfO+XFaPRXEsyRm4YbXo3PLPLXnokXY=
+=84rC
 -----END PGP SIGNATURE-----
