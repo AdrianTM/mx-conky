@@ -42,20 +42,6 @@ QString getRunningConky()
     return cmd.getOutput("pgrep -xan conky | cut -d' ' -f4");
 }
 
-// check conky-manager folder existence
-QDir findFolder()
-{
-    QDir dir = QDir::homePath() + "/.conky";
-    QDir dir_old = QDir::homePath() + "/conky-manager";
-    if (dir.exists()) {
-        return dir;
-    } else if (dir_old.exists()) {
-        return dir_old;
-    } else {
-        return QDir();
-    }
-}
-
 QString openFile(QDir dir)
 {
     QFileDialog dialog;
@@ -92,20 +78,16 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-
     if (getuid() != 0) {
-        QDir dir = findFolder();
-        if (dir.path() == "." ) {
-            QMessageBox::information(0, QObject::tr("Folder not found"),
-                                     QObject::tr("Could not find the configuration folder. Will start conky-manager for you in order to create the folder"));
-            system("conky-manager");
+
+        QString dir = QDir::homePath() + "/.conky";
+        if (!QDir(dir).exists()) {
+            QDir().mkdir(dir);
         }
-        dir = findFolder();
-        if (dir.path() == "." ) {
-            QMessageBox::critical(0, QString::null,
-                                  QObject::tr("Could not find the configration folder, giving up"));
-            return 1;
-        }
+
+        // copy the mx-conky-data themes to the default folder
+        system("cp -rn /usr/share/mx-conky-data/themes/* " + dir.toUtf8());
+
         QString file = openFile(dir);
         if (file == "") {
             QMessageBox::critical(0, QObject::tr("Error"),

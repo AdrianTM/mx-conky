@@ -245,44 +245,29 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="68"/>
+        <location filename="../main.cpp" line="54"/>
         <location filename="../mainwindow.cpp" line="399"/>
         <source>Select Conky Manager config file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="90"/>
-        <location filename="../main.cpp" line="111"/>
+        <location filename="../main.cpp" line="76"/>
+        <location filename="../main.cpp" line="93"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="91"/>
+        <location filename="../main.cpp" line="77"/>
         <source>Could not find conky-manager, please install it before running mx-conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="99"/>
-        <source>Folder not found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="100"/>
-        <source>Could not find the configuration folder. Will start conky-manager for you in order to create the folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="106"/>
-        <source>Could not find the configration folder, giving up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="112"/>
+        <location filename="../main.cpp" line="94"/>
         <source>No file was selected, quiting program</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="123"/>
+        <location filename="../main.cpp" line="105"/>
         <source>You must run this program as normal user</source>
         <translation type="unfinished"></translation>
     </message>
