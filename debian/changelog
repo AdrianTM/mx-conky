@@ -1,6 +1,5 @@
-mx-conky (0.17.10) UNRELEASED; urgency=medium
+mx-conky (0.17.10) mx; urgency=medium
 
   * Initial build
 
- -- Adrian <adrian@mxlinux.org>  Mon, 16 Oct 2017 13:57:10 -0400
-
+ -- Adrian <adrian@mxlinux.org>  Mon, 30 Oct 2017 14:28:37 -0400
