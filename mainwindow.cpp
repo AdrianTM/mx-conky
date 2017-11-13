@@ -475,3 +475,10 @@ void MainWindow::on_radioButtonMonthShort_clicked()
     file_content.replace("%B", "%b");
     writeFile(file_name, file_content);
 }
+
+void MainWindow::on_buttonCM_clicked()
+{
+    this->hide();
+    system("conky-manager");
+    this->show();
+}

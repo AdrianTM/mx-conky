@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>446</width>
-    <height>626</height>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -114,21 +114,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="buttonEdit">
-        <property name="text">
-         <string>Edit</string>
-        </property>
-        <property name="icon">
-         <iconset theme="edit">
-          <normaloff/>
-         </iconset>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="6">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
@@ -145,6 +130,21 @@
         </property>
        </spacer>
       </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="buttonEdit">
+        <property name="text">
+         <string>Edit</string>
+        </property>
+        <property name="icon">
+         <iconset theme="edit">
+          <normaloff/>
+         </iconset>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="2" colspan="3">
        <widget class="QPushButton" name="buttonChange">
         <property name="text">
@@ -154,6 +154,28 @@
          <iconset theme="document-open">
           <normaloff/>
          </iconset>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" colspan="3">
+       <widget class="QPushButton" name="buttonCM">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Conky Manager</string>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
