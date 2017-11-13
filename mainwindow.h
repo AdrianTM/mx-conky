@@ -89,6 +89,8 @@ private slots:
     void on_radioButtonMonthLong_clicked();
     void on_radioButtonMonthShort_clicked();
 
+    void on_buttonCM_clicked();
+
 private:
     Ui::MainWindow *ui;
     Cmd *cmd;
