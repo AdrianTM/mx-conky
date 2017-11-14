@@ -271,7 +271,7 @@
       <item row="2" column="0" colspan="7">
        <widget class="QLabel" name="labelNote">
         <property name="text">
-         <string>NOTE: Location changes last only for the current session</string>
+         <string>NOTE: changes last only for the current session</string>
         </property>
        </widget>
       </item>

@@ -72,7 +72,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="274"/>
-        <source>NOTE: Location changes last only for the current session</source>
+        <source>NOTE: changes last only for the current session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
