@@ -30,11 +30,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     cmd.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    versionnumber.cpp
 
 HEADERS  += \
     cmd.h \
-    mainwindow.h
+    mainwindow.h \
+    versionnumber.h
 
 FORMS    += \
     mainwindow.ui
