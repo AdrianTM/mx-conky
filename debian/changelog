@@ -1,6 +1,7 @@
 mx-conky (0.17.11) mx; urgency=medium
 
   * GUI changes
+  * message data update
 
  -- Adrian <adrian@mxlinux.org>  Tue, 14 Nov 2017 10:16:09 -0500
 
