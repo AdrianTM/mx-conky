@@ -31,8 +31,10 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QDebug>
+#include <QSettings>
 
 #include <cmd.h>
+#include <versionnumber.h>
 
 
 // return the config file used for the newest conky process
@@ -56,6 +58,29 @@ QString openFile(QDir dir)
         return selected;
     }
     return "";
+}
+
+void messageUpdate()
+{
+    Cmd cmd;
+    VersionNumber current_version = cmd.getOutput("dpkg -l mx-conky-data | awk 'NR==6 {print $3}'");
+
+    QSettings settings("MX-Linux", "mx-conky");
+
+    QString ver = settings.value("data-version").toByteArray();
+    VersionNumber recorded_version = ver;
+
+    QString title = QObject::tr("Conky Data Update");
+    QString message = QObject::tr("The MX Conky data set has been updated. \n"\
+                    "\n"\
+                    "Copy from the folder where it is located (/usr/share/mx-conky-data/themes) whatever you wish to your Home hidden conky folder (~/.conky). Be careful not to overwrite any conkies you have changed.");
+
+    if (recorded_version.toString() == "") {
+        settings.setValue("data-version", current_version.toString());
+        QMessageBox::information(0, title, message);
+    } else if (current_version > recorded_version) {
+        QMessageBox::information(0, title, message);
+    }
 }
 
 int main(int argc, char *argv[])
@@ -84,6 +109,9 @@ int main(int argc, char *argv[])
         if (!QDir(dir).exists()) {
             QDir().mkdir(dir);
         }
+
+        messageUpdate();
+
 
         // copy the mx-conky-data themes to the default folder
         system("cp -rn /usr/share/mx-conky-data/themes/* " + dir.toUtf8());
