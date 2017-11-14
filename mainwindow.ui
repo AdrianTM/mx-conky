@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>446</width>
-    <height>631</height>
+    <height>770</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -190,8 +190,28 @@
      <property name="title">
       <string>Drag</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="6">
+       <spacer name="horizontalSpacer_15">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="labelResize">
+        <property name="text">
+         <string>To Resize</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
        <spacer name="horizontalSpacer_20">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -204,14 +224,35 @@
         </property>
        </spacer>
       </item>
-      <item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="labelLeftClick">
+        <property name="text">
+         <string>+ Left Click</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
        <widget class="QLabel" name="labelMove">
         <property name="text">
          <string>To Move</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="1" column="5">
+       <widget class="QLabel" name="labelRightClick">
+        <property name="text">
+         <string>+ Right Click</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="7">
+       <widget class="QLabel" name="labelNote">
+        <property name="text">
+         <string>NOTE: Location changes last only for the current session</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
        <spacer name="horizontalSpacer_23">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -227,7 +268,7 @@
         </property>
        </spacer>
       </item>
-      <item>
+      <item row="0" column="4">
        <widget class="QLabel" name="labelAltIcon">
         <property name="maximumSize">
          <size>
@@ -249,25 +290,24 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="labelLeftClick">
-        <property name="text">
-         <string>+ Left Click</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_15">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+      <item row="1" column="4">
+       <widget class="QLabel" name="labelAltIcon2">
+        <property name="maximumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>35</width>
+          <height>35</height>
          </size>
         </property>
-       </spacer>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="images.qrc">:/icons/AltKey.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -607,10 +647,10 @@
         <zorder>labelMonth</zorder>
         <zorder>radioButtonMonthShort</zorder>
         <zorder>radioButtonMonthLong</zorder>
-        <zorder>horizontalSpacer_5</zorder>
         <zorder>horizontalSpacer_14</zorder>
         <zorder>horizontalSpacer_17</zorder>
         <zorder>horizontalSpacer_22</zorder>
+        <zorder>horizontalSpacer_5</zorder>
        </widget>
       </item>
       <item row="0" column="0" colspan="6">
