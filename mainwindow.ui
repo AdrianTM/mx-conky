@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>446</width>
-    <height>770</height>
+    <height>861</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -163,7 +163,7 @@
       <item row="2" column="2" colspan="3">
        <widget class="QPushButton" name="buttonCM">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -171,7 +171,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>32</height>
+          <height>0</height>
          </size>
         </property>
         <property name="text">
@@ -413,19 +413,6 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
-          <spacer name="horizontalSpacer_21">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
          <item>
           <widget class="QLabel" name="labelDay">
            <property name="minimumSize">
