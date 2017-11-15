@@ -191,7 +191,9 @@
          <string>Conky Manager</string>
         </property>
         <property name="icon">
-         <iconset theme="system-run"/>
+         <iconset theme="system-run">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -436,6 +438,19 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
+         <item>
+          <spacer name="horizontalSpacer_21">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
          <item>
           <widget class="QLabel" name="labelDay">
            <property name="minimumSize">
