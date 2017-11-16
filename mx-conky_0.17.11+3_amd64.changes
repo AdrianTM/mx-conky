@@ -1,0 +1,44 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Thu, 16 Nov 2017 10:05:46 -0500
+Source: mx-conky
+Binary: mx-conky
+Architecture: source amd64
+Version: 0.17.11+3
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ mx-conky   - MX Conky
+Changes:
+ mx-conky (0.17.11+3) mx; urgency=medium
+ .
+   * fix alignment
+   * remove dots from backup file
+Checksums-Sha1:
+ 08ae38647075abc272a0541da5329e3992dc05f6 1102 mx-conky_0.17.11+3.dsc
+ f48449f7938ad62f49efc45338eda945a87abf6b 81304 mx-conky_0.17.11+3.tar.xz
+ 3cba1a497ae3f8496582d4c67927395f811e6f7e 54466 mx-conky_0.17.11+3_amd64.deb
+Checksums-Sha256:
+ d99620924d79e01d099c140a8c18fcd6f9557b41eb0d327ad0dd7f787f1f9d7c 1102 mx-conky_0.17.11+3.dsc
+ 73e0d6be0c604ac8b97e47025a2188f3c2f5c6e790b2f91452c4ebf851850f8b 81304 mx-conky_0.17.11+3.tar.xz
+ 1a6cd9e7724e9ac82ed418852c2af6e7961e9e4795ea5168f9e7093caca77475 54466 mx-conky_0.17.11+3_amd64.deb
+Files:
+ 95e4232a95ecf8e8c4c778ca6e0fd759 1102 admin optional mx-conky_0.17.11+3.dsc
+ 66f9b708d8744529f1a4f57fe95d6c12 81304 admin optional mx-conky_0.17.11+3.tar.xz
+ da3929e68399a7f84b3b71fd0a848127 54466 admin optional mx-conky_0.17.11+3_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJaDamEAAoJEHCTjHgGee6YgCUH/RZ1O9ETVmkkQ1aNIkdcnIAY
+PIjs0hi88bKwoq6WkPVPh/h0HP/ZhsQh4CPL/NJCsKpr2o/+XY52xf/3ruJIjRf+
+WyJQvawjIhv0/si4PeeSMVLc912hRF4ICn7o2Yb2WXhR4ZYMa6L4RflLQKtYR7Ff
+W6quYH8FszNiUVF0Lxrg6l/MFkgvpSn8tDHt0mGDx9jQXdQgDrKMBlZO8Mp+vOW9
+sMi2+xynuHvPvopsUUWOa88KKpd/Xc5JUM6aplwYLB8eWPXsDpU8/NfJtIkq5PEy
++I3xXK+iZjg7z6ChmBHzHwPhO7Phsbqm3HeLk0ZudZuKiEZHKziQbHWeIWqvSyI=
+=pq+N
+-----END PGP SIGNATURE-----

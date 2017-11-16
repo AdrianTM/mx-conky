@@ -1,3 +1,11 @@
+mx-conky (0.17.11+3) mx; urgency=medium
+
+  * fix alignment
+  * remove dots from backup file
+
+
+ -- Adrian <adrian@mxlinux.org>  Thu, 16 Nov 2017 10:05:46 -0500
+
 mx-conky (0.17.11+2) mx; urgency=medium
 
   * fix alignment
