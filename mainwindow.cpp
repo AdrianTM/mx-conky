@@ -171,7 +171,7 @@ void MainWindow::saveBackup()
     if (modified) {
         int ans = QMessageBox::question(this, "Backup config file" , "Do you want to preserve the original file?");
         if (ans == QMessageBox::Yes) {
-            QString time_stamp = cmd->getOutput("date +%y.%m.%d_%H:%m:%S");
+            QString time_stamp = cmd->getOutput("date +%y%m%d_%H%m%S");
             QFileInfo fi(file_name);
             QString new_name = fi.canonicalPath() + "/" + fi.baseName() + "_" + time_stamp + fi.completeSuffix();
             QFile::copy(file_name + ".bak", new_name);
