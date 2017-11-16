@@ -755,7 +755,7 @@
           <widget class="QLabel" name="labelDefaultColor">
            <property name="minimumSize">
             <size>
-             <width>50</width>
+             <width>55</width>
              <height>0</height>
             </size>
            </property>
@@ -870,12 +870,12 @@
           <widget class="QLabel" name="labelColor0">
            <property name="minimumSize">
             <size>
-             <width>50</width>
+             <width>55</width>
              <height>0</height>
             </size>
            </property>
            <property name="text">
-            <string>Color0</string>
+            <string>Color0 </string>
            </property>
           </widget>
          </item>
@@ -982,12 +982,12 @@
           <widget class="QLabel" name="labelColor1">
            <property name="minimumSize">
             <size>
-             <width>50</width>
+             <width>55</width>
              <height>0</height>
             </size>
            </property>
            <property name="text">
-            <string>Color1</string>
+            <string>Color1 </string>
            </property>
           </widget>
          </item>
@@ -1094,12 +1094,12 @@
           <widget class="QLabel" name="labelColor2">
            <property name="minimumSize">
             <size>
-             <width>50</width>
+             <width>55</width>
              <height>0</height>
             </size>
            </property>
            <property name="text">
-            <string>Color2</string>
+            <string>Color2 </string>
            </property>
           </widget>
          </item>
@@ -1209,12 +1209,12 @@
           <widget class="QLabel" name="labelColor3">
            <property name="minimumSize">
             <size>
-             <width>50</width>
+             <width>55</width>
              <height>0</height>
             </size>
            </property>
            <property name="text">
-            <string>Color3</string>
+            <string>Color3 </string>
            </property>
           </widget>
          </item>
@@ -1324,12 +1324,12 @@
           <widget class="QLabel" name="labelColor4">
            <property name="minimumSize">
             <size>
-             <width>50</width>
+             <width>55</width>
              <height>0</height>
             </size>
            </property>
            <property name="text">
-            <string>Color4</string>
+            <string>Color4 </string>
            </property>
           </widget>
          </item>

@@ -149,27 +149,27 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="878"/>
-        <source>Color0</source>
+        <source>Color0 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="990"/>
-        <source>Color1</source>
+        <source>Color1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1102"/>
-        <source>Color2</source>
+        <source>Color2 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1217"/>
-        <source>Color3</source>
+        <source>Color3 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1332"/>
-        <source>Color4</source>
+        <source>Color4 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
