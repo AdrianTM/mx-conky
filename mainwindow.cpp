@@ -377,6 +377,7 @@ void MainWindow::on_buttonRestore_clicked()
 
 void MainWindow::on_buttonEdit_clicked()
 {
+    this->hide();
     QString editor;
 
     if (QFile("/usr/bin/featherpad").exists()) {
@@ -390,6 +391,7 @@ void MainWindow::on_buttonEdit_clicked()
 
     system(editor.toUtf8() + " '" + file_name.toUtf8() + "'");
     refresh();
+    this->show();
 }
 
 void MainWindow::on_buttonChange_clicked()
