@@ -1,0 +1,39 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Mon, 20 Nov 2017 14:03:58 -0500
+Source: mx-conky
+Binary: mx-conky
+Architecture: i386
+Version: 0.17.11+4
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ mx-conky   - MX Conky
+Changes:
+ mx-conky (0.17.11+4) mx; urgency=medium
+ .
+   * hide GUI while editing file
+   * added links in mesage box
+   * fix version update to config file
+Checksums-Sha1:
+ b78c474902784a83160c4d130801e954ac1fba02 55734 mx-conky_0.17.11+4_i386.deb
+Checksums-Sha256:
+ 654bd534d49f3852c106a6e0a46d6923438d74e548a9bf5e9a703856045117c7 55734 mx-conky_0.17.11+4_i386.deb
+Files:
+ ca762f2f45a9e68e0205ee5bdd79ce66 55734 admin optional mx-conky_0.17.11+4_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJaEygWAAoJEHCTjHgGee6YpxIIAKBqtj5wKq6btYIfL2a/ch2o
+xPJcnVaj1lbn8C2FDpz4lzoH3Z+uXmM3FT5CijnvSIbRG0WL64tqQHFu0GwVgD1F
+qRHuG6pa+qobBVbgX5iD37NjGJGEqQjN58WB1cq5OBtf4W40ybOI1ZcLmttQglPh
+io7Tir/+27TUMaJM/UTC4u72Dwx6g8x+ZUvdqUfTiKL0BSujJjnvuOA9KcTnnJRW
+zT4OL9NMhv1JWKH4pBOb0z3PZRY1N05sdY7CdffYAbiHb2uKMM9ToXNvS0oRqy1I
+SeJsaCkCycb5TslrEtauF7OgtnX1ZL8V3TnvqGOBZMdaDiG+E/ceFBYXunhtsOg=
+=HZuF
+-----END PGP SIGNATURE-----
