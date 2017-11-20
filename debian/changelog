@@ -1,3 +1,11 @@
+mx-conky (0.17.11+4) mx; urgency=medium
+
+  * hide GUI while editing file
+  * added links in mesage box
+  * fix version update to config file
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 20 Nov 2017 14:03:58 -0500
+
 mx-conky (0.17.11+3) mx; urgency=medium
 
   * fix alignment

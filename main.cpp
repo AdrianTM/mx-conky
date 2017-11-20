@@ -71,14 +71,13 @@ void messageUpdate()
     VersionNumber recorded_version = ver;
 
     QString title = QObject::tr("Conky Data Update");
-    QString message = QObject::tr("The MX Conky data set has been updated. \n"\
-                    "\n"\
-                    "Copy from the folder where it is located (/usr/share/mx-conky-data/themes) whatever you wish to your Home hidden conky folder (~/.conky). Be careful not to overwrite any conkies you have changed.");
+    QString message = QObject::tr("The MX Conky data set has been updated. <p><p>\
+                                  Copy from the folder where it is located <a href=\"/usr/share/mx-conky-data/themes\">/usr/share/mx-conky-data/themes</a> \
+                                  whatever you wish to your Home hidden conky folder <a href=\"%1/.conky\">~/.conky</a>. \
+                                  Be careful not to overwrite any conkies you have changed.").arg(QDir::homePath());
 
-    if (recorded_version.toString() == "") {
+    if (recorded_version.toString() == "" || current_version > recorded_version) {
         settings.setValue("data-version", current_version.toString());
-        QMessageBox::information(0, title, message);
-    } else if (current_version > recorded_version) {
         QMessageBox::information(0, title, message);
     }
 }
@@ -111,7 +110,6 @@ int main(int argc, char *argv[])
         }
 
         messageUpdate();
-
 
         // copy the mx-conky-data themes to the default folder
         system("cp -rn /usr/share/mx-conky-data/themes/* " + dir.toUtf8());

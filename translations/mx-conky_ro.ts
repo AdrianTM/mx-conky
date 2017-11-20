@@ -262,7 +262,7 @@
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="56"/>
-        <location filename="../mainwindow.cpp" line="401"/>
+        <location filename="../mainwindow.cpp" line="403"/>
         <source>Select Conky Manager config file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -273,29 +273,27 @@
     </message>
     <message>
         <location filename="../main.cpp" line="74"/>
-        <source>The MX Conky data set has been updated. 
-
-Copy from the folder where it is located (/usr/share/mx-conky-data/themes) whatever you wish to your Home hidden conky folder (~/.conky). Be careful not to overwrite any conkies you have changed.</source>
+        <source>The MX Conky data set has been updated. &lt;p&gt;&lt;p&gt;                                  Copy from the folder where it is located &lt;a href=&quot;/usr/share/mx-conky-data/themes&quot;&gt;/usr/share/mx-conky-data/themes&lt;/a&gt;                                   whatever you wish to your Home hidden conky folder &lt;a href=&quot;%1/.conky&quot;&gt;~/.conky&lt;/a&gt;.                                   Be careful not to overwrite any conkies you have changed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="101"/>
-        <location filename="../main.cpp" line="121"/>
+        <location filename="../main.cpp" line="100"/>
+        <location filename="../main.cpp" line="119"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="102"/>
+        <location filename="../main.cpp" line="101"/>
         <source>Could not find conky-manager, please install it before running mx-conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="122"/>
+        <location filename="../main.cpp" line="120"/>
         <source>No file was selected, quiting program</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="133"/>
+        <location filename="../main.cpp" line="131"/>
         <source>You must run this program as normal user</source>
         <translation type="unfinished"></translation>
     </message>
