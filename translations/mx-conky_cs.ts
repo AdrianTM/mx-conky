@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="cs" version="2.1">
 <context>
     <name>MainWindow</name>
     <message>
@@ -21,7 +21,7 @@
     <message>
         <location filename="../mainwindow.ui" line="61"/>
         <source>Run</source>
-        <translation>Kör</translation>
+        <translation>Spustit</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="118"/>
@@ -76,7 +76,7 @@
     <message>
         <location filename="../mainwindow.ui" line="343"/>
         <source>Desktop</source>
-        <translation>Skrivbord</translation>
+        <translation>Pracovní plocha</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="362"/>
@@ -133,7 +133,7 @@
     <message>
         <location filename="../mainwindow.ui" line="763"/>
         <source>Default</source>
-        <translation>Standard</translation>
+        <translation>Předvolené</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="815"/>
@@ -173,12 +173,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1449"/>
         <source>About this application</source>
-        <translation>Om detta program</translation>
+        <translation>O této aplikaci</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1452"/>
         <source>About...</source>
-        <translation>Om...</translation>
+        <translation>O programu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1460"/>
@@ -188,12 +188,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1476"/>
         <source>Display help </source>
-        <translation>Visa hjälp</translation>
+        <translation>Zobrazit nápovědu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1479"/>
         <source>Help</source>
-        <translation>Hjälp</translation>
+        <translation>Nápověda</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1487"/>
@@ -203,12 +203,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1535"/>
         <source>Quit application</source>
-        <translation>Avsluta programmet</translation>
+        <translation>Ukončit aplikaci</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1538"/>
         <source>Close</source>
-        <translation>Stäng</translation>
+        <translation>Zavřít</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1546"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="296"/>
         <source>Version: </source>
-        <translation>Version:</translation>
+        <translation>Verze:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="297"/>
@@ -233,22 +233,22 @@
     <message>
         <location filename="../mainwindow.cpp" line="299"/>
         <source>Copyright (c) MX Linux</source>
-        <translation>Copyright (c) MX Linux</translation>
+        <translation>Vlastnická práva (c) MX Linux</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="300"/>
         <source>License</source>
-        <translation>Licens</translation>
+        <translation>Licence</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="301"/>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="304"/>
         <source>MX Snapshot License</source>
-        <translation>MX Snapshot Licens</translation>
+        <translation>Licence MX Snapshot</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="317"/>
@@ -278,7 +278,7 @@
         <location filename="../main.cpp" line="100"/>
         <location filename="../main.cpp" line="119"/>
         <source>Error</source>
-        <translation>Fel</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="101"/>
