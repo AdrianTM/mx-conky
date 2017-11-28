@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="tr" version="2.1">
 <context>
     <name>MainWindow</name>
     <message>
@@ -6,7 +6,7 @@
         <location filename="../mainwindow.cpp" line="44"/>
         <location filename="../mainwindow.cpp" line="296"/>
         <source>MX Conky</source>
-        <translation type="unfinished"/>
+        <translation>MX Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
@@ -16,27 +16,27 @@
     <message>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Launch</source>
-        <translation type="unfinished"/>
+        <translation>Başlat</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="61"/>
         <source>Run</source>
-        <translation>Kör</translation>
+        <translation>Çalıştır</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="118"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Geri al</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="149"/>
         <source>Edit</source>
-        <translation type="unfinished"/>
+        <translation>Düzenle</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="164"/>
         <source>Conky Name</source>
-        <translation type="unfinished"/>
+        <translation>Conky Adı</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="191"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../mainwindow.ui" line="216"/>
         <source>Drag</source>
-        <translation type="unfinished"/>
+        <translation>Sürükleme</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="235"/>
@@ -56,12 +56,12 @@
     <message>
         <location filename="../mainwindow.ui" line="255"/>
         <source>+ Left Click</source>
-        <translation type="unfinished"/>
+        <translation>+ Sol Tık</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="262"/>
         <source>To Move</source>
-        <translation type="unfinished"/>
+        <translation>Taşımak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="269"/>
@@ -76,64 +76,64 @@
     <message>
         <location filename="../mainwindow.ui" line="343"/>
         <source>Desktop</source>
-        <translation>Skrivbord</translation>
+        <translation>Masaüstü</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="362"/>
         <source>Desktop 1</source>
-        <translation type="unfinished"/>
+        <translation>Masaüstü 1</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="385"/>
         <source>All Desktops</source>
-        <translation type="unfinished"/>
+        <translation>Tüm Masaüstleri</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="411"/>
         <source>Format</source>
-        <translation type="unfinished"/>
+        <translation>Biçimlendirme</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="463"/>
         <source>Day</source>
-        <translation type="unfinished"/>
+        <translation>Gün</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="492"/>
         <location filename="../mainwindow.ui" line="622"/>
         <source>Long</source>
-        <translation type="unfinished"/>
+        <translation>Uzun</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="521"/>
         <source>Abbreviated name, e.g. Tu</source>
-        <translation type="unfinished"/>
+        <translation>Kısaltılmış ad, örneğin Tu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="524"/>
         <location filename="../mainwindow.ui" line="654"/>
         <source>Short</source>
-        <translation type="unfinished"/>
+        <translation>Kısa</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="593"/>
         <source>Month</source>
-        <translation type="unfinished"/>
+        <translation>Ay</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="651"/>
         <source>Abbreviated name, e.g. Oct</source>
-        <translation type="unfinished"/>
+        <translation>Kısaltılmış ad, örneğin Ekm</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="717"/>
         <source>Colors</source>
-        <translation type="unfinished"/>
+        <translation>Renkler</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="763"/>
         <source>Default</source>
-        <translation>Standard</translation>
+        <translation>Öntanımlı</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="815"/>
@@ -173,12 +173,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1449"/>
         <source>About this application</source>
-        <translation>Om detta program</translation>
+        <translation>Uygulama hakkında</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1452"/>
         <source>About...</source>
-        <translation>Om...</translation>
+        <translation>Hakkında...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1460"/>
@@ -188,12 +188,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1476"/>
         <source>Display help </source>
-        <translation>Visa hjälp</translation>
+        <translation>Yardımı görüntüle</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1479"/>
         <source>Help</source>
-        <translation>Hjälp</translation>
+        <translation>Yardım</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1487"/>
@@ -203,12 +203,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1535"/>
         <source>Quit application</source>
-        <translation>Avsluta programmet</translation>
+        <translation>Uygulamadan çık</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1538"/>
         <source>Close</source>
-        <translation>Stäng</translation>
+        <translation>Kapat</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1546"/>
@@ -218,17 +218,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="295"/>
         <source>About MX Conky</source>
-        <translation type="unfinished"/>
+        <translation>MX Conky Hakkında</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="296"/>
         <source>Version: </source>
-        <translation>Version:</translation>
+        <translation>Sürüm</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="297"/>
         <source>GUI program for configuring Conky in MX Linux</source>
-        <translation type="unfinished"/>
+        <translation>MX Linux&apos;da Conky yapılandırması için Grafik arayüzü programı</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="299"/>
@@ -238,22 +238,22 @@
     <message>
         <location filename="../mainwindow.cpp" line="300"/>
         <source>License</source>
-        <translation>Licens</translation>
+        <translation>Ruhsat</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="301"/>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="304"/>
         <source>MX Snapshot License</source>
-        <translation>MX Snapshot Licens</translation>
+        <translation>MX Snapshot Ruhsatı</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="317"/>
         <source>MX Conky Help</source>
-        <translation type="unfinished"/>
+        <translation>MX Conky Yardım</translation>
     </message>
 </context>
 <context>
@@ -278,7 +278,7 @@
         <location filename="../main.cpp" line="100"/>
         <location filename="../main.cpp" line="119"/>
         <source>Error</source>
-        <translation>Fel</translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="101"/>
@@ -288,12 +288,12 @@
     <message>
         <location filename="../main.cpp" line="120"/>
         <source>No file was selected, quiting program</source>
-        <translation type="unfinished"/>
+        <translation>Dosya seçilmedi, program kapatılıyor</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="131"/>
         <source>You must run this program as normal user</source>
-        <translation type="unfinished"/>
+        <translation>Bu programı normal kullanıcı olarak çalıştırmalısınız.</translation>
     </message>
 </context>
 </TS>

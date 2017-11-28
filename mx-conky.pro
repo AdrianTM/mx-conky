@@ -42,15 +42,22 @@ FORMS    += \
     mainwindow.ui
 
 TRANSLATIONS += translations/mx-conky_ca.ts \
+                translations/mx-conky_cs.ts \
                 translations/mx-conky_de.ts \
                 translations/mx-conky_el.ts \
                 translations/mx-conky_es.ts \
                 translations/mx-conky_fr.ts \
                 translations/mx-conky_it.ts \
                 translations/mx-conky_ja.ts \
+                translations/mx-conky_lt.ts \
                 translations/mx-conky_nl.ts \
+                translations/mx-conky_pl.ts \
+                translations/mx-conky_pt.ts \
                 translations/mx-conky_ro.ts \
-                translations/mx-conky_sv.ts
+                translations/mx-conky_ru.ts \
+                translations/mx-conky_sk.ts \
+                translations/mx-conky_sv.ts \
+                translations/mx-conky_tr.ts
 
 RESOURCES += \
     images.qrc
