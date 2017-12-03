@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
 <context>
     <name>MainWindow</name>
     <message>
@@ -150,27 +148,27 @@
     <message>
         <location filename="../mainwindow.ui" line="878"/>
         <source>Color0 </source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe0</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="990"/>
         <source>Color1 </source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe1</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1102"/>
         <source>Color2 </source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1217"/>
         <source>Color3 </source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe3</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1332"/>
         <source>Color4 </source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe4</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1449"/>
@@ -274,7 +272,9 @@
     <message>
         <location filename="../main.cpp" line="74"/>
         <source>The MX Conky data set has been updated. &lt;p&gt;&lt;p&gt;                                  Copy from the folder where it is located &lt;a href=&quot;/usr/share/mx-conky-data/themes&quot;&gt;/usr/share/mx-conky-data/themes&lt;/a&gt;                                   whatever you wish to your Home hidden conky folder &lt;a href=&quot;%1/.conky&quot;&gt;~/.conky&lt;/a&gt;.                                   Be careful not to overwrite any conkies you have changed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die MX Conky-Daten wurden aktualisiert.
+
+&lt;p&gt;&lt;p&gt;Kopiere aus dem ursprünglichen Verzeichnis &lt;a href=&quot;/usr/share/mx-conky-data/themes&quot;&gt;/usr/share/mx-conky-data/themes &lt;/a&gt;was auch immer du möchtest in dein im Home verstecktes conky-Verzeichnis &lt;a href=&quot;%1/.conky&quot;&gt;~/.conky&lt;/a&gt;. Achte darauf keine von dir veränderten conkies zu überschreiben.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="100"/>
