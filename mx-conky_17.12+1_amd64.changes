@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Mon, 11 Dec 2017 23:16:33 -0500
+Source: mx-conky
+Binary: mx-conky
+Architecture: source amd64
+Version: 17.12+1
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ mx-conky   - MX Conky
+Changes:
+ mx-conky (17.12+1) mx; urgency=medium
+ .
+   * update translations
+Checksums-Sha1:
+ a9a1822ef03a0d2b23792ae8273dce82c12bc45f 1094 mx-conky_17.12+1.dsc
+ 9dd8242cff53ecbe3180353397d8223820229a67 41648 mx-conky_17.12+1.tar.xz
+ 69eed2143c07e2804b3d9aa03507bfa18cab8ba1 65428 mx-conky_17.12+1_amd64.deb
+Checksums-Sha256:
+ 02b413bd3c0958453947ba7e2a9898a3b27ef24c2954fbde761044186655c328 1094 mx-conky_17.12+1.dsc
+ fb418764ec133798e40c6c1caf201a41ac2764fc43d8de520518388163be5324 41648 mx-conky_17.12+1.tar.xz
+ c74b1537c0e1d03161660df293938832edd8dedbc4ca3bc7611b2c04e85a1e78 65428 mx-conky_17.12+1_amd64.deb
+Files:
+ fdead6ebe96774e0463f03790754bf02 1094 admin optional mx-conky_17.12+1.dsc
+ 8beb449ccd32d5c5c21541e3aa32553c 41648 admin optional mx-conky_17.12+1.tar.xz
+ ebffbd7902ee7c052016f99e2ef07852 65428 admin optional mx-conky_17.12+1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJaL1itAAoJEHCTjHgGee6YuUIH/jhuitn1aMNSUxHJhpBS42ij
+LO0jajKI13AgK/VDN5WSkHa1RzvrBhjOob3npNmgM26b32EkObPRO2kdL2wmhTqI
+c6Eq0AZaf3tA60cto+EMJT5d/2S3BsKGaann1zWbpw9F2P7IZmWG1xDUFPOYE+Z/
+GVMVzCrSrj2CF7QNW6yvfsE3ivxo31zhsBSgH9FjcdS20tvfw6XzdsWp+nlEf5Lm
+ZT4E4f6LIEZVuK7YGpstdn+RdPuQrM3Khr7mQjyd0hzxyeitiwavl1A9yhRoSfHY
+HVk2a5AQDHcjrln0tij4LNhoeMBeSG1LGlJhiWkc99oIrCGUzJ3y/vf8fRMbbrA=
+=8de1
+-----END PGP SIGNATURE-----
