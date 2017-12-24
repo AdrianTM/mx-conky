@@ -6,26 +6,23 @@
  * Authors: Adrian
  *          MX Linux <http://forum.mxlinux.org>
  *
- * This file is part of mx-conky.
- *
- * mx-conky is free software: you can redistribute it and/or modify
+ * This is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * mx-conky is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with mx-conky.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this package. If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
 #include "cmd.h"
 
 #include <QEventLoop>
-
 #include <QDebug>
 
 Cmd::Cmd(QObject *parent) :
@@ -40,6 +37,13 @@ Cmd::Cmd(QObject *parent) :
 
 Cmd::~Cmd()
 {
+    if (proc->state() != QProcess::NotRunning) {
+        if(!this->terminate()) {
+            this->kill();
+        }
+    }
+    delete timer;
+    delete proc;
 }
 
 // this function is running the command, takes cmd_str and optional estimated completion time
@@ -87,9 +91,8 @@ bool Cmd::kill()
         return true; // returns true because process is not running
     }
     qDebug() << "killing parent process:" << proc->pid();
-    system("kill -KILL -P " + proc->pid());
     proc->kill();
-    proc->deleteLater();
+    proc->waitForFinished(100);
     emit finished(proc->exitCode(), proc->exitStatus());
     return (!this->isRunning());
 }
@@ -97,13 +100,13 @@ bool Cmd::kill()
 // terminate process, return true for success
 bool Cmd::terminate()
 {
-    //qDebug() << "terminate cmd called";
+    qDebug() << "terminate cmd called";
     if (!this->isRunning()) {
         return true; // returns true because process is not running
     }
     qDebug() << "terminating parent process:" << proc->pid();
-    system("kill -TERM -P " + proc->pid());
     proc->terminate();
+    proc->waitForFinished(100);
     emit finished(proc->exitCode(), proc->exitStatus());
     return (!this->isRunning());
 }
