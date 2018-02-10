@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Sat, 10 Feb 2018 01:43:47 -0500
+Source: mx-conky
+Binary: mx-conky
+Architecture: source amd64
+Version: 18.2
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ mx-conky   - MX Conky
+Changes:
+ mx-conky (18.2) mx; urgency=medium
+ .
+   * new translations
+Checksums-Sha1:
+ 7d148227d74483b3b500c794aa1d9a6eb5fe9504 1082 mx-conky_18.2.dsc
+ e44e3d5db5884f11ca205f210494e2643ff7714c 45812 mx-conky_18.2.tar.xz
+ 610e926e4fac0bd1a89a08c5a66e910823a7a2d9 55698 mx-conky_18.2_amd64.deb
+Checksums-Sha256:
+ cf87ac306685d48af607923084e17e49613c505869f2bdbc92b4f494bc123665 1082 mx-conky_18.2.dsc
+ ba5ad9d1a60325a0172dfcd2ea6305b32fe12c2157ffad19fafa4232d31ad50e 45812 mx-conky_18.2.tar.xz
+ 88bc49931022d2b8dc655497b10bd5c95700cbebc6d97eaa903780fb60badeb3 55698 mx-conky_18.2_amd64.deb
+Files:
+ 50ca6d143387d4e2789761c99a5d25ab 1082 admin optional mx-conky_18.2.dsc
+ fb31ee85c7831590affd08badd4110da 45812 admin optional mx-conky_18.2.tar.xz
+ ce0373daf234aefa0b55edc668662ee9 55698 admin optional mx-conky_18.2_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQEcBAEBAgAGBQJafpTCAAoJEHCTjHgGee6YB/sH/jgmTA7SuYULildOaLuCkMC7
+FduBSKdPbymMc8FTSbn+Q1B9/b7v6ov6p+9Z/Hjm8gGH3jEeKdX0hM8OJBYsyIH/
+4DZYt55Zpb9Oke4L/gII77p7waI5RBT2jR/3AEotXsfw6OvxFTPBSc2Ksbt25Xj6
+Ih9r6sEaGdWNm0yMsnseFwBe8itprTDemB/nTqgJRaGqYyVLYC+BEm+3fA4zRU5w
+Y4Y6HdWTuIAh5QCgapYs/vhBudppWsSr8bpGdf7UIF1LPZLH8X6LpDs9rJui2p57
+h5Lr48ZHX5/yeSC9YZCrrCRfiyUhXPocuCSv6PApD9q8nEB+26oO+cTZkbKtPgQ=
+=uA9F
+-----END PGP SIGNATURE-----
