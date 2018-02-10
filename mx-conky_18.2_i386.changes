@@ -18,20 +18,20 @@ Changes:
  .
    * new translations
 Checksums-Sha1:
- d277239a001d9f507e94076fbe31bde7a4a8176c 56634 mx-conky_18.2_i386.deb
+ ab9fc1cb79266f405d10fab15e09dc92dcb2e82a 68492 mx-conky_18.2_i386.deb
 Checksums-Sha256:
- e79fbc4ad29ca9647416b56e61eec713799dd83789a776a6e43e7c0e18b61fc1 56634 mx-conky_18.2_i386.deb
+ fd09639a639d58cc837a9c0dc08c2bfbf084d2c5f9ba70652eff84f2bae81986 68492 mx-conky_18.2_i386.deb
 Files:
- 88501131c4ac5d5f001053711345eb6d 56634 admin optional mx-conky_18.2_i386.deb
+ 02e2ab746aedda3a27367494505b586b 68492 admin optional mx-conky_18.2_i386.deb
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJafpT+AAoJEHCTjHgGee6YzEoH/3uLep+9/+kL1lVNlf/TU7wG
-oWDVHDLaIhDmh9z282a8DfPNTOzCu8spaeMTLLpRXI+bKDe0htTc8dkINa+B2+fY
-MuWoDCoBzk24Lf1EDxt+T8sx8zxKJzMx0mKvPRO3D4a6rnSdh8k+RLJzU/WqM90I
-/hzTnJ8B4tOB5QtjSZ8qKzFgpCA5qLIkyRuki+/x5Ronkk7rqnxz6xPv98Fu8NwK
-bC9k1VmSr0436cTucuddU04t03NtJUhBVB9jCn6TZVbfDsnbbm/cEMqCjrV7NAVL
-bIreyKsco+RywksVCIOOKgqjFxH/CJ0ckk6BNL+P7FT8MjFMjLEffFnE44iXmmo=
-=f568
+iQEcBAEBAgAGBQJafpnWAAoJEHCTjHgGee6YnI8IAIg+eQJyBTEVNDb89IJVspFy
+ToCmMWWNKTLLquNdG0fty80/mJa+9GNZQU+ZzhIhKkHFn2WIUvwtg2lNVo3lWmDo
+sNq9OqKZxJG3GYdJn0FnSt3oI6IvppLDSJ0hzi+4ZEb66ReUsg0CbNPIdDWbJi2w
+5MklkAaL155jMh8eoqQJCBN7FrSdvLK+CfgBlMnlqC2oeuG+6qcyZdRUbRtgHQqI
+NH1oeMRYkxIwO67/rPHyn+FqHGDirRz/DufmS47q94JK/2ggdPWKWyCd4kgcLuQF
+Lz4s9PxFXPeCpf/7VIp308AKa/9DnRt63v/3ic0BFMLhLI3YjkGGWriNZdahIJI=
+=OT5+
 -----END PGP SIGNATURE-----
