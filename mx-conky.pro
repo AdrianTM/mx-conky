@@ -62,7 +62,8 @@ TRANSLATIONS += translations/mx-conky_am.ts \
                 translations/mx-conky_sk.ts \
                 translations/mx-conky_sv.ts \
                 translations/mx-conky_tr.ts \
-                translations/mx-conky_uk.ts
+                translations/mx-conky_uk.ts \
+                translations/mx-conky_zh_TW.ts
 
 RESOURCES += \
     images.qrc
