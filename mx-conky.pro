@@ -47,7 +47,10 @@ TRANSLATIONS += translations/mx-conky_am.ts \
                 translations/mx-conky_de.ts \
                 translations/mx-conky_el.ts \
                 translations/mx-conky_es.ts \
+                translations/mx-conky_fi.ts \
                 translations/mx-conky_fr.ts \
+                translations/mx-conky_hi.ts \
+                translations/mx-conky_hr.ts \
                 translations/mx-conky_hu.ts \
                 translations/mx-conky_it.ts \
                 translations/mx-conky_ja.ts \

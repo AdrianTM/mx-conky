@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hi" version="2.1">
 <context>
     <name>MainWindow</name>
     <message>
@@ -21,7 +21,7 @@
     <message>
         <location filename="mainwindow.ui" line="61"/>
         <source>Run</source>
-        <translation>Виконати</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="mainwindow.ui" line="118"/>
@@ -76,7 +76,7 @@
     <message>
         <location filename="mainwindow.ui" line="343"/>
         <source>Desktop</source>
-        <translation>Стільниця</translation>
+        <translation>डेस्कटॉप</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="362"/>
@@ -173,12 +173,12 @@
     <message>
         <location filename="mainwindow.ui" line="1449"/>
         <source>About this application</source>
-        <translation type="unfinished"/>
+        <translation>इस अनुप्रयोग के बारे में</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1452"/>
         <source>About...</source>
-        <translation type="unfinished"/>
+        <translation>बारे में...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1460"/>
@@ -188,27 +188,27 @@
     <message>
         <location filename="mainwindow.ui" line="1476"/>
         <source>Display help </source>
-        <translation type="unfinished"/>
+        <translation>मदद देखें</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1479"/>
         <source>Help</source>
-        <translation>Довідка</translation>
+        <translation>सहायता</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1487"/>
         <source>Alt+H</source>
-        <translation type="unfinished"/>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1535"/>
         <source>Quit application</source>
-        <translation type="unfinished"/>
+        <translation>अनुप्रयोग बंद करें</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1538"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>बंद करें</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1546"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="mainwindow.cpp" line="297"/>
         <source>Version: </source>
-        <translation type="unfinished"/>
+        <translation>संस्करण :</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="298"/>
@@ -233,17 +233,17 @@
     <message>
         <location filename="mainwindow.cpp" line="300"/>
         <source>Copyright (c) MX Linux</source>
-        <translation type="unfinished"/>
+        <translation>प्रतिलिप्याधिकार (c) MX Linux</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="301"/>
         <source>License</source>
-        <translation type="unfinished"/>
+        <translation>लाइसेंस</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="302"/>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>रद्द</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="319"/>
@@ -273,7 +273,7 @@
         <location filename="main.cpp" line="100"/>
         <location filename="main.cpp" line="119"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>त्रुटि</translation>
     </message>
     <message>
         <location filename="main.cpp" line="101"/>

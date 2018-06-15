@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hr" version="2.1">
 <context>
     <name>MainWindow</name>
     <message>
@@ -21,7 +21,7 @@
     <message>
         <location filename="mainwindow.ui" line="61"/>
         <source>Run</source>
-        <translation>Виконати</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="mainwindow.ui" line="118"/>
@@ -76,7 +76,7 @@
     <message>
         <location filename="mainwindow.ui" line="343"/>
         <source>Desktop</source>
-        <translation>Стільниця</translation>
+        <translation>Plocha</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="362"/>
@@ -133,7 +133,7 @@
     <message>
         <location filename="mainwindow.ui" line="763"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Zadano</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="815"/>
@@ -143,7 +143,7 @@
         <location filename="mainwindow.ui" line="1269"/>
         <location filename="mainwindow.ui" line="1384"/>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="878"/>
@@ -173,12 +173,12 @@
     <message>
         <location filename="mainwindow.ui" line="1449"/>
         <source>About this application</source>
-        <translation type="unfinished"/>
+        <translation>O ovoj aplikaciji</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1452"/>
         <source>About...</source>
-        <translation type="unfinished"/>
+        <translation>O programu...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1460"/>
@@ -188,27 +188,27 @@
     <message>
         <location filename="mainwindow.ui" line="1476"/>
         <source>Display help </source>
-        <translation type="unfinished"/>
+        <translation>Prikaži pomoć</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1479"/>
         <source>Help</source>
-        <translation>Довідка</translation>
+        <translation>Pomoć</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1487"/>
         <source>Alt+H</source>
-        <translation type="unfinished"/>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1535"/>
         <source>Quit application</source>
-        <translation type="unfinished"/>
+        <translation>Zatvori aplikaciju</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1538"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Zatvori</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1546"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="mainwindow.cpp" line="297"/>
         <source>Version: </source>
-        <translation type="unfinished"/>
+        <translation>Inačica:</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="298"/>
@@ -233,17 +233,17 @@
     <message>
         <location filename="mainwindow.cpp" line="300"/>
         <source>Copyright (c) MX Linux</source>
-        <translation type="unfinished"/>
+        <translation>Autorska prava (c) MX Linux</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="301"/>
         <source>License</source>
-        <translation type="unfinished"/>
+        <translation>Licenca</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="302"/>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="319"/>
@@ -273,7 +273,7 @@
         <location filename="main.cpp" line="100"/>
         <location filename="main.cpp" line="119"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>Greška</translation>
     </message>
     <message>
         <location filename="main.cpp" line="101"/>
