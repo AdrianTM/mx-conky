@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fi" version="2.1">
 <context>
     <name>MainWindow</name>
     <message>
@@ -6,7 +6,7 @@
         <location filename="mainwindow.cpp" line="44"/>
         <location filename="mainwindow.cpp" line="297"/>
         <source>MX Conky</source>
-        <translation type="unfinished"/>
+        <translation>MX Conky</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="20"/>
@@ -16,27 +16,27 @@
     <message>
         <location filename="mainwindow.ui" line="49"/>
         <source>Launch</source>
-        <translation type="unfinished"/>
+        <translation>Käynnistä</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="61"/>
         <source>Run</source>
-        <translation>Виконати</translation>
+        <translation>Suorita</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="118"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Kumoa</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="149"/>
         <source>Edit</source>
-        <translation type="unfinished"/>
+        <translation>Muokkaa</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="164"/>
         <source>Conky Name</source>
-        <translation type="unfinished"/>
+        <translation>Conkyn nimi</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="191"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="mainwindow.ui" line="216"/>
         <source>Drag</source>
-        <translation type="unfinished"/>
+        <translation>Vedä</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="235"/>
@@ -56,7 +56,7 @@
     <message>
         <location filename="mainwindow.ui" line="255"/>
         <source>+ Left Click</source>
-        <translation type="unfinished"/>
+        <translation>+ Vasen painallus</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="262"/>
@@ -66,7 +66,7 @@
     <message>
         <location filename="mainwindow.ui" line="269"/>
         <source>+ Right Click</source>
-        <translation type="unfinished"/>
+        <translation>+ Oikea painallus</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="276"/>
@@ -76,17 +76,17 @@
     <message>
         <location filename="mainwindow.ui" line="343"/>
         <source>Desktop</source>
-        <translation>Стільниця</translation>
+        <translation>Työpöytä</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="362"/>
         <source>Desktop 1</source>
-        <translation type="unfinished"/>
+        <translation>Työpöytä 1</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="385"/>
         <source>All Desktops</source>
-        <translation type="unfinished"/>
+        <translation>Kaikki työpöydät</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="411"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="mainwindow.ui" line="463"/>
         <source>Day</source>
-        <translation type="unfinished"/>
+        <translation>Päivä</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="492"/>
@@ -128,12 +128,12 @@
     <message>
         <location filename="mainwindow.ui" line="717"/>
         <source>Colors</source>
-        <translation type="unfinished"/>
+        <translation>Värit</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="763"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Oletus</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="815"/>
@@ -143,7 +143,7 @@
         <location filename="mainwindow.ui" line="1269"/>
         <location filename="mainwindow.ui" line="1384"/>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="878"/>
@@ -173,12 +173,12 @@
     <message>
         <location filename="mainwindow.ui" line="1449"/>
         <source>About this application</source>
-        <translation type="unfinished"/>
+        <translation>Tietoja tästä sovelluksesta</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1452"/>
         <source>About...</source>
-        <translation type="unfinished"/>
+        <translation>Tietoja...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1460"/>
@@ -188,27 +188,27 @@
     <message>
         <location filename="mainwindow.ui" line="1476"/>
         <source>Display help </source>
-        <translation type="unfinished"/>
+        <translation>Näytä ohje</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1479"/>
         <source>Help</source>
-        <translation>Довідка</translation>
+        <translation>Ohje</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1487"/>
         <source>Alt+H</source>
-        <translation type="unfinished"/>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1535"/>
         <source>Quit application</source>
-        <translation type="unfinished"/>
+        <translation>Sulje sovellus</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1538"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Sulje</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1546"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="mainwindow.cpp" line="297"/>
         <source>Version: </source>
-        <translation type="unfinished"/>
+        <translation>Versio: </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="298"/>
@@ -233,17 +233,17 @@
     <message>
         <location filename="mainwindow.cpp" line="300"/>
         <source>Copyright (c) MX Linux</source>
-        <translation type="unfinished"/>
+        <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="301"/>
         <source>License</source>
-        <translation type="unfinished"/>
+        <translation>Lisenssi</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="302"/>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>Peruuta</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="319"/>
@@ -273,7 +273,7 @@
         <location filename="main.cpp" line="100"/>
         <location filename="main.cpp" line="119"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>Virhe</translation>
     </message>
     <message>
         <location filename="main.cpp" line="101"/>
@@ -283,12 +283,12 @@
     <message>
         <location filename="main.cpp" line="120"/>
         <source>No file was selected, quiting program</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostoa ei valittu, lopetetaan ohjelma</translation>
     </message>
     <message>
         <location filename="main.cpp" line="131"/>
         <source>You must run this program as normal user</source>
-        <translation type="unfinished"/>
+        <translation>Sinun täytyy suorittaa tämä ohjelma tavallisena käyttäjänä</translation>
     </message>
 </context>
 </TS>
