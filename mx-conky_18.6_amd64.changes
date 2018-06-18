@@ -1,0 +1,46 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Format: 1.8
+Date: Mon, 18 Jun 2018 14:22:03 -0400
+Source: mx-conky
+Binary: mx-conky
+Architecture: source amd64
+Version: 18.6
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ mx-conky   - MX Conky
+Changes:
+ mx-conky (18.6) mx; urgency=medium
+ .
+   * new translations
+Checksums-Sha1:
+ 2e8765b9f90f0e621656efd4eb6d1543b365c003 1150 mx-conky_18.6.dsc
+ 41ecc50a96ed42b6f477dde485a9414a0371504a 46128 mx-conky_18.6.tar.xz
+ b19ccf968f7a9c838eba7ca173c9a57597df9782 11143 mx-conky_18.6_amd64.buildinfo
+ b06f838b01f66862c7ec3db5366d750e64b1cf4b 70862 mx-conky_18.6_amd64.deb
+Checksums-Sha256:
+ fee099b14faff5a98dbc0749811f6e8de8f7e8e2d8086f1db9115bf75dd18308 1150 mx-conky_18.6.dsc
+ d08968991615b587208847d784c209201bc02d1f77efdf1ee03efdac52c30a59 46128 mx-conky_18.6.tar.xz
+ 30ed9e28e38ceca9a9fefc987f09e2050a6231fec72c89a6931340fbb919d52c 11143 mx-conky_18.6_amd64.buildinfo
+ de57aa2b6b04caf35a66954ba754660e0c72ce385ac7c2bb227fafe3d7120077 70862 mx-conky_18.6_amd64.deb
+Files:
+ 1ff1b257ec752f8202f540773490148e 1150 admin optional mx-conky_18.6.dsc
+ a8aa47965aa5b0cc576a9619102d4223 46128 admin optional mx-conky_18.6.tar.xz
+ 2d1f349776b3d54e746a6c507cb8f654 11143 admin optional mx-conky_18.6_amd64.buildinfo
+ c1879b2ab3bd21048d7e5b4da6d1eea9 70862 admin optional mx-conky_18.6_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCAAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAlsn+0wTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumB/hB/48D5fElORJiT4sf1CbvhBWAIRK30oW
+C6FKqx0CioeyU/RYcIX9qRgCfNipJmR1jfy1b1aSBMcDjGYYde3JakzPKenw2o/V
+JTsZfts5mn/4HTVzn31OWW9w9vTzRLL4ubZLZDFQswlNhF5hF/RxqShEmmu37c7/
+e26H+2rHJibf1T37+iDeRv31a/4Lsakh5WdtU1kBydNcmKlcQDbS+ZxZQseQhyvf
+exaBCy9qUjUi5dorSiOvdYHsBhY2rLyR4W5ocQB7DWmLmSjsiSq33irAbWuK7HO3
+9kFsoJJPzOH7u6EF8vxQ8/vb/oArv+tA3ZL3hZJbCnwqNGqcs0OsrNh/
+=nkEo
+-----END PGP SIGNATURE-----
