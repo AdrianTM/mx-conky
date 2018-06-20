@@ -241,7 +241,7 @@ void MainWindow::cleanup()
 // Get version of the program
 QString MainWindow::getVersion(QString name)
 {
-    return cmd->getOutput("dpkg -l "+ name + "| awk 'NR==6 {print $3}'");
+    return cmd->getOutput("dpkg -l "+ name + "| awk 'END {print $3}'");
 }
 
 
