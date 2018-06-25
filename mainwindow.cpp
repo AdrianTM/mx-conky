@@ -28,6 +28,7 @@
 
 #include <QColorDialog>
 #include <QFileDialog>
+#include <QTextEdit>
 
 #include <QDebug>
 
@@ -241,7 +242,8 @@ void MainWindow::cleanup()
 // Get version of the program
 QString MainWindow::getVersion(QString name)
 {
-    return cmd->getOutput("dpkg -l "+ name + "| awk 'END {print $3}'");
+    Cmd cmd;
+    return cmd.getOutput("dpkg-query -f '${Version}' -W " + name);
 }
 
 
@@ -298,14 +300,37 @@ void MainWindow::on_buttonAbout_clicked()
                        tr("GUI program for configuring Conky in MX Linux") +
                        "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
                        tr("Copyright (c) MX Linux") + "<br /><br /></p>");
-    msgBox.addButton(tr("License"), QMessageBox::AcceptRole);
-    msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
-    if (msgBox.exec() == QMessageBox::AcceptRole) {
+    QPushButton *btnLicense = msgBox.addButton(tr("License"), QMessageBox::HelpRole);
+    QPushButton *btnChangelog = msgBox.addButton(tr("Changelog"), QMessageBox::HelpRole);
+    QPushButton *btnCancel = msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
+    btnCancel->setIcon(QIcon::fromTheme("window-close"));
+
+    msgBox.exec();
+
+    if (msgBox.clickedButton() == btnLicense) {
         if (system("command -v mx-viewer") == 0) {
             system("mx-viewer " + url.toUtf8());
         } else {
             system("xdg-open " + url.toUtf8());
         }
+    } else if (msgBox.clickedButton() == btnChangelog) {
+        QDialog *changelog = new QDialog(this);
+        changelog->resize(600, 500);
+
+        QTextEdit *text = new QTextEdit;
+        text->setReadOnly(true);
+        Cmd cmd;
+        text->setText(cmd.getOutput("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName()  + "/changelog.gz"));
+
+        QPushButton *btnClose = new QPushButton(tr("&Close"));
+        btnClose->setIcon(QIcon::fromTheme("window-close"));
+        connect(btnClose, &QPushButton::clicked, changelog, &QDialog::close);
+
+        QVBoxLayout *layout = new QVBoxLayout;
+        layout->addWidget(text);
+        layout->addWidget(btnClose);
+        changelog->setLayout(layout);
+        changelog->exec();
     }
     this->show();
 }

@@ -31,7 +31,7 @@
 #include <QTimer>
 #include <QDir>
 
-#include <cmd.h>
+#include "cmd.h"
 
 
 namespace Ui {

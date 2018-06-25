@@ -29,12 +29,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    cmd.cpp \
     mainwindow.cpp \
     versionnumber.cpp
 
 HEADERS  += \
-    cmd.h \
     mainwindow.h \
     versionnumber.h
 
@@ -70,5 +68,7 @@ TRANSLATIONS += translations/mx-conky_am.ts \
 
 RESOURCES += \
     images.qrc
+
+unix:!macx: LIBS += -lcmd
 
 

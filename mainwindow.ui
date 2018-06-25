@@ -669,13 +669,6 @@
           </spacer>
          </item>
         </layout>
-        <zorder>labelMonth</zorder>
-        <zorder>radioButtonMonthShort</zorder>
-        <zorder>radioButtonMonthLong</zorder>
-        <zorder>horizontalSpacer_14</zorder>
-        <zorder>horizontalSpacer_17</zorder>
-        <zorder>horizontalSpacer_22</zorder>
-        <zorder>horizontalSpacer_5</zorder>
        </widget>
       </item>
       <item row="0" column="0" colspan="6">
@@ -706,9 +699,6 @@
        </widget>
       </item>
      </layout>
-     <zorder>frameMonth</zorder>
-     <zorder>frameDay</zorder>
-     <zorder>frameClock</zorder>
     </widget>
    </item>
    <item>
