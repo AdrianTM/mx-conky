@@ -267,7 +267,7 @@
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="56"/>
-        <location filename="../mainwindow.cpp" line="430"/>
+        <location filename="../mainwindow.cpp" line="422"/>
         <source>Select Conky Manager config file</source>
         <translation>Seleziona il file config di Conky Manager</translation>
     </message>

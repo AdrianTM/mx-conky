@@ -1,3 +1,6 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
 Format: 1.8
 Date: Sat, 15 Sep 2018 13:17:21 -0400
 Source: mx-conky
@@ -7,7 +10,7 @@ Version: 18.9
 Distribution: mx
 Urgency: medium
 Maintainer: Adrian <adrian@mxlinux.org>
-Changed-By: dolphin <dolphin@littlebyte>
+Changed-By: Adrian <adrian@mxlinux.org>
 Description:
  mx-conky   - MX Conky
 Changes:
@@ -15,20 +18,26 @@ Changes:
  .
    * change editor to xdg-open
 Checksums-Sha1:
- 64a545ae393896c5a9f94e439c970c8bf2e527fa 596 mx-conky_18.9.dsc
- 2d3f7c1117b2eaf5e5d53a9d73cf9723257cef6b 47104 mx-conky_18.9.tar.xz
- 6030ed57de20bc1816b304e45efa4854d7f86fbc 592842 mx-conky-dbgsym_18.9_amd64.deb
- 1057f74d51a93a6bc5f56b18eed688cb9db6ef44 10070 mx-conky_18.9_amd64.buildinfo
- 92428a70479d0dc65bbc02dcdf6fe89e761f207e 62290 mx-conky_18.9_amd64.deb
+ 2b6af0087541f5e64e9db903398f06e1fe6761b9 1158 mx-conky_18.9.dsc
+ 773be5ab6b133ed916db8d9f33bda822eea10175 45308 mx-conky_18.9.tar.xz
+ 38402c17dbde382b078a019dbe4d22c76bc0881a 67744 mx-conky_18.9_amd64.deb
 Checksums-Sha256:
- aadcfcd41927318de3187c9a4a22c0f38ad10da26b8bc394e12c2853f59f5629 596 mx-conky_18.9.dsc
- 71725ead34fbd317a2e73bb92b5538dcc2cf0fbc9319927b43691d2815fc6a7a 47104 mx-conky_18.9.tar.xz
- 007be0d71412bceb63091ed79d9a1dd7cbe6c0843c63300471439069a321333d 592842 mx-conky-dbgsym_18.9_amd64.deb
- a91b4f13a5aa044f73fae78613fb74bdac4bb094f819a64c70d702b0c64bb44b 10070 mx-conky_18.9_amd64.buildinfo
- 77f1f44fa704fdc8331a9e1a7183ddc90d4e15add91e42179a327fe0fe22cd5d 62290 mx-conky_18.9_amd64.deb
+ 8df25717b40af23d0d0c88a8afafd16337e5fbdb1dd1a782c241966a5c5268b6 1158 mx-conky_18.9.dsc
+ 640bd6899daf35cc4a752752d4fd0a324e29c966e2bae80c8263a4d1c1ceb501 45308 mx-conky_18.9.tar.xz
+ 16c78dbcb7fc83803ae4c502a66553e20de450ddf05955e3741066b71d91aa93 67744 mx-conky_18.9_amd64.deb
 Files:
- 7d2374604eb1f24e92eba56a44354f5b 596 admin optional mx-conky_18.9.dsc
- 8486bafa032c50b25ed7167df1343237 47104 admin optional mx-conky_18.9.tar.xz
- 0f929df306998d9c98200d9d94c4b0a8 592842 debug optional mx-conky-dbgsym_18.9_amd64.deb
- 27ac13ca54177e0f5fa82081ef0b7c4f 10070 admin optional mx-conky_18.9_amd64.buildinfo
- ac8bb59d1ced4d07112d4cc7bb0e3c2e 62290 admin optional mx-conky_18.9_amd64.deb
+ 37d4a254565c53dacf7c1f1ad3c43cb2 1158 admin optional mx-conky_18.9.dsc
+ 725fc4a698d3def647a188fca3fda3b4 45308 admin optional mx-conky_18.9.tar.xz
+ 0461556491cd5744432b14a930f9814c 67744 admin optional mx-conky_18.9_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCAAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAludZs8THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumOu0CAC0Pb0iCXsiTpsMatZWdoXdQa0Ps1Ze
+U9mFc73jkF7zyGSnLSGNqndHEbRsShdl4Ew1JeNGl7heiQm14Q2rKkRQXOEybBB/
+kcVutKTOA1y3bYZhIlK2Ll4UmtaamboSNVJyDbycn0sdcXNJ1yZbhFGcPGg3VAUO
+hzC4RTcLZ0wq2bvL4EKxyHxkjnmRibzCTf/BFiguBfKSfGRA2kzJy58rT0q01j+w
+4CJH8J/GrI/mEZLLI91jhYloxVALdEvHnt0hGQoa8wJJdT0Ojm51uRE2AwLkXlbE
+EBJeJ+fgE9A5GR/uR1KkkJpt8KdSOXfjdWTo0kMSkxuobAON/8susCu2
+=CQD9
+-----END PGP SIGNATURE-----
