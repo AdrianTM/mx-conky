@@ -12,6 +12,6 @@ Vcs-Git: git://github.com/AdrianTM/mx-conky
 
 Package: mx-conky
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, leafpad | featherpad, mx-conky-data
+Depends: ${misc:Depends}, ${shlibs:Depends}, mx-conky-data
 Description: MX Conky
  MX Conky is a tool used for manipulating detailed attributes such as color or formats
