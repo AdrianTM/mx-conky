@@ -1,0 +1,34 @@
+Format: 1.8
+Date: Sat, 15 Sep 2018 13:17:21 -0400
+Source: mx-conky
+Binary: mx-conky
+Architecture: source amd64
+Version: 18.9
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: dolphin <dolphin@littlebyte>
+Description:
+ mx-conky   - MX Conky
+Changes:
+ mx-conky (18.9) mx; urgency=medium
+ .
+   * change editor to xdg-open
+Checksums-Sha1:
+ 9596bdc4e3042088ea8feebbf937c63c1dc6b6c7 596 mx-conky_18.9.dsc
+ 49a5df5d79ca71856eed8eb6e00e5559cb523827 47076 mx-conky_18.9.tar.xz
+ 468481e499b7e678757e32f721b9dff5537da42d 593062 mx-conky-dbgsym_18.9_amd64.deb
+ 178a8c1985662b508d61169201ff5f81f4b388c1 10070 mx-conky_18.9_amd64.buildinfo
+ b0ff4c044f971e00a6fdea3f02bc48732ef5581e 62274 mx-conky_18.9_amd64.deb
+Checksums-Sha256:
+ 90db53b4d620560d8882dd82248758984219c228cb2b828a9060455ff5c6501f 596 mx-conky_18.9.dsc
+ 642a4c3d80c8cc26b0de001a8b7a0e1fe3465b76bed075605dcc0673cf0a860c 47076 mx-conky_18.9.tar.xz
+ e6809c5f7a097ea484ec353e72c767ff11524104384debb5fdea9a4c2d1514c0 593062 mx-conky-dbgsym_18.9_amd64.deb
+ f080e1e6fa03f1d07bfb3979cc6261255d81da23a465b6583988f232e8aeaddb 10070 mx-conky_18.9_amd64.buildinfo
+ 22de8f369b35e77cc35358744594f2fcd053172b1c5325ea2f4ceae6a15e0926 62274 mx-conky_18.9_amd64.deb
+Files:
+ f6a1a4425927dd779afc582ff69ccf72 596 admin optional mx-conky_18.9.dsc
+ 367b23be9de5bec36cb86b2e28ec397e 47076 admin optional mx-conky_18.9.tar.xz
+ fd047f9c6da298eef977f3c483a4491e 593062 debug optional mx-conky-dbgsym_18.9_amd64.deb
+ 56b96769cacc00f58635a791c71cce53 10070 admin optional mx-conky_18.9_amd64.buildinfo
+ 0b864253f51648b84d903ed3dc5ab10d 62274 admin optional mx-conky_18.9_amd64.deb

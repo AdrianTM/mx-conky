@@ -405,18 +405,10 @@ void MainWindow::on_buttonRestore_clicked()
 void MainWindow::on_buttonEdit_clicked()
 {
     this->hide();
-    QString editor;
-
-    if (QFile("/usr/bin/featherpad").exists()) {
-        editor = "featherpad";
-    } else if (QFile("/usr/bin/leafpad").exists()) {
-        editor = "leafpad";
-    } else {
-        qDebug() << "could not find either leafpad or featherpad";
-        return;
+    QString editor = "xdg-open";
+    if ( system(editor.toUtf8() + " '" + file_name.toUtf8() + "'") != 0) {
+       qDebug() << "no default text editor defined";
     }
-
-    system(editor.toUtf8() + " '" + file_name.toUtf8() + "'");
     refresh();
     this->show();
 }
