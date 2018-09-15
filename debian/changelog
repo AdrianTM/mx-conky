@@ -1,3 +1,9 @@
+mx-conky (18.9) mx; urgency=medium
+
+  * change editor to xdg-open
+
+ -- dolphin <dolphin@littlebyte>  Sat, 15 Sep 2018 13:17:21 -0400
+
 mx-conky (18.8) mx; urgency=medium
 
   * fix icon other themes
