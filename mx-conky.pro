@@ -42,6 +42,7 @@ FORMS    += \
 TRANSLATIONS += translations/mx-conky_am.ts \
                 translations/mx-conky_ca.ts \
                 translations/mx-conky_cs.ts \
+                translations/mx-conky_da.ts \
                 translations/mx-conky_de.ts \
                 translations/mx-conky_el.ts \
                 translations/mx-conky_es.ts \
@@ -50,6 +51,7 @@ TRANSLATIONS += translations/mx-conky_am.ts \
                 translations/mx-conky_hi.ts \
                 translations/mx-conky_hr.ts \
                 translations/mx-conky_hu.ts \
+                translations/mx-conky_is.ts \
                 translations/mx-conky_it.ts \
                 translations/mx-conky_ja.ts \
                 translations/mx-conky_kk.ts \
@@ -61,6 +63,7 @@ TRANSLATIONS += translations/mx-conky_am.ts \
                 translations/mx-conky_ro.ts \
                 translations/mx-conky_ru.ts \
                 translations/mx-conky_sk.ts \
+                translations/mx-conky_sq.ts \
                 translations/mx-conky_sv.ts \
                 translations/mx-conky_tr.ts \
                 translations/mx-conky_uk.ts \
