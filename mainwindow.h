@@ -44,7 +44,7 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = nullptr, const QString &file = QLatin1String(""));
-    ~MainWindow();
+    ~MainWindow() override;
 
     QString file_name;
     bool modified {};
