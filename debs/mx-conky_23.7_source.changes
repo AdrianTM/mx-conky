@@ -1,0 +1,41 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 20 Jul 2023 16:29:47 -0400
+Source: mx-conky
+Architecture: source
+Version: 23.7
+Distribution: mx
+Urgency: medium
+Maintainer: fehlix <fehlix@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ mx-conky (23.7) mx; urgency=medium
+ .
+   * Update translations
+Checksums-Sha1:
+ a542c050af59e58d59774b225c35f34744dbc50f 1192 mx-conky_23.7.dsc
+ c526ebcbcc57646b8e8049010e4c0a30c4331e5a 132072 mx-conky_23.7.tar.xz
+ 701280e5302d920a07ed55059cd042123af3a340 10704 mx-conky_23.7_amd64.buildinfo
+Checksums-Sha256:
+ 04ebc01bad5f78619b502479ae328550e4298f59c8114670db88e0f95e93d74e 1192 mx-conky_23.7.dsc
+ 09ae01417fc764998493825b276d1b564643309027375f57bddeb501ecbeee0a 132072 mx-conky_23.7.tar.xz
+ 2a58f56d3b7941ea36654223c25ea00d0f4360a2890effde29be1958f867e07e 10704 mx-conky_23.7_amd64.buildinfo
+Files:
+ e0c7b1b9218b90c187a713cc338efd93 1192 admin optional mx-conky_23.7.dsc
+ bbf438161d3f75bae2d2718cc6b65a46 132072 admin optional mx-conky_23.7.tar.xz
+ 8df700a84b8528fe9901329628b8cbf8 10704 admin optional mx-conky_23.7_amd64.buildinfo
+Original-Maintainer: Adrian <adrian@mxlinux.org>
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmS5mbATHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumB5bB/484Q1VLYAuml3K4VDy7ZDAiuiidLHe
+x5AXg0VI06BslIasQ7y/oL43IxHNN7n/7kesFqNA6+Wx6WyZkk4i2TDWmKuqaFUw
+2aFE9t6xh9ZlsjtRHa0zi0UAsRhXDJ4z0sjYz1shkTCc9EUB84fAkLXL3vga0QB3
+M4Qn95VjrgseNPsZu0hw9JJCS4k6LhBKEwJE2e/N7+x3OP+23Uic3aRL1MGZHkNW
+JiLoZAeD9cGL5aKowd4GwfxhQAHlLMlF1PlTI/i3rhGLawBAXygi2wOyzySZsINC
+TmnZXNQFxOY7jIiCpy8GP+NbFyg6GhuY5djOwegM1hgzBVnWVZ5np1K+
+=QdFb
+-----END PGP SIGNATURE-----
