@@ -81,7 +81,7 @@ public:
     void saveBackup();
     void setColor(QWidget *widget, const QColor &color);
     void writeColor(QWidget *widget, const QColor &color);
-    void writeFile(const QString &file_name, const QString &content);
+    void writeFile(QFile file, const QString &content);
 
     bool checkConkyRunning();
     bool readFile(const QString &file_name);
@@ -93,7 +93,7 @@ public slots:
 private slots:
     static void on_pushHelp_clicked();
     void cleanup();
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
     void on_pushAbout_clicked();
     void on_pushCM_clicked();
     void on_pushChange_clicked();

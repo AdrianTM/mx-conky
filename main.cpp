@@ -44,12 +44,14 @@ QString getRunningConky()
     Cmd cmd;
 
     QString pid = cmd.getCmdOut(QStringLiteral("pgrep -u $(id -nu) -nx conky"), true);
-    if (pid.isEmpty())
-        return QString();
+    if (pid.isEmpty()) {
+        return {};
+    }
     QString conkyrc = cmd.getCmdOutUntrimmed(
         QString("sed -nrz '/^--config=/s///p; /^(-c|--config)/{n;p;}' /proc/%1/cmdline").arg(pid), true);
-    if (conkyrc.startsWith("/"))
+    if (conkyrc.startsWith("/")) {
         return conkyrc;
+    }
     QString conkywd = cmd.getCmdOutUntrimmed(QString("sed -nrz '/^PWD=/s///p' /proc/%1/environ").arg(pid), true);
     return conkywd + "/" + conkyrc;
 }
@@ -58,14 +60,16 @@ QString openFile(const QDir &dir)
 {
     QString file_name = getRunningConky();
 
-    if (not file_name.isEmpty())
+    if (not file_name.isEmpty()) {
         return file_name;
+    }
 
     QString selected
         = QFileDialog::getOpenFileName(nullptr, QObject::tr("Select Conky Manager config file"), dir.path());
-    if (not selected.isEmpty())
+    if (not selected.isEmpty()) {
         return selected;
-    return QString();
+    }
+    return {};
 }
 
 void messageUpdate()
@@ -100,17 +104,20 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(VERSION);
 
     QTranslator qtTran;
-    if (qtTran.load("qt_" + QLocale().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+    if (qtTran.load("qt_" + QLocale().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
         QApplication::installTranslator(&qtTran);
+    }
 
     QTranslator qtBaseTran;
-    if (qtBaseTran.load("qtbase_" + QLocale().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+    if (qtBaseTran.load("qtbase_" + QLocale().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
         QApplication::installTranslator(&qtBaseTran);
+    }
 
     QTranslator appTran;
     if (appTran.load(QApplication::applicationName() + "_" + QLocale().name(),
-                     "/usr/share/" + QApplication::applicationName() + "/locale"))
+                     "/usr/share/" + QApplication::applicationName() + "/locale")) {
         QApplication::installTranslator(&appTran);
+    }
 
     if (system("dpkg -s conky-manager | grep -q 'Status: install ok installed'") != 0
         && system("dpkg -s conky-manager2 | grep -q 'Status: install ok installed'") != 0) {
@@ -122,8 +129,9 @@ int main(int argc, char *argv[])
     if (getuid() != 0) {
 
         QString dir = QDir::homePath() + "/.conky";
-        if (!QFile::exists(dir))
+        if (!QFile::exists(dir)) {
             QDir().mkdir(dir);
+        }
 
         messageUpdate();
 
@@ -131,13 +139,15 @@ int main(int argc, char *argv[])
         system("cp -rn /usr/share/mx-conky-data/themes/* " + dir.toUtf8());
 
         QString file;
-        if (QApplication::arguments().length() >= 2 && QFile::exists(QApplication::arguments().at(1)))
+        if (QApplication::arguments().length() >= 2 && QFile::exists(QApplication::arguments().at(1))) {
             file = QApplication::arguments().at(1);
-        else
+        } else {
             file = openFile(dir);
+        }
 
-        if (file.isEmpty())
+        if (file.isEmpty()) {
             return EXIT_FAILURE;
+        }
 
         MainWindow w(nullptr, file);
         w.show();
