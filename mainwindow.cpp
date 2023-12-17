@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &file)
     : QDialog(parent),
       ui(new Ui::MainWindow)
 {
-    debug = (QProcessEnvironment::systemEnvironment().value(QStringLiteral("DEBUG")).length() > 0);
+    debug = (QProcessEnvironment::systemEnvironment().value("DEBUG").length() > 0);
 
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << QCoreApplication::applicationVersion();
     ui->setupUi(this);
@@ -45,9 +45,9 @@ MainWindow::MainWindow(QWidget *parent, const QString &file)
     connect(QApplication::instance(), &QApplication::aboutToQuit, this, &MainWindow::cleanup);
 
     file_name = file;
-    this->setWindowTitle(tr("MX Conky"));
+    setWindowTitle(tr("MX Conky"));
 
-    // set regexp pattern
+    // Set regexp pattern
     lua_format = QStringLiteral("^\\s*(--|conky.config\\s*=\\s*{|conky.text\\s*=\\s*{)");
     lua_config = QStringLiteral("^\\s*(conky.config\\s*=\\s*{");
     old_format = QStringLiteral("^\\s*#|^TEXT$");
@@ -69,7 +69,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// detect conky format old or lua
+// Detect conky format old or lua
 void MainWindow::detectConkyFormat()
 {
     QRegularExpression lua_format_regexp(lua_format);
@@ -104,7 +104,7 @@ void MainWindow::detectConkyFormat()
     }
 }
 
-// find defined colors in the config file
+// Find defined colors in the config file
 void MainWindow::parseContent()
 {
 
@@ -138,9 +138,9 @@ void MainWindow::parseContent()
     }
 
     bool lua_block_comment = false;
-    //  bool lua_config = false;
+    //  Bool lua_config = false;
     for (const QString &row : list) {
-        // lua comment block
+        // Lua comment block
         QString trow = row.trimmed();
         if (is_lua_format) {
             if (lua_block_comment) {
@@ -183,7 +183,7 @@ void MainWindow::parseContent()
                 }
             }
         }
-        // comment line
+        // Comment line
         if (trow.startsWith(comment_sep)) {
             continue;
         }
@@ -192,7 +192,7 @@ void MainWindow::parseContent()
             trow = trow.split(comment_sep)[0];
         }
 
-        // color line
+        // Color line
         match_color = regexp_color.match(trow);
         if (match_color.hasMatch()) {
             QString color_item = match_color.captured(QStringLiteral("color_item"));
@@ -277,7 +277,7 @@ bool MainWindow::checkConkyRunning()
     }
 }
 
-// read config file
+// Read config file
 bool MainWindow::readFile(const QString &file_name)
 {
     QFile file(file_name);
@@ -303,17 +303,17 @@ void MainWindow::refresh()
 {
     modified = false;
 
-    // hide all color frames by default, display only the ones in the config file
+    // Hide all color frames by default, display only the ones in the config file
     const QList<QWidget *> frames({ui->frameDefault, ui->frame0, ui->frame1, ui->frame2, ui->frame3, ui->frame4,
                                    ui->frame5, ui->frame6, ui->frame7, ui->frame8, ui->frame9});
-    for (QWidget *w : frames) {
+    for (auto *w : frames) {
         w->hide();
     }
-    // draw borders around color widgets
+    // Draw borders around color widgets
     const QList<QWidget *> widgets({ui->widgetDefaultColor, ui->widgetColor0, ui->widgetColor1, ui->widgetColor2,
                                     ui->widgetColor3, ui->widgetColor4, ui->widgetColor5, ui->widgetColor6,
                                     ui->widgetColor7, ui->widgetColor8, ui->widgetColor9});
-    for (QWidget *w : widgets) {
+    for (auto *w : widgets) {
         w->setStyleSheet(QStringLiteral("border: 1px solid black"));
     }
 
@@ -329,7 +329,7 @@ void MainWindow::refresh()
         detectConkyFormat();
         parseContent();
     }
-    this->adjustSize();
+    adjustSize();
 }
 
 void MainWindow::saveBackup()
@@ -352,7 +352,7 @@ void MainWindow::saveBackup()
     QFile(file_name + ".bak").remove();
 }
 
-// write color change back to the file
+// Write color change back to the file
 void MainWindow::writeColor(QWidget *widget, const QColor &color)
 {
     QRegularExpression regexp_old_comment_line(old_comment_line);
@@ -410,7 +410,7 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
     new_list.reserve(list.size());
     bool lua_block_comment = false;
     for (const QString &row : list) {
-        // lua comment block
+        // Lua comment block
         QString trow = row.trimmed();
         if (is_lua_format) {
             if (lua_block_comment) {
@@ -456,7 +456,7 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
                 }
             }
         }
-        // comment line
+        // Comment line
         if (trow.startsWith(comment_sep)) {
             new_list << row;
             continue;
@@ -494,9 +494,6 @@ void MainWindow::writeFile(QFile file, const QString &content)
 void MainWindow::cleanup()
 {
     saveBackup();
-
-    //    if (!cmd->terminate())
-    //        cmd->kill();
 }
 
 void MainWindow::pickColor(QWidget *widget)
@@ -521,7 +518,7 @@ void MainWindow::setColor(QWidget *widget, const QColor &color)
 
 void MainWindow::on_pushAbout_clicked()
 {
-    this->hide();
+    hide();
     const QString url = QStringLiteral("file:///usr/share/doc/mx-conky/license.html");
     QMessageBox msgBox(QMessageBox::NoIcon, tr("About MX Conky"),
                        "<p align=\"center\"><b><h2>" + tr("MX Conky") + "</h2></b></p><p align=\"center\">"
@@ -538,9 +535,9 @@ void MainWindow::on_pushAbout_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton() == btnLicense) {
-        QString executablePath = QStandardPaths::findExecutable("mx-viewer");
-        QString cmd = executablePath.isEmpty() ? "xdg-open" : "mx-viewer";
-        QProcess::startDetached(cmd, {url});
+        const QString executablePath = QStandardPaths::findExecutable("mx-viewer");
+        const QString cmd_str = executablePath.isEmpty() ? "xdg-open" : "mx-viewer";
+        QProcess::startDetached(cmd_str, {url});
     } else if (msgBox.clickedButton() == btnChangelog) {
         auto *changelog = new QDialog(this);
         changelog->setWindowTitle(tr("Changelog"));
@@ -550,9 +547,8 @@ void MainWindow::on_pushAbout_clicked()
 
         auto *text = new QTextEdit;
         text->setReadOnly(true);
-        Cmd cmd;
-        text->setText(cmd.getCmdOut("zless /usr/share/doc/"
-                                    + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"));
+        text->setText(Cmd().getCmdOut(
+            "zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"));
 
         auto *btnClose = new QPushButton(tr("&Close"));
         btnClose->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
@@ -564,19 +560,15 @@ void MainWindow::on_pushAbout_clicked()
         changelog->setLayout(layout);
         changelog->exec();
     }
-    this->show();
+    show();
 }
 
 void MainWindow::on_pushHelp_clicked()
 {
-    const QString url = QStringLiteral("/usr/share/doc/mx-conky/mx-conky.html");
-    QString cmd;
-    if (system("command -v mx-viewer") == 0) {
-        cmd = "mx-viewer " + url + " " + tr("MX Conky Help") + "&";
-    } else {
-        cmd = "xdg-open " + url;
-    }
-    system(cmd.toUtf8());
+    QString url = "/usr/share/doc/mx-conky/mx-conky.html";
+    QString cmd_str = system("command -v mx-viewer") == 0 ? "mx-viewer " + url + " " + tr("MX Conky Help") + "&"
+                                                          : "xdg-open " + url;
+    system(cmd_str.toUtf8());
 }
 
 void MainWindow::on_pushDefaultColor_clicked()
@@ -626,13 +618,9 @@ void MainWindow::on_pushColor9_clicked()
 
 void MainWindow::on_pushToggleOn_clicked()
 {
-    QString cmd;
-    if (checkConkyRunning()) {
-        cmd = QString("pkill -u $(id -nu) -x conky");
-    } else {
-        cmd = QString("cd \"$(dirname '%1')\"; conky -c '%1' &").arg(file_name);
-    }
-    system(cmd.toUtf8());
+    QString cmd_str = checkConkyRunning() ? "pkill -u $(id -nu) -x conky"
+                                          : QString("cd \"$(dirname '%1')\"; conky -c '%1' &").arg(file_name);
+    system(cmd_str.toUtf8());
     checkConkyRunning();
 }
 
@@ -648,10 +636,7 @@ void MainWindow::on_pushRestore_clicked()
 
 void MainWindow::on_pushEdit_clicked()
 {
-    this->hide();
-    QString editor;
-    Cmd cmd;
-
+    hide();
     QString run = QStringLiteral("set -o pipefail; ");
     run += QLatin1String("XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ");
     run += QLatin1String("eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}");
@@ -660,11 +645,10 @@ void MainWindow::on_pushEdit_clicked()
     bool quiet = true;
     if (debug) {
         qDebug() << "run-cmd: " << run;
-    }
-    if (debug) {
         quiet = false;
     }
-    bool error = cmd.run(run, editor, quiet);
+    QString editor;
+    bool error = Cmd().run(run, editor, quiet);
     if (debug) {
         qDebug() << "run:'" + editor + " '" + file_name.toUtf8() + "'";
     }
@@ -684,12 +668,12 @@ void MainWindow::on_pushEdit_clicked()
                 system("featherpad '" + file_name.toUtf8() + "'");
             }
             refresh();
-            this->show();
+            show();
             return;
         }
     }
     refresh();
-    this->show();
+    show();
 }
 
 void MainWindow::on_pushChange_clicked()
@@ -725,7 +709,7 @@ void MainWindow::on_radioDesktop1_clicked()
     QStringList new_list;
     new_list.reserve(list.size());
     for (const QString &row : list) {
-        // lua comment block
+        // Lua comment block
         QString trow = row.trimmed();
         if (is_lua_format) {
             if (lua_block_comment) {
@@ -771,7 +755,7 @@ void MainWindow::on_radioDesktop1_clicked()
                 }
             }
         }
-        // comment line
+        // Comment line
         if (trow.startsWith(comment_sep)) {
             new_list << row;
             continue;
@@ -784,8 +768,6 @@ void MainWindow::on_radioDesktop1_clicked()
 
             if (debug) {
                 qDebug() << "on_radioDesktops1_clicked: own_window_hints found row : " << row;
-            }
-            if (debug) {
                 qDebug() << "on_radioDesktops1_clicked: own_window_hints found trow: " << trow;
             }
             match_owh = regexp_owh.match(row);
@@ -807,8 +789,6 @@ void MainWindow::on_radioDesktop1_clicked()
                 if (is_lua_format) {
                     if (debug) {
                         qDebug() << "regexp_owh : " << regexp_lua_owh;
-                    }
-                    if (debug) {
                         qDebug() << "regexp_owh : " << regexp_owh;
                     }
                 } else {
@@ -929,8 +909,6 @@ void MainWindow::on_radioAllDesktops_clicked()
         } else {
             if (debug) {
                 qDebug() << "on_radioAllDesktops_clicked: own_window_hints found row : " << row;
-            }
-            if (debug) {
                 qDebug() << "on_radioAllDesktops_clicked: own_window_hints found trow: " << trow;
             }
             match_owh = regexp_owh.match(row);
@@ -1000,9 +978,9 @@ void MainWindow::on_radioMonthShort_clicked()
 
 void MainWindow::on_pushCM_clicked()
 {
-    this->hide();
-    system("command -v conky-manager && conky-manager || command -v conky-manager2  && conky-manager2");
-    this->show();
+    hide();
+    system("command -v conky-manager && conky-manager || command -v conky-manager2 && conky-manager2");
+    show();
 }
 
 void MainWindow::closeEvent(QCloseEvent * /*event*/)

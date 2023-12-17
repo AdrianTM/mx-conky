@@ -40,14 +40,14 @@ SOURCES += \
 
 HEADERS  += \
     mainwindow.h \
-    version.h \
     cmd.h \
     versionnumber.h
 
 FORMS    += \
     mainwindow.ui
 
-TRANSLATIONS += translations/mx-conky_en.ts
+TRANSLATIONS += \
+    translations/mx-conky_en.ts
 
 RESOURCES += \
     images.qrc

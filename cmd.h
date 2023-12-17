@@ -1,5 +1,4 @@
-#ifndef CMD_H
-#define CMD_H
+#pragma once
 
 #include <QProcess>
 
@@ -18,12 +17,10 @@ public:
     QString getCmdOutUntrimmed(const QString &cmd, bool quiet = false);
 
 signals:
-    void finished();
+    void done();
     void errorAvailable(const QString &err);
     void outputAvailable(const QString &out);
 
 private:
     QString out_buffer;
 };
-
-#endif // CMD_H
