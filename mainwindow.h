@@ -102,13 +102,15 @@ private:
     bool debug = false;
 
     // Regexp pattern
+    QString capture_lua_color;
+    QString capture_old_color;
+    QString lua_comment_end;
+    QString lua_comment_line;
+    QString lua_comment_start;
     QString lua_config;
     QString lua_format;
-    QString old_format;
-    QString lua_comment_line;
     QString old_comment_line;
-    QString lua_comment_start;
-    QString lua_comment_end;
+    QString old_format;
 
     QString capture_lua_owh = QStringLiteral("^(?<before>(?:.*\\]\\])?\\s*(?<item>own_window_hints)(?:\\s*=\\s*[\\\"\\'"
                                              "]))(?<value>[[:alnum:],_]*)(?<after>(?:[\\\"\\']\\s*,).*)");
@@ -117,8 +119,5 @@ private:
 
     QString block_comment_start = QStringLiteral("--[[");
     QString block_comment_end = QStringLiteral("]]");
-
-    QString capture_lua_color;
-    QString capture_old_color;
     QRegularExpression regexp_lua_color(QString);
 };

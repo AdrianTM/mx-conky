@@ -34,34 +34,29 @@
 
 MainWindow::MainWindow(QWidget *parent, const QString &file)
     : QDialog(parent),
-      ui(new Ui::MainWindow)
+      ui(new Ui::MainWindow),
+      file_name {file},
+      capture_lua_color {
+          R"(^(?<before>(.*\]\])?\s*(?<color_item>default_color|color\d)(?:\s*=\s*[\"\']))(?:#?)(?<color_value>[[:alnum:]]+)(?<after>(?:[\"\']).*))"},
+      capture_old_color {
+          R"(^(?<before>\s*(?<color_item>default_color|color\d)(?:\s+))(?:#?)(?<color_value>[[:alnum:]]+)(?<after>.*))"},
+      lua_comment_end {R"(^\s*\]\])"},
+      lua_comment_line {R"(^\s*--)"},
+      lua_comment_start {R"(^\s*--\[\[)"},
+      lua_config {R"(^\s*(conky.config\s*=\s*{)"},
+      lua_format {R"(^\s*(--|conky.config\s*=\s*{|conky.text\s*=\s*{))"},
+      old_comment_line {R"(^\s*#)"},
+      old_format {R"(^\s*#|^TEXT$)"}
 {
     debug = (QProcessEnvironment::systemEnvironment().value("DEBUG").length() > 0);
 
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << QCoreApplication::applicationVersion();
     ui->setupUi(this);
     setWindowFlags(Qt::Window); // for the close, min and max buttons
-
     connect(QApplication::instance(), &QApplication::aboutToQuit, this, &MainWindow::cleanup);
-
-    file_name = file;
     setWindowTitle(tr("MX Conky"));
-
-    // Set regexp pattern
-    lua_format = QStringLiteral("^\\s*(--|conky.config\\s*=\\s*{|conky.text\\s*=\\s*{)");
-    lua_config = QStringLiteral("^\\s*(conky.config\\s*=\\s*{");
-    old_format = QStringLiteral("^\\s*#|^TEXT$");
-    lua_comment_line = QStringLiteral("^\\s*--");
-    lua_comment_start = QStringLiteral("^\\s*--\\[\\[");
-    lua_comment_end = QStringLiteral("^\\s*\\]\\]");
-    old_comment_line = QStringLiteral("^\\s*#");
-    capture_lua_color = QStringLiteral("^(?<before>(.*\\]\\])?\\s*(?<color_item>default_color|color\\d)(?:\\s*=\\s*["
-                                       "\\\"\\']))(?:#?)(?<color_value>[[:alnum:]]+)(?<after>(?:[\\\"\\']).*)");
-    capture_old_color = QStringLiteral(
-        "^(?<before>\\s*(?<color_item>default_color|color\\d)(?:\\s+))(?:#?)(?<color_value>[[:alnum:]]+)(?<after>.*)");
-
     refresh();
-    restoreGeometry(settings.value(QStringLiteral("geometery")).toByteArray());
+    restoreGeometry(settings.value("geometery").toByteArray());
 }
 
 MainWindow::~MainWindow()
@@ -75,7 +70,7 @@ void MainWindow::detectConkyFormat()
     QRegularExpression lua_format_regexp(lua_format);
     QRegularExpression old_format_regexp(old_format);
 
-    const QStringList list = file_content.split(QStringLiteral("\n"));
+    const QStringList list = file_content.split('\n');
     if (debug) {
         qDebug() << "Detecting conky format: " + file_name;
     }
@@ -124,14 +119,14 @@ void MainWindow::parseContent()
     if (is_lua_format) {
         regexp_color = regexp_lua_color;
         regexp_comment_line = regexp_lua_comment_line;
-        comment_sep = QStringLiteral("--");
+        comment_sep = "--";
     } else {
         regexp_color = regexp_old_color;
         regexp_comment_line = regexp_old_comment_line;
-        comment_sep = QStringLiteral("#");
+        comment_sep = "#";
     }
 
-    const QStringList list = file_content.split(QStringLiteral("\n"));
+    const QStringList list = file_content.split('\n');
 
     if (debug) {
         qDebug() << "Parsing content: " + file_name;
@@ -195,34 +190,34 @@ void MainWindow::parseContent()
         // Color line
         match_color = regexp_color.match(trow);
         if (match_color.hasMatch()) {
-            QString color_item = match_color.captured(QStringLiteral("color_item"));
-            QString color_value = match_color.captured(QStringLiteral("color_value"));
+            QString color_item = match_color.captured("color_item");
+            QString color_value = match_color.captured("color_value");
 
-            if (color_item == QLatin1String("default_color")) {
+            if (color_item == "default_color") {
                 setColor(ui->widgetDefaultColor, strToColor(color_value));
-            } else if (color_item == QLatin1String("color0")) {
+            } else if (color_item == "color0") {
                 setColor(ui->widgetColor0, strToColor(color_value));
-            } else if (color_item == QLatin1String("color1")) {
+            } else if (color_item == "color1") {
                 setColor(ui->widgetColor1, strToColor(color_value));
-            } else if (color_item == QLatin1String("color2")) {
+            } else if (color_item == "color2") {
                 setColor(ui->widgetColor2, strToColor(color_value));
-            } else if (color_item == QLatin1String("color3")) {
+            } else if (color_item == "color3") {
                 setColor(ui->widgetColor3, strToColor(color_value));
-            } else if (color_item == QLatin1String("color4")) {
+            } else if (color_item == "color4") {
                 setColor(ui->widgetColor4, strToColor(color_value));
-            } else if (color_item == QLatin1String("color5")) {
+            } else if (color_item == "color5") {
                 ui->labelColor5->setText(ui->labelColor0->text().replace('0', '5'));
                 setColor(ui->widgetColor5, strToColor(color_value));
-            } else if (color_item == QLatin1String("color6")) {
+            } else if (color_item == "color6") {
                 ui->labelColor6->setText(ui->labelColor0->text().replace('0', '6'));
                 setColor(ui->widgetColor6, strToColor(color_value));
-            } else if (color_item == QLatin1String("color7")) {
+            } else if (color_item == "color7") {
                 ui->labelColor7->setText(ui->labelColor0->text().replace('0', '7'));
                 setColor(ui->widgetColor7, strToColor(color_value));
-            } else if (color_item == QLatin1String("color8")) {
+            } else if (color_item == "color8") {
                 ui->labelColor8->setText(ui->labelColor0->text().replace('0', '8'));
                 setColor(ui->widgetColor8, strToColor(color_value));
-            } else if (color_item == QLatin1String("color9")) {
+            } else if (color_item == "color9") {
                 ui->labelColor9->setText(ui->labelColor0->text().replace('0', '9'));
                 setColor(ui->widgetColor9, strToColor(color_value));
             }
@@ -230,12 +225,12 @@ void MainWindow::parseContent()
         }
 
         // Desktop config
-        if (trow.startsWith(QLatin1String("own_window_hints"))) {
+        if (trow.startsWith("own_window_hints")) {
             own_window_hints_found = true;
             if (debug) {
                 qDebug() << "own_window_hints line found: " << trow;
             }
-            if (trow.contains(QLatin1String("sticky"))) {
+            if (trow.contains("sticky")) {
                 ui->radioAllDesktops->setChecked(true);
             } else {
                 ui->radioDesktop1->setChecked(true);
@@ -244,14 +239,15 @@ void MainWindow::parseContent()
         }
 
         // Day/Month format
-        if (trow.contains(QLatin1String("%A"))) {
+        if (trow.contains("%A")) {
             ui->radioDayLong->setChecked(true);
-        } else if (row.contains(QLatin1String("%a"))) {
+        } else if (row.contains("%a")) {
             ui->radioDayShort->setChecked(true);
         }
-        if (row.contains(QLatin1String("%B"))) {
+
+        if (row.contains("%B")) {
             ui->radioMonthLong->setChecked(true);
-        } else if (row.contains(QLatin1String("%b"))) {
+        } else if (row.contains("%b")) {
             ui->radioMonthShort->setChecked(true);
         }
     }
@@ -267,12 +263,12 @@ bool MainWindow::checkConkyRunning()
         qDebug() << system("echo pgrep -u $(id -nu) -x conky : ") << ret;
     }
     if (ret == 0) {
-        ui->pushToggleOn->setText(QStringLiteral("Stop"));
-        ui->pushToggleOn->setIcon(QIcon::fromTheme(QStringLiteral("stop")));
+        ui->pushToggleOn->setText("Stop");
+        ui->pushToggleOn->setIcon(QIcon::fromTheme("stop"));
         return true;
     } else {
-        ui->pushToggleOn->setText(QStringLiteral("Run"));
-        ui->pushToggleOn->setIcon(QIcon::fromTheme(QStringLiteral("start")));
+        ui->pushToggleOn->setText("Run");
+        ui->pushToggleOn->setIcon(QIcon::fromTheme("start"));
         return false;
     }
 }
@@ -294,7 +290,7 @@ QColor MainWindow::strToColor(const QString &colorstr)
 {
     QColor color(colorstr);
     if (!color.isValid()) { // if color is invalid assume RGB values and add a # in front of the string
-        color.setNamedColor("#" + colorstr);
+        color.setNamedColor('#' + colorstr);
     }
     return color;
 }
@@ -314,7 +310,7 @@ void MainWindow::refresh()
                                     ui->widgetColor3, ui->widgetColor4, ui->widgetColor5, ui->widgetColor6,
                                     ui->widgetColor7, ui->widgetColor8, ui->widgetColor9});
     for (auto *w : widgets) {
-        w->setStyleSheet(QStringLiteral("border: 1px solid black"));
+        w->setStyleSheet("border: 1px solid black");
     }
 
     QString conky_name = QFileInfo(file_name).fileName();
@@ -335,17 +331,16 @@ void MainWindow::refresh()
 void MainWindow::saveBackup()
 {
     if (modified) {
-        int ans = QMessageBox::question(this, QStringLiteral("Backup config file"),
-                                        QStringLiteral("Do you want to preserve the original file?"));
+        int ans = QMessageBox::question(this, "Backup config file", "Do you want to preserve the original file?");
         if (ans == QMessageBox::Yes) {
-            QString time_stamp = cmd.getCmdOut(QStringLiteral("date +%y%m%d_%H%m%S"));
+            QString time_stamp = cmd.getCmdOut("date +%y%m%d_%H%m%S");
             QFileInfo fi(file_name);
-            QString new_name = fi.canonicalPath() + "/" + fi.baseName() + "_" + time_stamp;
+            QString new_name = fi.canonicalPath() + '/' + fi.baseName() + '_' + time_stamp;
             if (fi.completeSuffix().length() > 0) {
                 new_name += "." + fi.completeSuffix();
             }
             QFile::copy(file_name + ".bak", new_name);
-            QMessageBox::information(this, QStringLiteral("Backed up config file"),
+            QMessageBox::information(this, "Backed up config file",
                                      "The original configuration was backed up to " + new_name);
         }
     }
@@ -371,41 +366,41 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
     if (is_lua_format) {
         regexp_color = regexp_lua_color;
         regexp_comment_line = regexp_lua_comment_line;
-        comment_sep = QStringLiteral("--");
+        comment_sep = "--";
     } else {
         regexp_color = regexp_old_color;
         regexp_comment_line = regexp_old_comment_line;
-        comment_sep = QStringLiteral("#");
+        comment_sep = "#";
     }
 
     QString color_name;
 
     QString item_name;
-    if (widget->objectName() == QLatin1String("widgetDefaultColor")) {
-        item_name = QStringLiteral("default_color");
-    } else if (widget->objectName() == QLatin1String("widgetColor0")) {
-        item_name = QStringLiteral("color0");
-    } else if (widget->objectName() == QLatin1String("widgetColor1")) {
-        item_name = QStringLiteral("color1");
-    } else if (widget->objectName() == QLatin1String("widgetColor2")) {
-        item_name = QStringLiteral("color2");
-    } else if (widget->objectName() == QLatin1String("widgetColor3")) {
-        item_name = QStringLiteral("color3");
-    } else if (widget->objectName() == QLatin1String("widgetColor4")) {
-        item_name = QStringLiteral("color4");
-    } else if (widget->objectName() == QLatin1String("widgetColor5")) {
-        item_name = QStringLiteral("color5");
-    } else if (widget->objectName() == QLatin1String("widgetColor6")) {
-        item_name = QStringLiteral("color6");
-    } else if (widget->objectName() == QLatin1String("widgetColor7")) {
-        item_name = QStringLiteral("color7");
-    } else if (widget->objectName() == QLatin1String("widgetColor8")) {
-        item_name = QStringLiteral("color8");
-    } else if (widget->objectName() == QLatin1String("widgetColor9")) {
-        item_name = QStringLiteral("color9");
+    if (widget->objectName() == "widgetDefaultColor") {
+        item_name = "default_color";
+    } else if (widget->objectName() == "widgetColor0") {
+        item_name = "color0";
+    } else if (widget->objectName() == "widgetColor1") {
+        item_name = "color1";
+    } else if (widget->objectName() == "widgetColor2") {
+        item_name = "color2";
+    } else if (widget->objectName() == "widgetColor3") {
+        item_name = "color3";
+    } else if (widget->objectName() == "widgetColor4") {
+        item_name = "color4";
+    } else if (widget->objectName() == "widgetColor5") {
+        item_name = "color5";
+    } else if (widget->objectName() == "widgetColor6") {
+        item_name = "color6";
+    } else if (widget->objectName() == "widgetColor7") {
+        item_name = "color7";
+    } else if (widget->objectName() == "widgetColor8") {
+        item_name = "color8";
+    } else if (widget->objectName() == "widgetColor9") {
+        item_name = "color9";
     }
 
-    const QStringList list = file_content.split(QStringLiteral("\n"));
+    const QStringList list = file_content.split('\n');
     QStringList new_list;
     new_list.reserve(list.size());
     bool lua_block_comment = false;
@@ -463,19 +458,19 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
         }
 
         match_color = regexp_color.match(row);
-        if (match_color.hasMatch() && match_color.captured(QStringLiteral("color_item")) == item_name) {
+        if (match_color.hasMatch() && match_color.captured("color_item") == item_name) {
             color_name = color.name();
             if (!is_lua_format) {
                 color_name = color.name().remove('#');
             }
-            new_list << match_color.captured(QStringLiteral("before")) + color_name
-                            + match_color.captured(QStringLiteral("after"));
+            new_list << match_color.captured("before") + color_name + match_color.captured("after");
+
         } else {
             new_list << row;
             continue;
         }
     }
-    file_content = new_list.join(QStringLiteral("\n")).append("\n");
+    file_content = new_list.join('\n').append('\n');
     writeFile(QFile(file_name), file_content);
 }
 
@@ -519,7 +514,7 @@ void MainWindow::setColor(QWidget *widget, const QColor &color)
 void MainWindow::on_pushAbout_clicked()
 {
     hide();
-    const QString url = QStringLiteral("file:///usr/share/doc/mx-conky/license.html");
+    const QString url = "file:///usr/share/doc/mx-conky/license.html";
     QMessageBox msgBox(QMessageBox::NoIcon, tr("About MX Conky"),
                        "<p align=\"center\"><b><h2>" + tr("MX Conky") + "</h2></b></p><p align=\"center\">"
                            + tr("Version: ") + QCoreApplication::applicationVersion() + "</p><p align=\"center\"><h3>"
@@ -530,7 +525,7 @@ void MainWindow::on_pushAbout_clicked()
     auto *btnLicense = msgBox.addButton(tr("License"), QMessageBox::HelpRole);
     auto *btnChangelog = msgBox.addButton(tr("Changelog"), QMessageBox::HelpRole);
     auto *btnCancel = msgBox.addButton(tr("Cancel"), QMessageBox::NoRole);
-    btnCancel->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+    btnCancel->setIcon(QIcon::fromTheme("window-close"));
 
     msgBox.exec();
 
@@ -551,7 +546,7 @@ void MainWindow::on_pushAbout_clicked()
             "zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"));
 
         auto *btnClose = new QPushButton(tr("&Close"));
-        btnClose->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+        btnClose->setIcon(QIcon::fromTheme("window-close"));
         connect(btnClose, &QPushButton::clicked, changelog, &QDialog::close);
 
         auto *layout = new QVBoxLayout;
@@ -637,11 +632,11 @@ void MainWindow::on_pushRestore_clicked()
 void MainWindow::on_pushEdit_clicked()
 {
     hide();
-    QString run = QStringLiteral("set -o pipefail; ");
-    run += QLatin1String("XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ");
-    run += QLatin1String("eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}");
-    run += QLatin1String("$(xdg-mime query default text/plain)  2>/dev/null ");
-    run += QLatin1String("| head -1 | sed 's/^Exec=//' | tr -d '\"' | tr -s ' ' | sed 's/@@//g; s/%f//I; s/%u//I' ");
+    QString run = "set -o pipefail; ";
+    run += "XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ";
+    run += "eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}";
+    run += "$(xdg-mime query default text/plain)  2>/dev/null ";
+    run += "| head -1 | sed 's/^Exec=//' | tr -d '\"' | tr -s ' ' | sed 's/@@//g; s/%f//I; s/%u//I' ";
     bool quiet = true;
     if (debug) {
         qDebug() << "run-cmd: " << run;
@@ -652,8 +647,8 @@ void MainWindow::on_pushEdit_clicked()
     if (debug) {
         qDebug() << "run:'" + editor + " '" + file_name.toUtf8() + "'";
     }
-    if (editor.startsWith(QLatin1String("kate -s")) || editor.startsWith(QLatin1String("kate --start"))) {
-        editor = QStringLiteral("kate");
+    if (editor.startsWith("kate -s") || editor.startsWith("kate --start")) {
+        editor = "kate";
     }
     if (system(editor.toUtf8() + " '" + file_name.toUtf8() + "'") != 0) {
         if (error || (system("which " + editor.toUtf8() + " 1>/dev/null") != 0)) {
@@ -699,13 +694,13 @@ void MainWindow::on_radioDesktop1_clicked()
 
     if (is_lua_format) {
         regexp_owh = regexp_lua_owh;
-        comment_sep = QStringLiteral("--");
+        comment_sep = "--";
     } else {
         regexp_owh = regexp_old_owh;
-        comment_sep = QStringLiteral("#");
+        comment_sep = "#";
     }
 
-    const QStringList list = file_content.split(QStringLiteral("\n"));
+    const QStringList list = file_content.split('\n');
     QStringList new_list;
     new_list.reserve(list.size());
     for (const QString &row : list) {
@@ -761,7 +756,7 @@ void MainWindow::on_radioDesktop1_clicked()
             continue;
         }
 
-        if (!trow.startsWith(QLatin1String("own_window_hints"))) {
+        if (!trow.startsWith("own_window_hints")) {
             new_list << row;
             continue;
         } else {
@@ -771,13 +766,11 @@ void MainWindow::on_radioDesktop1_clicked()
                 qDebug() << "on_radioDesktops1_clicked: own_window_hints found trow: " << trow;
             }
             match_owh = regexp_owh.match(row);
-            if (match_owh.hasMatch()
-                && match_owh.captured(QStringLiteral("item")) == QLatin1String("own_window_hints")) {
-                QString owh_value = match_owh.captured(QStringLiteral("value"));
-                owh_value.replace(QLatin1String(",sticky"), QLatin1String(""));
-                owh_value.replace(QLatin1String("sticky"), QLatin1String(""));
-                QString new_row = match_owh.captured(QStringLiteral("before")) + owh_value
-                                  + match_owh.captured(QStringLiteral("after"));
+            if (match_owh.hasMatch() && match_owh.captured("item") == "own_window_hints") {
+                QString owh_value = match_owh.captured("value");
+                owh_value.replace(",sticky", "");
+                owh_value.replace("sticky", "");
+                QString new_row = match_owh.captured("before") + owh_value + match_owh.captured("after");
                 if (debug) {
                     qDebug() << "Removed sticky: " << new_row;
                 }
@@ -801,7 +794,7 @@ void MainWindow::on_radioDesktop1_clicked()
         }
     }
 
-    file_content = new_list.join(QStringLiteral("\n")).append("\n");
+    file_content = new_list.join('\n').append('\n');
     writeFile(QFile(file_name), file_content);
 }
 
@@ -812,8 +805,8 @@ void MainWindow::on_radioAllDesktops_clicked()
     QRegularExpression regexp_old_owh(capture_old_owh);
     QRegularExpression regexp_owh;
     QRegularExpressionMatch match_owh;
-    QString conky_config_lua_end = QStringLiteral("}");
-    QString conky_config_old_end = QStringLiteral("TEXT");
+    QString conky_config_lua_end = "}";
+    QString conky_config_old_end = "TEXT";
     QString conky_config_end;
     QString conky_sticky;
     bool lua_block_comment {false};
@@ -821,20 +814,20 @@ void MainWindow::on_radioAllDesktops_clicked()
 
     if (is_lua_format) {
         regexp_owh = regexp_lua_owh;
-        comment_sep = QStringLiteral("--");
+        comment_sep = "--";
         conky_config = false;
         conky_config_end = conky_config_lua_end;
-        conky_sticky = QStringLiteral("\town_window_hints = 'sticky',");
+        conky_sticky = "\town_window_hints = 'sticky',";
     } else {
         regexp_owh = regexp_old_owh;
-        comment_sep = QStringLiteral("#");
+        comment_sep = "#";
         conky_config = true;
         conky_config_end = conky_config_old_end;
-        conky_sticky = QStringLiteral("own_window_hints sticky");
+        conky_sticky = "own_window_hints sticky";
     }
 
     bool found = false;
-    const QStringList list = file_content.split(QStringLiteral("\n"));
+    const QStringList list = file_content.split('\n');
     QStringList new_list;
     QString trow;
     for (const QString &row : list) {
@@ -888,7 +881,7 @@ void MainWindow::on_radioAllDesktops_clicked()
             new_list << row;
             continue;
         }
-        if (is_lua_format && trow.startsWith(QLatin1String("conky.config"))) {
+        if (is_lua_format && trow.startsWith("conky.config")) {
             conky_config = true;
         }
 
@@ -903,7 +896,7 @@ void MainWindow::on_radioAllDesktops_clicked()
             continue;
         }
 
-        if (!trow.startsWith(QLatin1String("own_window_hints "))) {
+        if (!trow.startsWith("own_window_hints ")) {
             new_list << row;
             continue;
         } else {
@@ -912,22 +905,19 @@ void MainWindow::on_radioAllDesktops_clicked()
                 qDebug() << "on_radioAllDesktops_clicked: own_window_hints found trow: " << trow;
             }
             match_owh = regexp_owh.match(row);
-            if (match_owh.hasMatch()
-                && match_owh.captured(QStringLiteral("item")) == QLatin1String("own_window_hints")) {
-                QString owh_value = match_owh.captured(QStringLiteral("value"));
+            if (match_owh.hasMatch() && match_owh.captured("item") == "own_window_hints") {
+                QString owh_value = match_owh.captured("value");
                 if (owh_value.length() == 0) {
-                    owh_value = QStringLiteral("sticky");
+                    owh_value = "sticky";
                 } else {
                     owh_value.append(",sticky");
                 }
-                QString new_row = match_owh.captured(QStringLiteral("before")) + owh_value
-                                  + match_owh.captured(QStringLiteral("after"));
+                QString new_row = match_owh.captured("before") + owh_value + match_owh.captured("after");
                 if (debug) {
                     qDebug() << "Append sticky: " << new_row;
                 }
 
-                new_list << match_owh.captured(QStringLiteral("before")) + owh_value
-                                + match_owh.captured(QStringLiteral("after"));
+                new_list << match_owh.captured("before") + owh_value + match_owh.captured("after");
                 found = true;
             } else {
                 if (debug) {
@@ -948,31 +938,31 @@ void MainWindow::on_radioAllDesktops_clicked()
         }
     }
 
-    file_content = new_list.join(QStringLiteral("\n")).append("\n");
+    file_content = new_list.join('\n').append('\n');
     writeFile(file_name, file_content);
 }
 
 void MainWindow::on_radioDayLong_clicked()
 {
-    file_content.replace(QLatin1String("%a"), QLatin1String("%A"));
+    file_content.replace("%a", "%A");
     writeFile(file_name, file_content);
 }
 
 void MainWindow::on_radioDayShort_clicked()
 {
-    file_content.replace(QLatin1String("%A"), QLatin1String("%a"));
+    file_content.replace("%A", "%a");
     writeFile(file_name, file_content);
 }
 
 void MainWindow::on_radioMonthLong_clicked()
 {
-    file_content.replace(QLatin1String("%b"), QLatin1String("%B"));
+    file_content.replace("%b", "%B");
     writeFile(file_name, file_content);
 }
 
 void MainWindow::on_radioMonthShort_clicked()
 {
-    file_content.replace(QLatin1String("%B"), QLatin1String("%b"));
+    file_content.replace("%B", "%b");
     writeFile(file_name, file_content);
 }
 
@@ -985,5 +975,5 @@ void MainWindow::on_pushCM_clicked()
 
 void MainWindow::closeEvent(QCloseEvent * /*event*/)
 {
-    settings.setValue(QStringLiteral("geometery"), saveGeometry());
+    settings.setValue("geometery", saveGeometry());
 }
