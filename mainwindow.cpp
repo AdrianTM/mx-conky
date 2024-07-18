@@ -48,15 +48,15 @@ MainWindow::MainWindow(QWidget *parent, const QString &file)
       old_comment_line {R"(^\s*#)"},
       old_format {R"(^\s*#|^TEXT$)"}
 {
-    debug = (QProcessEnvironment::systemEnvironment().value("DEBUG").length() > 0);
+    debug = !QProcessEnvironment::systemEnvironment().value("DEBUG").isEmpty();
 
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << QCoreApplication::applicationVersion();
     ui->setupUi(this);
-    setWindowFlags(Qt::Window); // for the close, min and max buttons
+    setWindowFlags(Qt::Window); // Enable close, min, and max buttons
     connect(QApplication::instance(), &QApplication::aboutToQuit, this, &MainWindow::cleanup);
     setWindowTitle(tr("MX Conky"));
     refresh();
-    restoreGeometry(settings.value("geometery").toByteArray());
+    restoreGeometry(settings.value("geometry").toByteArray());
 }
 
 MainWindow::~MainWindow()
