@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &file)
     setWindowTitle(tr("MX Conky"));
     refresh();
     restoreGeometry(settings.value("geometry").toByteArray());
+    setConnections();
 }
 
 MainWindow::~MainWindow()
@@ -310,6 +311,33 @@ void MainWindow::refresh()
     adjustSize();
 }
 
+void MainWindow::setConnections()
+{
+    connect(ui->pushAbout, &QPushButton::clicked, this, &MainWindow::pushAbout_clicked);
+    connect(ui->pushCM, &QPushButton::clicked, this, &MainWindow::pushCM_clicked);
+    connect(ui->pushChange, &QPushButton::clicked, this, &MainWindow::pushChange_clicked);
+    connect(ui->pushColor0, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(0); });
+    connect(ui->pushColor1, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(1); });
+    connect(ui->pushColor2, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(2); });
+    connect(ui->pushColor3, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(3); });
+    connect(ui->pushColor4, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(4); });
+    connect(ui->pushColor5, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(5); });
+    connect(ui->pushColor6, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(6); });
+    connect(ui->pushColor7, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(7); });
+    connect(ui->pushColor8, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(8); });
+    connect(ui->pushColor9, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(9); });
+    connect(ui->pushDefaultColor, &QPushButton::clicked, this, &MainWindow::pushDefaultColor_clicked);
+    connect(ui->pushEdit, &QPushButton::clicked, this, &MainWindow::pushEdit_clicked);
+    connect(ui->pushRestore, &QPushButton::clicked, this, &MainWindow::pushRestore_clicked);
+    connect(ui->pushToggleOn, &QPushButton::clicked, this, &MainWindow::pushToggleOn_clicked);
+    connect(ui->radioAllDesktops, &QRadioButton::clicked, this, &MainWindow::radioAllDesktops_clicked);
+    connect(ui->radioDayLong, &QRadioButton::clicked, this, &MainWindow::radioDayLong_clicked);
+    connect(ui->radioDayShort, &QRadioButton::clicked, this, &MainWindow::radioDayShort_clicked);
+    connect(ui->radioDesktop1, &QRadioButton::clicked, this, &MainWindow::radioDesktop1_clicked);
+    connect(ui->radioMonthLong, &QRadioButton::clicked, this, &MainWindow::radioMonthLong_clicked);
+    connect(ui->radioMonthShort, &QRadioButton::clicked, this, &MainWindow::radioMonthShort_clicked);
+}
+
 void MainWindow::saveBackup()
 {
     if (modified) {
@@ -474,7 +502,7 @@ void MainWindow::setColor(QWidget *widget, const QColor &color)
     }
 }
 
-void MainWindow::on_pushAbout_clicked()
+void MainWindow::pushAbout_clicked()
 {
     hide();
     const QString url = "file:///usr/share/doc/mx-conky/license.html";
@@ -521,7 +549,7 @@ void MainWindow::on_pushAbout_clicked()
     show();
 }
 
-void MainWindow::on_pushHelp_clicked()
+void MainWindow::pushHelp_clicked()
 {
     QString url = "/usr/share/doc/mx-conky/mx-conky.html";
     QString cmd_str = system("command -v mx-viewer") == 0 ? "mx-viewer " + url + " " + tr("MX Conky Help") + "&"
@@ -529,52 +557,21 @@ void MainWindow::on_pushHelp_clicked()
     system(cmd_str.toUtf8());
 }
 
-void MainWindow::on_pushDefaultColor_clicked()
+void MainWindow::pushColorButton_clicked(int colorIndex)
 {
-    pickColor(ui->widgetDefaultColor);
-}
-void MainWindow::on_pushColor0_clicked()
-{
-    pickColor(ui->widgetColor0);
-}
-void MainWindow::on_pushColor1_clicked()
-{
-    pickColor(ui->widgetColor1);
-}
-void MainWindow::on_pushColor2_clicked()
-{
-    pickColor(ui->widgetColor2);
-}
-void MainWindow::on_pushColor3_clicked()
-{
-    pickColor(ui->widgetColor3);
-}
-void MainWindow::on_pushColor4_clicked()
-{
-    pickColor(ui->widgetColor4);
-}
-void MainWindow::on_pushColor5_clicked()
-{
-    pickColor(ui->widgetColor5);
-}
-void MainWindow::on_pushColor6_clicked()
-{
-    pickColor(ui->widgetColor6);
-}
-void MainWindow::on_pushColor7_clicked()
-{
-    pickColor(ui->widgetColor7);
-}
-void MainWindow::on_pushColor8_clicked()
-{
-    pickColor(ui->widgetColor8);
-}
-void MainWindow::on_pushColor9_clicked()
-{
-    pickColor(ui->widgetColor9);
+    QWidget* colorWidget = (colorIndex >= 0 && colorIndex <= 9) ?
+        ui->groupBoxColors->findChild<QWidget*>(QString("widgetColor%1").arg(colorIndex)) :
+        ui->widgetDefaultColor;
+
+    pickColor(colorWidget);
 }
 
-void MainWindow::on_pushToggleOn_clicked()
+void MainWindow::pushDefaultColor_clicked()
+{
+    pushColorButton_clicked(-1); // Default color
+}
+
+void MainWindow::pushToggleOn_clicked()
 {
     QString cmd_str = checkConkyRunning() ? "pkill -u $(id -nu) -x conky"
                                           : QString("cd \"$(dirname '%1')\"; conky -c '%1' &").arg(file_name);
@@ -582,7 +579,7 @@ void MainWindow::on_pushToggleOn_clicked()
     checkConkyRunning();
 }
 
-void MainWindow::on_pushRestore_clicked()
+void MainWindow::pushRestore_clicked()
 {
     if (QFile(file_name + ".bak").exists()) {
         QFile(file_name).remove();
@@ -592,7 +589,7 @@ void MainWindow::on_pushRestore_clicked()
     }
 }
 
-void MainWindow::on_pushEdit_clicked()
+void MainWindow::pushEdit_clicked()
 {
     hide();
     QString run = "set -o pipefail; ";
@@ -634,7 +631,7 @@ void MainWindow::on_pushEdit_clicked()
     show();
 }
 
-void MainWindow::on_pushChange_clicked()
+void MainWindow::pushChange_clicked()
 {
     saveBackup();
     QString selected = QFileDialog::getOpenFileName(nullptr, QObject::tr("Select Conky Manager config file"),
@@ -645,7 +642,7 @@ void MainWindow::on_pushChange_clicked()
     refresh();
 }
 
-void MainWindow::on_radioDesktop1_clicked()
+void MainWindow::radioDesktop1_clicked()
 {
     QRegularExpression regexp_lua_owh(capture_lua_owh);
     QRegularExpression regexp_old_owh(capture_old_owh);
@@ -753,7 +750,7 @@ void MainWindow::on_radioDesktop1_clicked()
     writeFile(QFile(file_name), file_content);
 }
 
-void MainWindow::on_radioAllDesktops_clicked()
+void MainWindow::radioAllDesktops_clicked()
 {
     QString comment_sep;
     QRegularExpression regexp_lua_owh(capture_lua_owh);
@@ -897,31 +894,31 @@ void MainWindow::on_radioAllDesktops_clicked()
     writeFile(file_name, file_content);
 }
 
-void MainWindow::on_radioDayLong_clicked()
+void MainWindow::radioDayLong_clicked()
 {
     file_content.replace("%a", "%A");
     writeFile(file_name, file_content);
 }
 
-void MainWindow::on_radioDayShort_clicked()
+void MainWindow::radioDayShort_clicked()
 {
     file_content.replace("%A", "%a");
     writeFile(file_name, file_content);
 }
 
-void MainWindow::on_radioMonthLong_clicked()
+void MainWindow::radioMonthLong_clicked()
 {
     file_content.replace("%b", "%B");
     writeFile(file_name, file_content);
 }
 
-void MainWindow::on_radioMonthShort_clicked()
+void MainWindow::radioMonthShort_clicked()
 {
     file_content.replace("%B", "%b");
     writeFile(file_name, file_content);
 }
 
-void MainWindow::on_pushCM_clicked()
+void MainWindow::pushCM_clicked()
 {
     hide();
     system("command -v conky-manager && conky-manager || command -v conky-manager2 && conky-manager2");

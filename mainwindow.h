@@ -44,49 +44,24 @@ public:
     explicit MainWindow(QWidget *parent = nullptr, const QString &file = QLatin1String(""));
     ~MainWindow() override;
 
-    void parseContent();
-    void detectConkyFormat();
-    void pickColor(QWidget *widget);
-    void refresh();
-    void saveBackup();
-    void setColor(QWidget *widget, const QColor &color);
-    void writeColor(QWidget *widget, const QColor &color);
-    void writeFile(QFile file, const QString &content);
-
-    bool checkConkyRunning();
-    bool readFile(const QString &file_name);
-
-    static QColor strToColor(const QString &colorstr);
-
-public slots:
-
 private slots:
-    static void on_pushHelp_clicked();
+    static void pushHelp_clicked();
     void cleanup();
     void closeEvent(QCloseEvent *event) override;
-    void on_pushAbout_clicked();
-    void on_pushCM_clicked();
-    void on_pushChange_clicked();
-    void on_pushColor0_clicked();
-    void on_pushColor1_clicked();
-    void on_pushColor2_clicked();
-    void on_pushColor3_clicked();
-    void on_pushColor4_clicked();
-    void on_pushColor5_clicked();
-    void on_pushColor6_clicked();
-    void on_pushColor7_clicked();
-    void on_pushColor8_clicked();
-    void on_pushColor9_clicked();
-    void on_pushDefaultColor_clicked();
-    void on_pushEdit_clicked();
-    void on_pushRestore_clicked();
-    void on_pushToggleOn_clicked();
-    void on_radioAllDesktops_clicked();
-    void on_radioDayLong_clicked();
-    void on_radioDayShort_clicked();
-    void on_radioDesktop1_clicked();
-    void on_radioMonthLong_clicked();
-    void on_radioMonthShort_clicked();
+    void pushAbout_clicked();
+    void pushCM_clicked();
+    void pushChange_clicked();
+    void pushColorButton_clicked(int colorIndex);
+    void pushDefaultColor_clicked();
+    void pushEdit_clicked();
+    void pushRestore_clicked();
+    void pushToggleOn_clicked();
+    void radioAllDesktops_clicked();
+    void radioDayLong_clicked();
+    void radioDayShort_clicked();
+    void radioDesktop1_clicked();
+    void radioMonthLong_clicked();
+    void radioMonthShort_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -120,4 +95,17 @@ private:
     QString block_comment_start = QStringLiteral("--[[");
     QString block_comment_end = QStringLiteral("]]");
     QRegularExpression regexp_lua_color(QString);
+
+    [[nodiscard]] bool readFile(const QString &file_name);
+    [[nodiscard]] static QColor strToColor(const QString &colorstr);
+    bool checkConkyRunning();
+    void detectConkyFormat();
+    void parseContent();
+    void pickColor(QWidget *widget);
+    void refresh();
+    void saveBackup();
+    void setColor(QWidget *widget, const QColor &color);
+    void setConnections();
+    void writeColor(QWidget *widget, const QColor &color);
+    void writeFile(QFile file, const QString &content);
 };
