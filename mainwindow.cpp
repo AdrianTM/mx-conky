@@ -66,37 +66,35 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// Detect conky format old or lua
+// Detect conky format (old or lua)
 void MainWindow::detectConkyFormat()
 {
     QRegularExpression lua_format_regexp(lua_format);
     QRegularExpression old_format_regexp(old_format);
-
     const QStringList list = file_content.split('\n');
+
     if (debug) {
-        qDebug() << "Detecting conky format: " + file_name;
+        qDebug() << "Detecting conky format: " << file_name;
     }
 
     conky_format_detected = false;
 
     for (const QString &row : list) {
-        QRegularExpressionMatch lua_format_match = lua_format_regexp.match(row);
-        if (lua_format_match.hasMatch()) {
+        if (lua_format_regexp.match(row).hasMatch()) {
             is_lua_format = true;
             conky_format_detected = true;
             if (debug) {
-                qDebug() << "Conky format detected 'lua-format' :" + file_name;
+                qDebug() << "Conky format detected: 'lua-format' in " << file_name;
             }
-            break;
+            return;
         }
-        QRegularExpressionMatch old_format_match = old_format_regexp.match(row);
-        if (old_format_match.hasMatch()) {
+        if (old_format_regexp.match(row).hasMatch()) {
             is_lua_format = false;
             conky_format_detected = true;
             if (debug) {
-                qDebug() << "Conky format detected 'old-format' :" + file_name;
+                qDebug() << "Conky format detected: 'old-format' in " << file_name;
             }
-            break;
+            return;
         }
     }
 }
