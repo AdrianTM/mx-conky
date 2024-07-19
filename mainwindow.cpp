@@ -975,5 +975,5 @@ void MainWindow::on_pushCM_clicked()
 
 void MainWindow::closeEvent(QCloseEvent * /*event*/)
 {
-    settings.setValue("geometery", saveGeometry());
+    settings.setValue("geometry", saveGeometry());
 }
