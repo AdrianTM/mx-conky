@@ -102,11 +102,12 @@ void MainWindow::detectConkyFormat()
 // Find defined colors in the config file
 void MainWindow::parseContent()
 {
+    QRegularExpression regexp_lua_color(capture_lua_color);
+    QRegularExpression regexp_old_color(capture_old_color);
     QRegularExpressionMatch match_color;
-    QRegularExpression regexp_color;
+    QRegularExpression regexp_color = is_lua_format ? regexp_lua_color : regexp_old_color;
+    QString comment_sep = is_lua_format ? "--" : "#";
     bool own_window_hints_found = false;
-
-    const QString comment_sep = is_lua_format ? "--" : "#";
     const QStringList list = file_content.split('\n');
 
     if (debug) {
@@ -331,12 +332,11 @@ void MainWindow::saveBackup()
 // Write color change back to the file
 void MainWindow::writeColor(QWidget *widget, const QColor &color)
 {
+    QRegularExpression regexp_lua_color(capture_lua_color);
+    QRegularExpression regexp_old_color(capture_old_color);
     QRegularExpressionMatch match_color;
-    QRegularExpression regexp_color;
-    QRegularExpression regexp_comment_line;
-    const QString comment_sep = is_lua_format ? "--" : "#";
-
-    QString color_name;
+    QRegularExpression regexp_color = is_lua_format ? regexp_lua_color : regexp_old_color;
+    QString comment_sep = is_lua_format ? "--" : "#";
 
     QString item_name;
     if (widget->objectName() == "widgetDefaultColor") {
@@ -422,7 +422,7 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
 
         match_color = regexp_color.match(row);
         if (match_color.hasMatch() && match_color.captured("color_item") == item_name) {
-            color_name = color.name();
+            QString color_name = color.name();
             if (!is_lua_format) {
                 color_name = color.name().remove('#');
             }
@@ -647,21 +647,13 @@ void MainWindow::on_pushChange_clicked()
 
 void MainWindow::on_radioDesktop1_clicked()
 {
-    QString comment_sep;
     QRegularExpression regexp_lua_owh(capture_lua_owh);
     QRegularExpression regexp_old_owh(capture_old_owh);
-    QRegularExpression regexp_owh;
+    QRegularExpression regexp_owh = is_lua_format ? regexp_lua_owh : regexp_old_owh;
+    QString comment_sep = is_lua_format ? "--" : "#";
     QRegularExpressionMatch match_owh;
 
     bool lua_block_comment = false;
-
-    if (is_lua_format) {
-        regexp_owh = regexp_lua_owh;
-        comment_sep = "--";
-    } else {
-        regexp_owh = regexp_old_owh;
-        comment_sep = "#";
-    }
 
     const QStringList list = file_content.split('\n');
     QStringList new_list;
