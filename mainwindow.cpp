@@ -355,30 +355,9 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
     QRegularExpression regexp_color = is_lua_format ? regexp_lua_color : regexp_old_color;
     QString comment_sep = is_lua_format ? "--" : "#";
 
-    QString item_name;
-    if (widget->objectName() == "widgetDefaultColor") {
-        item_name = "default_color";
-    } else if (widget->objectName() == "widgetColor0") {
-        item_name = "color0";
-    } else if (widget->objectName() == "widgetColor1") {
-        item_name = "color1";
-    } else if (widget->objectName() == "widgetColor2") {
-        item_name = "color2";
-    } else if (widget->objectName() == "widgetColor3") {
-        item_name = "color3";
-    } else if (widget->objectName() == "widgetColor4") {
-        item_name = "color4";
-    } else if (widget->objectName() == "widgetColor5") {
-        item_name = "color5";
-    } else if (widget->objectName() == "widgetColor6") {
-        item_name = "color6";
-    } else if (widget->objectName() == "widgetColor7") {
-        item_name = "color7";
-    } else if (widget->objectName() == "widgetColor8") {
-        item_name = "color8";
-    } else if (widget->objectName() == "widgetColor9") {
-        item_name = "color9";
-    }
+    QString item_name = widget->objectName() == "widgetDefaultColor" ? "default_color" :
+                        (widget->objectName().startsWith("widgetColor") ?
+                        QString("color%1").arg(widget->objectName().midRef(11)) : QString());
 
     const QStringList list = file_content.split('\n');
     QStringList new_list;
