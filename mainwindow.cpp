@@ -241,19 +241,17 @@ void MainWindow::parseContent()
 
 bool MainWindow::checkConkyRunning()
 {
-    int ret = system("sleep 0.3; pgrep -u $(id -nu) -x conky >/dev/null 2>&1");
+    QProcess process;
+    process.start("pgrep", QStringList() << "-u" << qgetenv("USER") << "-x" << "conky");
+    process.waitForFinished();
+    int ret = process.exitCode();
     if (debug) {
-        qDebug() << system("echo pgrep -u $(id -nu) -x conky : ") << ret;
+        qDebug() << "pgrep -u" << qgetenv("USER") << "-x conky :" << ret;
     }
-    if (ret == 0) {
-        ui->pushToggleOn->setText("Stop");
-        ui->pushToggleOn->setIcon(QIcon::fromTheme("stop"));
-        return true;
-    } else {
-        ui->pushToggleOn->setText("Run");
-        ui->pushToggleOn->setIcon(QIcon::fromTheme("start"));
-        return false;
-    }
+    bool isRunning = (ret == 0);
+    ui->pushToggleOn->setText(isRunning ? "Stop" : "Run");
+    ui->pushToggleOn->setIcon(QIcon::fromTheme(isRunning ? "stop" : "start"));
+    return isRunning;
 }
 
 // Read config file
