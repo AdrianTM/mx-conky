@@ -109,7 +109,6 @@ void MainWindow::parseContent()
     QString comment_sep = is_lua_format ? "--" : "#";
     bool own_window_hints_found = false;
     const QStringList list = file_content.split('\n');
-
     if (debug) {
         qDebug() << "Parsing content: " + file_name;
     }
@@ -172,64 +171,49 @@ void MainWindow::parseContent()
         // Color line
         match_color = regexp_color.match(trow);
         if (match_color.hasMatch()) {
-            QString color_item = match_color.captured("color_item");
-            QString color_value = match_color.captured("color_value");
+            const QString color_item = match_color.captured("color_item");
+            const QString color_value = match_color.captured("color_value");
+            QWidget *colorWidget = nullptr;
 
             if (color_item == "default_color") {
-                setColor(ui->widgetDefaultColor, strToColor(color_value));
-            } else if (color_item == "color0") {
-                setColor(ui->widgetColor0, strToColor(color_value));
-            } else if (color_item == "color1") {
-                setColor(ui->widgetColor1, strToColor(color_value));
-            } else if (color_item == "color2") {
-                setColor(ui->widgetColor2, strToColor(color_value));
-            } else if (color_item == "color3") {
-                setColor(ui->widgetColor3, strToColor(color_value));
-            } else if (color_item == "color4") {
-                setColor(ui->widgetColor4, strToColor(color_value));
-            } else if (color_item == "color5") {
-                ui->labelColor5->setText(ui->labelColor0->text().replace('0', '5'));
-                setColor(ui->widgetColor5, strToColor(color_value));
-            } else if (color_item == "color6") {
-                ui->labelColor6->setText(ui->labelColor0->text().replace('0', '6'));
-                setColor(ui->widgetColor6, strToColor(color_value));
-            } else if (color_item == "color7") {
-                ui->labelColor7->setText(ui->labelColor0->text().replace('0', '7'));
-                setColor(ui->widgetColor7, strToColor(color_value));
-            } else if (color_item == "color8") {
-                ui->labelColor8->setText(ui->labelColor0->text().replace('0', '8'));
-                setColor(ui->widgetColor8, strToColor(color_value));
-            } else if (color_item == "color9") {
-                ui->labelColor9->setText(ui->labelColor0->text().replace('0', '9'));
-                setColor(ui->widgetColor9, strToColor(color_value));
+                colorWidget = ui->widgetDefaultColor;
+            } else if (color_item.startsWith("color")) {
+                const int index = color_item.midRef(5).toInt(); // Extract the number from "colorX";
+
+                colorWidget = ui->groupBoxColors->findChild<QWidget *>(QString("widgetColor%1").arg(index));
+                if (colorWidget) {
+                    QLabel *label = ui->groupBoxColors->findChild<QLabel *>(QString("labelColor%1").arg(index));
+                    if (label) {
+                        label->setText(QString("Color%1").arg(index));
+                    }
+                }
+            }
+            if (colorWidget) {
+                setColor(colorWidget, strToColor(color_value));
             }
             continue;
         }
-
         // Desktop config
         if (trow.startsWith("own_window_hints")) {
             own_window_hints_found = true;
             if (debug) {
-                qDebug() << "own_window_hints line found: " << trow;
+                qDebug() << "own_window_hints line found:" << trow;
             }
-            if (trow.contains("sticky")) {
-                ui->radioAllDesktops->setChecked(true);
-            } else {
-                ui->radioDesktop1->setChecked(true);
-            }
+            ui->radioAllDesktops->setChecked(trow.contains("sticky"));
+            ui->radioDesktop1->setChecked(!trow.contains("sticky"));
             continue;
         }
 
         // Day/Month format
         if (trow.contains("%A")) {
             ui->radioDayLong->setChecked(true);
-        } else if (row.contains("%a")) {
+        } else if (trow.contains("%a")) {
             ui->radioDayShort->setChecked(true);
         }
 
-        if (row.contains("%B")) {
+        if (trow.contains("%B")) {
             ui->radioMonthLong->setChecked(true);
-        } else if (row.contains("%b")) {
+        } else if (trow.contains("%b")) {
             ui->radioMonthShort->setChecked(true);
         }
     }
