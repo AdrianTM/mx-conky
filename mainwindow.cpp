@@ -485,10 +485,12 @@ void MainWindow::writeFile(QFile file, const QString &content)
 
 void MainWindow::pickColor(QWidget *widget)
 {
-    QColor color = QColorDialog::getColor(widget->palette().color(QWidget::backgroundRole()), this, tr("Select Color"));
-    if (color.isValid()) {
-        setColor(widget, color);
-        writeColor(widget, color);
+    QColor initialColor = widget->palette().color(QWidget::backgroundRole());
+    QColor selectedColor = QColorDialog::getColor(initialColor, this, tr("Select Color"));
+
+    if (selectedColor.isValid()) {
+        setColor(widget, selectedColor);
+        writeColor(widget, selectedColor);
     } else {
         qDebug() << "Color selection was canceled or invalid.";
     }
@@ -496,12 +498,14 @@ void MainWindow::pickColor(QWidget *widget)
 
 void MainWindow::setColor(QWidget *widget, const QColor &color)
 {
-    widget->parentWidget()->show();
-    if (color.isValid()) {
-        QPalette pal = palette();
+    if (widget && color.isValid()) {
+        widget->parentWidget()->show();
+        QPalette pal = widget->palette();
         pal.setColor(QPalette::Window, color);
         widget->setAutoFillBackground(true);
         widget->setPalette(pal);
+    } else {
+        qDebug() << "Invalid widget or color.";
     }
 }
 
@@ -562,11 +566,15 @@ void MainWindow::pushHelp_clicked()
 
 void MainWindow::pushColorButton_clicked(int colorIndex)
 {
-    QWidget *colorWidget = (colorIndex >= 0 && colorIndex <= 9)
+    QWidget *colorWidget = (colorIndex >= 0 && colorIndex < 10)
                                ? ui->groupBoxColors->findChild<QWidget *>(QString("widgetColor%1").arg(colorIndex))
                                : ui->widgetDefaultColor;
 
-    pickColor(colorWidget);
+    if (colorWidget) {
+        pickColor(colorWidget);
+    } else {
+        qWarning() << "Color widget not found for index:" << colorIndex;
+    }
 }
 
 void MainWindow::pushDefaultColor_clicked()
@@ -584,11 +592,16 @@ void MainWindow::pushToggleOn_clicked()
 
 void MainWindow::pushRestore_clicked()
 {
-    if (QFile(file_name + ".bak").exists()) {
-        QFile(file_name).remove();
-    }
-    if (QFile::copy(file_name + ".bak", file_name)) {
-        refresh();
+    QString backupFileName = file_name + ".bak";
+    if (QFile::exists(backupFileName)) {
+        QFile::remove(file_name);
+        if (QFile::copy(backupFileName, file_name)) {
+            refresh();
+        } else {
+            qWarning() << "Failed to restore from backup:" << backupFileName;
+        }
+    } else {
+        QMessageBox::warning(this, tr("Restore Failed"), tr("Backup file does not exist."));
     }
 }
 
