@@ -328,9 +328,9 @@ void MainWindow::setConnections()
     connect(ui->radioMonthLong, &QRadioButton::clicked, this, &MainWindow::radioMonthLong_clicked);
     connect(ui->radioMonthShort, &QRadioButton::clicked, this, &MainWindow::radioMonthShort_clicked);
     for (int i = 0; i < 10; ++i) {
-        auto *colorButton = ui->groupBoxColors->findChild<QPushButton *>(QString("pushColor%1").arg(i));
+        auto *colorButton = ui->groupBoxColors->findChild<QToolButton *>(QString("pushColor%1").arg(i));
         if (colorButton) {
-            connect(colorButton, &QPushButton::clicked, this, [this, i]() { pushColorButton_clicked(i); });
+            connect(colorButton, &QToolButton::clicked, this, [this, i]() { pushColorButton_clicked(i); });
         }
     }
 }
@@ -485,10 +485,12 @@ void MainWindow::writeFile(QFile file, const QString &content)
 
 void MainWindow::pickColor(QWidget *widget)
 {
-    QColor color = QColorDialog::getColor(widget->palette().color(QWidget::backgroundRole()));
+    QColor color = QColorDialog::getColor(widget->palette().color(QWidget::backgroundRole()), this, tr("Select Color"));
     if (color.isValid()) {
         setColor(widget, color);
         writeColor(widget, color);
+    } else {
+        qDebug() << "Color selection was canceled or invalid.";
     }
 }
 
