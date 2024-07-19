@@ -102,13 +102,12 @@ void MainWindow::detectConkyFormat()
 // Find defined colors in the config file
 void MainWindow::parseContent()
 {
-    QRegularExpression regexp_lua_color(capture_lua_color);
-    QRegularExpression regexp_old_color(capture_old_color);
-    QRegularExpressionMatch match_color;
-    QRegularExpression regexp_color = is_lua_format ? regexp_lua_color : regexp_old_color;
+    QRegularExpression regexp_color
+        = is_lua_format ? QRegularExpression(capture_lua_color) : QRegularExpression(capture_old_color);
     QString comment_sep = is_lua_format ? "--" : "#";
     bool own_window_hints_found = false;
-    const QStringList list = file_content.split('\n');
+    const QStringList list = file_content.split('\n', Qt::SkipEmptyParts);
+
     if (debug) {
         qDebug() << "Parsing content: " + file_name;
     }
@@ -164,12 +163,13 @@ void MainWindow::parseContent()
             continue;
         }
 
+        // Remove inline comments
         if (trow.contains(comment_sep)) {
-            trow = trow.split(comment_sep)[0];
+            trow = trow.split(comment_sep).first().trimmed();
         }
 
-        // Color line
-        match_color = regexp_color.match(trow);
+        // Match color lines
+        auto match_color = regexp_color.match(trow);
         if (match_color.hasMatch()) {
             const QString color_item = match_color.captured("color_item");
             const QString color_value = match_color.captured("color_value");
@@ -193,7 +193,8 @@ void MainWindow::parseContent()
             }
             continue;
         }
-        // Desktop config
+
+        // Handle desktop configuration
         if (trow.startsWith("own_window_hints")) {
             own_window_hints_found = true;
             if (debug) {
@@ -204,7 +205,7 @@ void MainWindow::parseContent()
             continue;
         }
 
-        // Day/Month format
+        // Set day/month format
         if (trow.contains("%A")) {
             ui->radioDayLong->setChecked(true);
         } else if (trow.contains("%a")) {
@@ -217,6 +218,7 @@ void MainWindow::parseContent()
             ui->radioMonthShort->setChecked(true);
         }
     }
+
     if (!own_window_hints_found) {
         ui->radioDesktop1->setChecked(true);
     }
@@ -349,23 +351,25 @@ void MainWindow::saveBackup()
 // Write color change back to the file
 void MainWindow::writeColor(QWidget *widget, const QColor &color)
 {
-    QRegularExpression regexp_lua_color(capture_lua_color);
-    QRegularExpression regexp_old_color(capture_old_color);
-    QRegularExpressionMatch match_color;
-    QRegularExpression regexp_color = is_lua_format ? regexp_lua_color : regexp_old_color;
+    QRegularExpression regexp_color
+        = is_lua_format ? QRegularExpression(capture_lua_color) : QRegularExpression(capture_old_color);
     QString comment_sep = is_lua_format ? "--" : "#";
 
-    QString item_name = widget->objectName() == "widgetDefaultColor" ? "default_color" :
-                        (widget->objectName().startsWith("widgetColor") ?
-                        QString("color%1").arg(widget->objectName().midRef(11)) : QString());
+    QString item_name
+        = (widget->objectName() == "widgetDefaultColor")
+              ? "default_color"
+              : (widget->objectName().startsWith("widgetColor") ? QString("color%1").arg(widget->objectName().mid(11))
+                                                                : QString());
 
     const QStringList list = file_content.split('\n');
     QStringList new_list;
     new_list.reserve(list.size());
     bool lua_block_comment = false;
+
     for (const QString &row : list) {
-        // Lua comment block
         QString trow = row.trimmed();
+
+        // Handle Lua block comments
         if (is_lua_format) {
             if (lua_block_comment) {
                 if (trow.endsWith(block_comment_end)) {
@@ -416,20 +420,17 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
             continue;
         }
 
-        match_color = regexp_color.match(row);
+        // Match and update color lines
+        auto match_color = regexp_color.match(row);
         if (match_color.hasMatch() && match_color.captured("color_item") == item_name) {
-            QString color_name = color.name();
-            if (!is_lua_format) {
-                color_name = color.name().remove('#');
-            }
+            QString color_name = is_lua_format ? color.name() : color.name().remove('#');
             new_list << match_color.captured("before") + color_name + match_color.captured("after");
-
         } else {
             new_list << row;
-            continue;
         }
     }
-    file_content = new_list.join('\n').append('\n');
+
+    file_content = new_list.join('\n') + '\n';
     writeFile(QFile(file_name), file_content);
 }
 
