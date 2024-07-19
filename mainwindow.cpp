@@ -102,30 +102,11 @@ void MainWindow::detectConkyFormat()
 // Find defined colors in the config file
 void MainWindow::parseContent()
 {
-
-    QRegularExpression regexp_old_comment_line(old_comment_line);
-    QRegularExpression regexp_lua_comment_line(lua_comment_line);
-    QRegularExpression regexp_lua_color(capture_lua_color);
-    QRegularExpression regexp_old_color(capture_old_color);
     QRegularExpressionMatch match_color;
     QRegularExpression regexp_color;
-    QRegularExpression regexp_comment_line;
     bool own_window_hints_found = false;
 
-    QString comment_sep;
-    //    QString block_comment_start = "--[[";
-    //    QString block_comment_end = "]]";
-
-    if (is_lua_format) {
-        regexp_color = regexp_lua_color;
-        regexp_comment_line = regexp_lua_comment_line;
-        comment_sep = "--";
-    } else {
-        regexp_color = regexp_old_color;
-        regexp_comment_line = regexp_old_comment_line;
-        comment_sep = "#";
-    }
-
+    const QString comment_sep = is_lua_format ? "--" : "#";
     const QStringList list = file_content.split('\n');
 
     if (debug) {
@@ -350,28 +331,10 @@ void MainWindow::saveBackup()
 // Write color change back to the file
 void MainWindow::writeColor(QWidget *widget, const QColor &color)
 {
-    QRegularExpression regexp_old_comment_line(old_comment_line);
-    QRegularExpression regexp_lua_comment_line(lua_comment_line);
-    QRegularExpression regexp_lua_color(capture_lua_color);
-    QRegularExpression regexp_old_color(capture_old_color);
-
     QRegularExpressionMatch match_color;
     QRegularExpression regexp_color;
     QRegularExpression regexp_comment_line;
-
-    QString comment_sep;
-    //    QString block_comment_start = "--[[";
-    //    QString block_comment_end = "]]";
-
-    if (is_lua_format) {
-        regexp_color = regexp_lua_color;
-        regexp_comment_line = regexp_lua_comment_line;
-        comment_sep = "--";
-    } else {
-        regexp_color = regexp_old_color;
-        regexp_comment_line = regexp_old_comment_line;
-        comment_sep = "#";
-    }
+    const QString comment_sep = is_lua_format ? "--" : "#";
 
     QString color_name;
 
