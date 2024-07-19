@@ -328,8 +328,10 @@ void MainWindow::setConnections()
     connect(ui->radioMonthLong, &QRadioButton::clicked, this, &MainWindow::radioMonthLong_clicked);
     connect(ui->radioMonthShort, &QRadioButton::clicked, this, &MainWindow::radioMonthShort_clicked);
     for (int i = 0; i < 10; ++i) {
-        connect(ui->groupBoxColors->findChild<QPushButton *>(QString("pushColor%1").arg(i)), &QPushButton::clicked,
-                this, [this, i]() { pushColorButton_clicked(i); });
+        auto *colorButton = ui->groupBoxColors->findChild<QPushButton *>(QString("pushColor%1").arg(i));
+        if (colorButton) {
+            connect(colorButton, &QPushButton::clicked, this, [this, i]() { pushColorButton_clicked(i); });
+        }
     }
 }
 
