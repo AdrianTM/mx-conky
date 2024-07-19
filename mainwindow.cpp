@@ -23,6 +23,7 @@
  **********************************************************************/
 
 #include <QColorDialog>
+#include <QDateTime>
 #include <QDebug>
 #include <QFileDialog>
 #include <QRegularExpression>
@@ -336,21 +337,29 @@ void MainWindow::setConnections()
 
 void MainWindow::saveBackup()
 {
-    if (modified) {
-        int ans = QMessageBox::question(this, "Backup config file", "Do you want to preserve the original file?");
-        if (ans == QMessageBox::Yes) {
-            QString time_stamp = cmd.getCmdOut("date +%y%m%d_%H%m%S");
-            QFileInfo fi(file_name);
-            QString new_name = fi.canonicalPath() + '/' + fi.baseName() + '_' + time_stamp;
-            if (fi.completeSuffix().length() > 0) {
-                new_name += "." + fi.completeSuffix();
-            }
-            QFile::copy(file_name + ".bak", new_name);
-            QMessageBox::information(this, "Backed up config file",
-                                     "The original configuration was backed up to " + new_name);
+    if (!modified) {
+        return;
+    }
+
+    int ans = QMessageBox::question(this, tr("Backup Config File"), tr("Do you want to preserve the original file?"));
+    if (ans == QMessageBox::Yes) {
+        QString time_stamp = QDateTime::currentDateTime().toString("yyMMdd_HHmmss");
+        QFileInfo fi(file_name);
+        QString new_name = fi.canonicalPath() + '/' + fi.baseName() + '_' + time_stamp;
+
+        if (!fi.completeSuffix().isEmpty()) {
+            new_name += '.' + fi.completeSuffix();
+        }
+
+        if (QFile::copy(file_name + ".bak", new_name)) {
+            QMessageBox::information(this, tr("Backed Up Config File"),
+                                     tr("The original configuration was backed up to %1").arg(new_name));
+        } else {
+            QMessageBox::warning(this, tr("Backup Failed"), tr("Failed to create a backup file."));
         }
     }
-    QFile(file_name + ".bak").remove();
+
+    QFile::remove(file_name + ".bak");
 }
 
 // Write color change back to the file
