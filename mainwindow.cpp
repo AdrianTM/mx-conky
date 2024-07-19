@@ -899,9 +899,8 @@ void MainWindow::radioMonthShort_clicked()
 
 void MainWindow::pushCM_clicked()
 {
-    hide();
-    system("command -v conky-manager && conky-manager || command -v conky-manager2 && conky-manager2");
-    show();
+    QString command = "command -v conky-manager && conky-manager || command -v conky-manager2 && conky-manager2";
+    QProcess::startDetached("bash", {"-c", command});
 }
 
 void MainWindow::closeEvent(QCloseEvent * /*event*/)
