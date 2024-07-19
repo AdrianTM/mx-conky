@@ -54,7 +54,6 @@ MainWindow::MainWindow(QWidget *parent, const QString &file)
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << QCoreApplication::applicationVersion();
     ui->setupUi(this);
     setWindowFlags(Qt::Window); // Enable close, min, and max buttons
-    connect(QApplication::instance(), &QApplication::aboutToQuit, this, &MainWindow::cleanup);
     setWindowTitle(tr("MX Conky"));
     refresh();
     restoreGeometry(settings.value("geometry").toByteArray());
@@ -63,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &file)
 
 MainWindow::~MainWindow()
 {
+    saveBackup();
     delete ui;
 }
 
@@ -470,19 +470,15 @@ void MainWindow::writeColor(QWidget *widget, const QColor &color)
 
 void MainWindow::writeFile(QFile file, const QString &content)
 {
-    if (file.open(QIODevice::WriteOnly)) {
-        QTextStream out(&file);
-        out << content;
-        file.close();
-        modified = true;
-    } else {
+    if (!file.open(QIODevice::WriteOnly)) {
         qDebug() << "Error opening file " + file_name + " for output";
+        return;
     }
-}
 
-void MainWindow::cleanup()
-{
-    saveBackup();
+    QTextStream out(&file);
+    out << content;
+    modified = true;
+    file.close();
 }
 
 void MainWindow::pickColor(QWidget *widget)

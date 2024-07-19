@@ -46,7 +46,6 @@ public:
 
 private slots:
     static void pushHelp_clicked();
-    void cleanup();
     void closeEvent(QCloseEvent *event) override;
     void pushAbout_clicked();
     void pushCM_clicked();
