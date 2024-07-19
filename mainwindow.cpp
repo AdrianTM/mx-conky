@@ -242,7 +242,8 @@ void MainWindow::parseContent()
 bool MainWindow::checkConkyRunning()
 {
     QProcess process;
-    process.start("pgrep", QStringList() << "-u" << qgetenv("USER") << "-x" << "conky");
+    process.start("pgrep", QStringList() << "-u" << qgetenv("USER") << "-x"
+                                         << "conky");
     process.waitForFinished();
     int ret = process.exitCode();
     if (debug) {
@@ -280,28 +281,31 @@ void MainWindow::refresh()
 {
     modified = false;
 
-    // Hide all color frames by default, display only the ones in the config file
-    const QList<QWidget *> frames({ui->frameDefault, ui->frame0, ui->frame1, ui->frame2, ui->frame3, ui->frame4,
-                                   ui->frame5, ui->frame6, ui->frame7, ui->frame8, ui->frame9});
-    for (auto *w : frames) {
-        w->hide();
-    }
-    // Draw borders around color widgets
-    const QList<QWidget *> widgets({ui->widgetDefaultColor, ui->widgetColor0, ui->widgetColor1, ui->widgetColor2,
-                                    ui->widgetColor3, ui->widgetColor4, ui->widgetColor5, ui->widgetColor6,
-                                    ui->widgetColor7, ui->widgetColor8, ui->widgetColor9});
-    for (auto *w : widgets) {
-        w->setStyleSheet("border: 1px solid black");
+    // Hide all color frames by default, only show those specified in the config file
+    const QList<QWidget *> frames = {ui->frameDefault, ui->frame0, ui->frame1, ui->frame2, ui->frame3, ui->frame4,
+                                     ui->frame5,       ui->frame6, ui->frame7, ui->frame8, ui->frame9};
+    for (QWidget *frame : frames) {
+        frame->hide();
     }
 
-    QString conky_name = QFileInfo(file_name).fileName();
-    ui->pushChange->setText(conky_name);
+    // Set a border around color widgets for better visibility
+    const QList<QWidget *> colorWidgets = {ui->widgetDefaultColor, ui->widgetColor0, ui->widgetColor1, ui->widgetColor2,
+                                           ui->widgetColor3,       ui->widgetColor4, ui->widgetColor5, ui->widgetColor6,
+                                           ui->widgetColor7,       ui->widgetColor8, ui->widgetColor9};
+    for (QWidget *widget : colorWidgets) {
+        widget->setStyleSheet("border: 1px solid black");
+    }
+
+    // Update the button text to reflect the current conky file name
+    ui->pushChange->setText(QFileInfo(file_name).fileName());
 
     checkConkyRunning();
 
-    QFile(file_name + ".bak").remove();
+    // Backup the current configuration file
+    QFile::remove(file_name + ".bak");
     QFile::copy(file_name, file_name + ".bak");
 
+    // Read the configuration file and parse its content
     if (readFile(file_name)) {
         detectConkyFormat();
         parseContent();
@@ -314,16 +318,16 @@ void MainWindow::setConnections()
     connect(ui->pushAbout, &QPushButton::clicked, this, &MainWindow::pushAbout_clicked);
     connect(ui->pushCM, &QPushButton::clicked, this, &MainWindow::pushCM_clicked);
     connect(ui->pushChange, &QPushButton::clicked, this, &MainWindow::pushChange_clicked);
-    connect(ui->pushColor0, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(0); });
-    connect(ui->pushColor1, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(1); });
-    connect(ui->pushColor2, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(2); });
-    connect(ui->pushColor3, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(3); });
-    connect(ui->pushColor4, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(4); });
-    connect(ui->pushColor5, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(5); });
-    connect(ui->pushColor6, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(6); });
-    connect(ui->pushColor7, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(7); });
-    connect(ui->pushColor8, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(8); });
-    connect(ui->pushColor9, &QPushButton::clicked, this, [this]() {pushColorButton_clicked(9); });
+    connect(ui->pushColor0, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(0); });
+    connect(ui->pushColor1, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(1); });
+    connect(ui->pushColor2, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(2); });
+    connect(ui->pushColor3, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(3); });
+    connect(ui->pushColor4, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(4); });
+    connect(ui->pushColor5, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(5); });
+    connect(ui->pushColor6, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(6); });
+    connect(ui->pushColor7, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(7); });
+    connect(ui->pushColor8, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(8); });
+    connect(ui->pushColor9, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(9); });
     connect(ui->pushDefaultColor, &QPushButton::clicked, this, &MainWindow::pushDefaultColor_clicked);
     connect(ui->pushEdit, &QPushButton::clicked, this, &MainWindow::pushEdit_clicked);
     connect(ui->pushRestore, &QPushButton::clicked, this, &MainWindow::pushRestore_clicked);
@@ -557,9 +561,9 @@ void MainWindow::pushHelp_clicked()
 
 void MainWindow::pushColorButton_clicked(int colorIndex)
 {
-    QWidget* colorWidget = (colorIndex >= 0 && colorIndex <= 9) ?
-        ui->groupBoxColors->findChild<QWidget*>(QString("widgetColor%1").arg(colorIndex)) :
-        ui->widgetDefaultColor;
+    QWidget *colorWidget = (colorIndex >= 0 && colorIndex <= 9)
+                               ? ui->groupBoxColors->findChild<QWidget *>(QString("widgetColor%1").arg(colorIndex))
+                               : ui->widgetDefaultColor;
 
     pickColor(colorWidget);
 }
