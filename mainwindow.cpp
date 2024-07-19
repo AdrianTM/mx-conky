@@ -318,16 +318,6 @@ void MainWindow::setConnections()
     connect(ui->pushAbout, &QPushButton::clicked, this, &MainWindow::pushAbout_clicked);
     connect(ui->pushCM, &QPushButton::clicked, this, &MainWindow::pushCM_clicked);
     connect(ui->pushChange, &QPushButton::clicked, this, &MainWindow::pushChange_clicked);
-    connect(ui->pushColor0, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(0); });
-    connect(ui->pushColor1, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(1); });
-    connect(ui->pushColor2, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(2); });
-    connect(ui->pushColor3, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(3); });
-    connect(ui->pushColor4, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(4); });
-    connect(ui->pushColor5, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(5); });
-    connect(ui->pushColor6, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(6); });
-    connect(ui->pushColor7, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(7); });
-    connect(ui->pushColor8, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(8); });
-    connect(ui->pushColor9, &QPushButton::clicked, this, [this]() { pushColorButton_clicked(9); });
     connect(ui->pushDefaultColor, &QPushButton::clicked, this, &MainWindow::pushDefaultColor_clicked);
     connect(ui->pushEdit, &QPushButton::clicked, this, &MainWindow::pushEdit_clicked);
     connect(ui->pushRestore, &QPushButton::clicked, this, &MainWindow::pushRestore_clicked);
@@ -338,6 +328,10 @@ void MainWindow::setConnections()
     connect(ui->radioDesktop1, &QRadioButton::clicked, this, &MainWindow::radioDesktop1_clicked);
     connect(ui->radioMonthLong, &QRadioButton::clicked, this, &MainWindow::radioMonthLong_clicked);
     connect(ui->radioMonthShort, &QRadioButton::clicked, this, &MainWindow::radioMonthShort_clicked);
+    for (int i = 0; i < 10; ++i) {
+        connect(ui->groupBoxColors->findChild<QPushButton *>(QString("pushColor%1").arg(i)), &QPushButton::clicked,
+                this, [this, i]() { pushColorButton_clicked(i); });
+    }
 }
 
 void MainWindow::saveBackup()
