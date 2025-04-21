@@ -178,7 +178,7 @@ void MainWindow::parseContent()
             if (color_item == "default_color") {
                 colorWidget = ui->widgetDefaultColor;
             } else if (color_item.startsWith("color")) {
-                const int index = color_item.midRef(5).toInt(); // Extract the number from "colorX";
+                const int index = color_item.mid(5).toInt(); // Extract the number from "colorX";
 
                 colorWidget = ui->groupBoxColors->findChild<QWidget *>(QString("widgetColor%1").arg(index));
                 if (colorWidget) {
