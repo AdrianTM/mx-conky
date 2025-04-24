@@ -1,3 +1,9 @@
+mx-conky (24.4) mx; urgency=medium
+
+  * Update to Qt6
+
+ -- Adrian <adrian@mxlinux.org>  Wed, 23 Apr 2025 22:04:32 -0400
+
 mx-conky (24.3) mx; urgency=medium
 
   * Update translations

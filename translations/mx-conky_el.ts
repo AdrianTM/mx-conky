@@ -6,14 +6,14 @@
     <message>
         <location filename="../mainwindow.ui" line="14"/>
         <location filename="../mainwindow.cpp" line="57"/>
-        <location filename="../mainwindow.cpp" line="519"/>
+        <location filename="../mainwindow.cpp" line="481"/>
         <source>MX Conky</source>
         <translation>MX Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;This app enables detailed changes to the active conky. It supplements Conky Manager, which should be used for basic settings.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Αυτή η εφαρμογή επιτρέπει λεπτομερείς αλλαγές στο ενεργό conky. Συμπληρώνει το Conky Manager, το οποίο πρέπει να χρησιμοποιείται για τις βασικές ρυθμίσεις.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Αυτή η εφαρμογή επιτρέπει τη διενέργεια αλλαγών στο ενεργό conky. Συμπληρώνει το Conky Manager, που θα πρέπει να χρησιμοποιείται για τις βασικές ρυθμίσεις.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="73"/>
@@ -43,17 +43,17 @@
     <message>
         <location filename="../mainwindow.ui" line="211"/>
         <source>Conky Manager</source>
-        <translation>Διαχειριστής του Conky</translation>
+        <translation>Conky Manager</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="235"/>
         <source>Drag</source>
-        <translation>Σύρετε</translation>
+        <translation>Μεταφορά</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="254"/>
         <source>To Resize</source>
-        <translation>Αλλαγή μεγέθους</translation>
+        <translation>Για αλλαγή μεγέθους</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="274"/>
@@ -63,7 +63,7 @@
     <message>
         <location filename="../mainwindow.ui" line="281"/>
         <source>To Move</source>
-        <translation>Μετακίνηση</translation>
+        <translation>Για μετακίνηση</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="288"/>
@@ -73,7 +73,7 @@
     <message>
         <location filename="../mainwindow.ui" line="295"/>
         <source>NOTE: changes last only for the current session</source>
-        <translation>ΣΗΜΕΙΩΣΗ: οι αλλαγές διαρκούν μόνο για την τρέχουσα περίοδο λειτουργίας</translation>
+        <translation>ΣΗΜΕΙΩΣΗ: Oι αλλαγές παραμένουν μόνο για την τρέχουσα περίοδο λειτουργίας</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="365"/>
@@ -88,7 +88,7 @@
     <message>
         <location filename="../mainwindow.ui" line="410"/>
         <source>All Desktops</source>
-        <translation>Όλες τις επιφάνειες εργασίας</translation>
+        <translation>Όλες οι επιφάνειες εργασίας</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="436"/>
@@ -98,7 +98,7 @@
     <message>
         <location filename="../mainwindow.ui" line="488"/>
         <source>Day</source>
-        <translation>Ημέρα</translation>
+        <translation>Ημέρας</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="517"/>
@@ -115,12 +115,12 @@
         <location filename="../mainwindow.ui" line="549"/>
         <location filename="../mainwindow.ui" line="679"/>
         <source>Short</source>
-        <translation>Μικρό</translation>
+        <translation>Σύντομο</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="618"/>
         <source>Month</source>
-        <translation>Μήνας</translation>
+        <translation>Μήνα</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="676"/>
@@ -248,57 +248,102 @@
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="518"/>
+        <location filename="../mainwindow.cpp" line="330"/>
+        <source>Backup Config File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="330"/>
+        <source>Do you want to preserve the original file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="341"/>
+        <source>Backed Up Config File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="342"/>
+        <source>The original configuration was backed up to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="344"/>
+        <source>Backup Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="344"/>
+        <source>Failed to create a backup file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="453"/>
+        <source>Select Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>About MX Conky</source>
         <translation>Περί του MX Conky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="520"/>
+        <location filename="../mainwindow.cpp" line="482"/>
         <source>Version: </source>
         <translation>Έκδοση: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="521"/>
+        <location filename="../mainwindow.cpp" line="483"/>
         <source>GUI program for configuring Conky in MX Linux</source>
         <translation>Γραφικό πρόγραμμα για τη διαμόρφωση του Conky στο MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="524"/>
+        <location filename="../mainwindow.cpp" line="486"/>
         <source>Copyright (c) MX Linux</source>
         <translation>Πνευματικά δικαιώματα (c)  MX Linux</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="525"/>
+        <location filename="../mainwindow.cpp" line="487"/>
         <source>License</source>
         <translation>Άδεια</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="526"/>
-        <location filename="../mainwindow.cpp" line="538"/>
+        <location filename="../mainwindow.cpp" line="488"/>
+        <location filename="../mainwindow.cpp" line="500"/>
         <source>Changelog</source>
         <translation>Αρχείο αλλαγών</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="527"/>
+        <location filename="../mainwindow.cpp" line="489"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="548"/>
+        <location filename="../mainwindow.cpp" line="510"/>
         <source>&amp;Close</source>
         <translation>&amp;Κλείσιμο</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="564"/>
+        <location filename="../mainwindow.cpp" line="526"/>
         <source>MX Conky Help</source>
         <translation>Βοήθεια του MX Conky</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="568"/>
+        <source>Restore Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="568"/>
+        <source>Backup file does not exist.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="66"/>
-        <location filename="../mainwindow.cpp" line="677"/>
+        <location filename="../mainwindow.cpp" line="617"/>
         <source>Select Conky Manager config file</source>
         <translation>Επιλογή αρχείου διαμόρφωσης του Conky Manager</translation>
     </message>

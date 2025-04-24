@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ar">
+<TS version="2.1" language="gl">
 <context>
     <name>MainWindow</name>
     <message>
@@ -23,12 +23,12 @@
     <message>
         <location filename="../mainwindow.ui" line="85"/>
         <source>Run</source>
-        <translation>نفذ</translation>
+        <translation>Corre</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="141"/>
         <source>Undo</source>
-        <translation>تراجع</translation>
+        <translation>Desfacer</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="171"/>
@@ -78,7 +78,7 @@
     <message>
         <location filename="../mainwindow.ui" line="365"/>
         <source>Desktop</source>
-        <translation>سطح مكتب</translation>
+        <translation>Escritorio</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="387"/>
@@ -93,12 +93,12 @@
     <message>
         <location filename="../mainwindow.ui" line="436"/>
         <source>Format</source>
-        <translation>تهيئة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="488"/>
         <source>Day</source>
-        <translation type="unfinished"></translation>
+        <translation>Día</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="517"/>
@@ -135,7 +135,7 @@
     <message>
         <location filename="../mainwindow.ui" line="778"/>
         <source>Default</source>
-        <translation>إفتراضي</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="833"/>
@@ -205,12 +205,12 @@
     <message>
         <location filename="../mainwindow.ui" line="2048"/>
         <source>About this application</source>
-        <translation>إيقاف هذا التطبيق</translation>
+        <translation>Sobre esta aplicación</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2051"/>
         <source>About...</source>
-        <translation>عن...</translation>
+        <translation>Sobre...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2058"/>
@@ -220,27 +220,27 @@
     <message>
         <location filename="../mainwindow.ui" line="2074"/>
         <source>Display help </source>
-        <translation>إظهار المساعدة</translation>
+        <translation>Amosar axuda</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2077"/>
         <source>Help</source>
-        <translation>مساعدة</translation>
+        <translation>Axuda</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2084"/>
         <source>Alt+H</source>
-        <translation>Alt+H&lt;br&gt;&lt;br&gt;</translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2132"/>
         <source>Quit application</source>
-        <translation>إنهاء التطبيق</translation>
+        <translation>Saír do aplicativo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2135"/>
         <source>Close</source>
-        <translation>أغلق</translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2142"/>
@@ -290,7 +290,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="482"/>
         <source>Version: </source>
-        <translation>الإصدار:</translation>
+        <translation>Versión: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="483"/>
@@ -300,28 +300,28 @@
     <message>
         <location filename="../mainwindow.cpp" line="486"/>
         <source>Copyright (c) MX Linux</source>
-        <translation>حقوق النشر  (MX linux (c</translation>
+        <translation>Copyright (c) MX Linux</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="487"/>
         <source>License</source>
-        <translation>رخصة</translation>
+        <translation>Licenza</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="488"/>
         <location filename="../mainwindow.cpp" line="500"/>
         <source>Changelog</source>
-        <translation>التغيرات</translation>
+        <translation>Rexistro dos cambios</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="489"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="510"/>
         <source>&amp;Close</source>
-        <translation>&amp;اغلاق</translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="526"/>
@@ -361,7 +361,7 @@
         <location filename="../main.cpp" line="125"/>
         <location filename="../main.cpp" line="148"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="126"/>
