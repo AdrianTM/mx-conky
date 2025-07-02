@@ -21,7 +21,7 @@
 # **********************************************************************/
 
 QT       += core gui widgets
-CONFIG   += c++17
+CONFIG   += c++20
 
 TARGET = mx-conky
 TEMPLATE = app
