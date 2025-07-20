@@ -1,3 +1,27 @@
+/**********************************************************************
+ *  cmd.cpp
+ **********************************************************************
+ * Copyright (C) 2017-2025 MX Authors
+ *
+ * Authors: Adrian
+ *          MX Linux <http://mxlinux.org>
+ *
+ * This file is part of mx-conky.
+ *
+ * mx-conky is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * mx-conky is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with mx-conky.  If not, see <http://www.gnu.org/licenses/>.
+ **********************************************************************/
+
 #include <QDebug>
 #include <QEventLoop>
 
@@ -10,6 +34,19 @@ Cmd::Cmd(QObject *parent)
     connect(this, &Cmd::readyReadStandardError, [this]() { emit errorAvailable(readAllStandardError()); });
     connect(this, &Cmd::outputAvailable, [this](const QString &out) { out_buffer += out; });
     connect(this, &Cmd::errorAvailable, [this](const QString &out) { out_buffer += out; });
+}
+
+Cmd::~Cmd()
+{
+    if (state() != QProcess::NotRunning) {
+        qDebug() << "Cmd::~Cmd(): Terminating running process:" << program() << arguments();
+        terminate();
+        if (!waitForFinished(3000)) {
+            qDebug() << "Cmd::~Cmd(): Force killing process";
+            kill();
+            waitForFinished(1000);
+        }
+    }
 }
 
 bool Cmd::run(const QString &cmd, bool quiet)

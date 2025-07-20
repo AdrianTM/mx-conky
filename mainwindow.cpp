@@ -1,7 +1,7 @@
 /**********************************************************************
  *  MainWindow.cpp
  **********************************************************************
- * Copyright (C) 2017 MX Authors
+ * Copyright (C) 2017-2025 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -22,455 +22,424 @@
  * along with mx-conky.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
-#include <QColorDialog>
-#include <QDateTime>
+#include "mainwindow.h"
+#include <QApplication>
 #include <QDebug>
-#include <QFileDialog>
-#include <QRegularExpression>
+#include <QFileInfo>
+#include <QKeySequence>
+#include <QMessageBox>
+#include <QMovie>
+#include <QProcess>
+#include <QShortcut>
+#include <QStackedWidget>
 #include <QStandardPaths>
 #include <QTextEdit>
+#include <QTimer>
 
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-
-MainWindow::MainWindow(QWidget *parent, const QString &file)
+MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent),
-      ui(new Ui::MainWindow),
-      file_name {file},
-      capture_lua_color {
-          R"(^(?<before>(.*\]\])?\s*(?<color_item>default_color|color\d)(?:\s*=\s*[\"\']))(?:#?)(?<color_value>[[:alnum:]]+)(?<after>(?:[\"\']).*))"},
-      capture_old_color {
-          R"(^(?<before>\s*(?<color_item>default_color|color\d)(?:\s+))(?:#?)(?<color_value>[[:alnum:]]+)(?<after>.*))"},
-      lua_comment_end {R"(^\s*\]\])"},
-      lua_comment_line {R"(^\s*--)"},
-      lua_comment_start {R"(^\s*--\[\[)"},
-      lua_config {R"(^\s*(conky.config\s*=\s*{)"},
-      lua_format {R"(^\s*(--|conky.config\s*=\s*{|conky.text\s*=\s*{))"},
-      old_comment_line {R"(^\s*#)"},
-      old_format {R"(^\s*#|^TEXT$)"}
+      m_conkyManager(nullptr),
+      m_loadingMovie(nullptr)
 {
-    debug = !QProcessEnvironment::systemEnvironment().value("DEBUG").isEmpty();
-
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << QCoreApplication::applicationVersion();
-    ui->setupUi(this);
-    setWindowFlags(Qt::Window); // Enable close, min, and max buttons
+
+    setWindowFlags(Qt::Window);
     setWindowTitle(tr("MX Conky"));
-    refresh();
+    setupUI();
+
     restoreGeometry(settings.value("geometry").toByteArray());
-    setConnections();
+
+    // Show window immediately with loading state
+    show();
+
+    // Start loading conkies asynchronously
+    QTimer::singleShot(100, this, [this]() {
+        m_conkyManager = new ConkyManager(this);
+
+        // Now create the widgets that depend on ConkyManager
+        m_conkyListWidget = new ConkyListWidget(m_conkyManager);
+        m_previewWidget = new ConkyPreviewWidget;
+
+        m_splitter->addWidget(m_conkyListWidget);
+        m_splitter->addWidget(m_previewWidget);
+
+        setConnections();
+
+        // Manually trigger the transition since the initial scan already happened
+        QTimer::singleShot(50, this, &MainWindow::onConkyItemsLoaded);
+    });
+}
+
+void MainWindow::onConkyItemsLoaded()
+{
+    // Switch from loading to main content
+    if (m_loadingMovie) {
+        m_loadingMovie->stop();
+    }
+    m_stackedWidget->setCurrentWidget(m_mainWidget);
 }
 
 MainWindow::~MainWindow()
 {
-    saveBackup();
-    delete ui;
-}
-
-// Detect conky format (old or lua)
-void MainWindow::detectConkyFormat()
-{
-    QRegularExpression lua_format_regexp(lua_format);
-    QRegularExpression old_format_regexp(old_format);
-    const QStringList list = file_content.split('\n');
-
-    if (debug) {
-        qDebug() << "Detecting conky format: " << file_name;
+    if (m_conkyManager) {
+        m_conkyManager->saveSettings();
     }
-
-    conky_format_detected = false;
-
-    for (const QString &row : list) {
-        if (lua_format_regexp.match(row).hasMatch()) {
-            is_lua_format = true;
-            conky_format_detected = true;
-            if (debug) {
-                qDebug() << "Conky format detected: 'lua-format' in " << file_name;
-            }
-            return;
-        }
-        if (old_format_regexp.match(row).hasMatch()) {
-            is_lua_format = false;
-            conky_format_detected = true;
-            if (debug) {
-                qDebug() << "Conky format detected: 'old-format' in " << file_name;
-            }
-            return;
-        }
+    if (m_loadingMovie) {
+        m_loadingMovie->stop();
     }
 }
 
-// Find defined colors in the config file
-void MainWindow::parseContent()
+void MainWindow::setupUI()
 {
-    QRegularExpression regexp_color
-        = is_lua_format ? QRegularExpression(capture_lua_color) : QRegularExpression(capture_old_color);
-    QString comment_sep = is_lua_format ? "--" : "#";
-    bool own_window_hints_found = false;
-    const QStringList list = file_content.split('\n', Qt::SkipEmptyParts);
+    resize(1000, 700);
 
-    if (debug) {
-        qDebug() << "Parsing content: " + file_name;
-    }
+    auto *mainLayout = new QVBoxLayout(this);
 
-    bool lua_block_comment = false;
-    //  Bool lua_config = false;
-    for (const QString &row : list) {
-        // Lua comment block
-        QString trow = row.trimmed();
-        if (is_lua_format) {
-            if (lua_block_comment) {
-                if (trow.endsWith(block_comment_end)) {
-                    lua_block_comment = false;
-                    if (debug) {
-                        qDebug() << "Lua block comment end 'ENDS WITH LINE' found";
-                    }
-                    continue;
-                }
-                if (trow.contains(block_comment_end)) {
-                    lua_block_comment = false;
-                    QStringList ltrow = trow.split(block_comment_end);
-                    ltrow.removeFirst();
-                    trow = ltrow.join(block_comment_end);
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment end CONTAINS line found: after ]]: " << trow;
-                    }
-                } else {
-                    continue;
-                }
-            }
-            if (!lua_block_comment) {
-                if (trow.startsWith(block_comment_start)) {
-                    if (debug) {
-                        qDebug() << "Lua block comment 'STARTS WITH LINE' found";
-                    }
-                    lua_block_comment = true;
-                    continue;
-                }
-                if (trow.contains(block_comment_start)) {
-                    lua_block_comment = true;
-                    QStringList ltrow = trow.split(block_comment_start);
-                    trow = ltrow[0];
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment start CONTAINS line found: before start --[[: " << trow;
-                    }
-                }
-            }
-        }
-        // Comment line
-        if (trow.startsWith(comment_sep)) {
-            continue;
-        }
+    // Create stacked widget to switch between loading and main content
+    m_stackedWidget = new QStackedWidget;
 
-        // Remove inline comments
-        if (trow.contains(comment_sep)) {
-            trow = trow.split(comment_sep).first().trimmed();
-        }
+    // Setup loading widget
+    setupLoadingWidget();
 
-        // Match color lines
-        auto match_color = regexp_color.match(trow);
-        if (match_color.hasMatch()) {
-            const QString color_item = match_color.captured("color_item");
-            const QString color_value = match_color.captured("color_value");
-            QWidget *colorWidget = nullptr;
+    // Setup main widget
+    setupMainWidget();
 
-            if (color_item == "default_color") {
-                colorWidget = ui->widgetDefaultColor;
-            } else if (color_item.startsWith("color")) {
-                const int index = color_item.mid(5).toInt(); // Extract the number from "colorX";
+    m_stackedWidget->addWidget(m_loadingWidget);
+    m_stackedWidget->addWidget(m_mainWidget);
+    m_stackedWidget->setCurrentWidget(m_loadingWidget);
 
-                colorWidget = ui->groupBoxColors->findChild<QWidget *>(QString("widgetColor%1").arg(index));
-                if (colorWidget) {
-                    QLabel *label = ui->groupBoxColors->findChild<QLabel *>(QString("labelColor%1").arg(index));
-                    if (label) {
-                        label->setText(QString("Color%1").arg(index));
-                    }
-                }
-            }
-            if (colorWidget) {
-                setColor(colorWidget, strToColor(color_value));
-            }
-            continue;
-        }
-
-        // Handle desktop configuration
-        if (trow.startsWith("own_window_hints")) {
-            own_window_hints_found = true;
-            if (debug) {
-                qDebug() << "own_window_hints line found:" << trow;
-            }
-            ui->radioAllDesktops->setChecked(trow.contains("sticky"));
-            ui->radioDesktop1->setChecked(!trow.contains("sticky"));
-            continue;
-        }
-
-        // Set day/month format
-        if (trow.contains("%A")) {
-            ui->radioDayLong->setChecked(true);
-        } else if (trow.contains("%a")) {
-            ui->radioDayShort->setChecked(true);
-        }
-
-        if (trow.contains("%B")) {
-            ui->radioMonthLong->setChecked(true);
-        } else if (trow.contains("%b")) {
-            ui->radioMonthShort->setChecked(true);
-        }
-    }
-
-    if (!own_window_hints_found) {
-        ui->radioDesktop1->setChecked(true);
-    }
+    mainLayout->addWidget(m_stackedWidget);
 }
 
-bool MainWindow::checkConkyRunning()
+void MainWindow::setupLoadingWidget()
 {
-    QProcess process;
-    process.start("pgrep", QStringList() << "-u" << qgetenv("USER") << "-x"
-                                         << "conky");
-    process.waitForFinished();
-    int ret = process.exitCode();
-    if (debug) {
-        qDebug() << "pgrep -u" << qgetenv("USER") << "-x conky :" << ret;
+    m_loadingWidget = new QWidget;
+    auto *loadingLayout = new QVBoxLayout(m_loadingWidget);
+    loadingLayout->setAlignment(Qt::AlignCenter);
+
+    // Loading animation
+    m_loadingLabel = new QLabel;
+    m_loadingLabel->setAlignment(Qt::AlignCenter);
+    m_loadingLabel->setMinimumSize(64, 64);
+
+    // Try to use a spinner animation - fallback to text if no animation available
+    QString iconPath = ":/icons/loading.gif";
+    if (QFile::exists(iconPath)) {
+        m_loadingMovie = new QMovie(iconPath);
+        m_loadingLabel->setMovie(m_loadingMovie);
+        m_loadingMovie->start();
+    } else {
+        // Fallback: create a simple animated text
+        m_loadingLabel->setText("⏳");
+        m_loadingLabel->setStyleSheet("font-size: 48px;");
     }
-    bool isRunning = (ret == 0);
-    ui->pushToggleOn->setText(isRunning ? "Stop" : "Run");
-    ui->pushToggleOn->setIcon(QIcon::fromTheme(isRunning ? "stop" : "start"));
-    return isRunning;
+
+    auto *textLabel = new QLabel(tr("Loading Conky configurations..."));
+    textLabel->setAlignment(Qt::AlignCenter);
+    textLabel->setStyleSheet("font-size: 16px; margin: 20px;");
+
+    loadingLayout->addStretch();
+    loadingLayout->addWidget(m_loadingLabel);
+    loadingLayout->addWidget(textLabel);
+    loadingLayout->addStretch();
 }
 
-// Read config file
-bool MainWindow::readFile(const QString &file_name)
+void MainWindow::setupMainWidget()
 {
-    QFile file(file_name);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Could not open file: " << file.fileName();
-        return false;
+    m_mainWidget = new QWidget;
+
+    auto *mainContentLayout = new QVBoxLayout(m_mainWidget);
+
+    // Combined toolbar and filter/search layout
+    auto *topLayout = new QHBoxLayout;
+
+    m_settingsButton = new QPushButton(tr("Settings"));
+    m_settingsButton->setIcon(QIcon::fromTheme("preferences-system"));
+    m_settingsButton->setToolTip(tr("Configure conky search paths"));
+
+    m_refreshButton = new QPushButton(tr("Refresh"));
+    m_refreshButton->setIcon(QIcon::fromTheme("view-refresh"));
+    m_refreshButton->setToolTip(tr("Refresh conky list"));
+
+    m_startAllButton = new QPushButton(tr("Start All"));
+    m_startAllButton->setIcon(QIcon::fromTheme("media-playback-start"));
+    m_startAllButton->setToolTip(tr("Start all enabled conkies"));
+
+    m_stopAllButton = new QPushButton(tr("Stop All"));
+    m_stopAllButton->setIcon(QIcon::fromTheme("media-playback-stop"));
+    m_stopAllButton->setToolTip(tr("Stop all running conkies"));
+
+    auto *filterLabel = new QLabel(tr("Filter:"));
+    m_filterComboBox = new QComboBox;
+    m_filterComboBox->addItem(tr("All"));
+    m_filterComboBox->addItem(tr("Running"));
+    m_filterComboBox->addItem(tr("Stopped"));
+    m_filterComboBox->setCurrentText(tr("All"));
+    m_filterComboBox->setToolTip(tr("Filter conkies by running status"));
+
+    auto *searchLabel = new QLabel(tr("Search:"));
+    m_searchLineEdit = new QLineEdit;
+    m_searchLineEdit->setPlaceholderText(tr("Search conky by name..."));
+    m_searchLineEdit->setClearButtonEnabled(true);
+    m_searchLineEdit->setToolTip(tr("Search conkies by name (Ctrl+F)"));
+
+    topLayout->addWidget(filterLabel);
+    topLayout->addWidget(m_filterComboBox);
+    topLayout->addSpacing(10);
+    topLayout->addWidget(searchLabel);
+    topLayout->addWidget(m_searchLineEdit);
+    topLayout->addStretch(); // Add stretch between search and buttons
+    topLayout->addWidget(m_refreshButton);
+    topLayout->addWidget(m_startAllButton);
+    topLayout->addWidget(m_stopAllButton);
+    topLayout->addWidget(m_settingsButton);
+
+    m_splitter = new QSplitter(Qt::Horizontal);
+
+    // Note: ConkyListWidget and PreviewWidget will be created when ConkyManager is ready
+    m_conkyListWidget = nullptr;
+    m_previewWidget = nullptr;
+
+    // Widgets will be added to splitter when they're created
+
+    // Set default splitter geometry to equal panels when no saved state
+    QByteArray splitterState = settings.value("splitter").toByteArray();
+    if (splitterState.isEmpty()) {
+        // Set equal split (50/50)
+        QList<int> sizes;
+        sizes << 500 << 500; // Equal sizes
+        m_splitter->setSizes(sizes);
+    } else {
+        m_splitter->restoreState(splitterState);
     }
-    file_content = file.readAll().trimmed();
-    file.close();
-    return true;
-}
 
-QColor MainWindow::strToColor(const QString &colorstr)
-{
-    QColor color(colorstr);
-    if (!color.isValid()) { // if color is invalid assume RGB values and add a # in front of the string
-        color.setNamedColor('#' + colorstr);
-    }
-    return color;
-}
+    // Create button bar
+    auto *bottomLayout = new QHBoxLayout;
+    bottomLayout->setSpacing(5);
+    bottomLayout->setContentsMargins(0, 0, 0, 0);
 
-void MainWindow::refresh()
-{
-    modified = false;
+    m_aboutButton = new QPushButton(tr("About..."));
+    m_aboutButton->setIcon(QIcon::fromTheme("help-about"));
+    m_aboutButton->setToolTip(tr("About this application"));
+    m_aboutButton->setShortcut(QKeySequence("Alt+B"));
+    m_aboutButton->setAutoDefault(true);
+    m_aboutButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
 
-    // Hide all color frames by default, only show those specified in the config file
-    const QList<QWidget *> frames = {ui->frameDefault, ui->frame0, ui->frame1, ui->frame2, ui->frame3, ui->frame4,
-                                     ui->frame5,       ui->frame6, ui->frame7, ui->frame8, ui->frame9};
-    for (QWidget *frame : frames) {
-        frame->hide();
-    }
+    m_helpButton = new QPushButton(tr("Help"));
+    m_helpButton->setIcon(QIcon::fromTheme("help-contents"));
+    m_helpButton->setToolTip(tr("Display help"));
+    m_helpButton->setShortcut(QKeySequence("Alt+H"));
+    m_helpButton->setAutoDefault(true);
+    m_helpButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
 
-    // Set a border around color widgets for better visibility
-    const QList<QWidget *> colorWidgets = {ui->widgetDefaultColor, ui->widgetColor0, ui->widgetColor1, ui->widgetColor2,
-                                           ui->widgetColor3,       ui->widgetColor4, ui->widgetColor5, ui->widgetColor6,
-                                           ui->widgetColor7,       ui->widgetColor8, ui->widgetColor9};
-    for (QWidget *widget : colorWidgets) {
-        widget->setStyleSheet("border: 1px solid black");
-    }
+    // Add logo in center
+    auto *logoLabel = new QLabel;
+    logoLabel->setMaximumSize(32, 32);
+    logoLabel->setPixmap(QPixmap(":/icons/logo.svg"));
+    logoLabel->setScaledContents(true);
 
-    // Update the button text to reflect the current conky file name
-    ui->pushChange->setText(QFileInfo(file_name).fileName());
+    m_closeButton = new QPushButton(tr("Close"));
+    m_closeButton->setIcon(QIcon::fromTheme("window-close"));
+    m_closeButton->setToolTip(tr("Quit application"));
+    m_closeButton->setShortcut(QKeySequence("Alt+N"));
+    m_closeButton->setAutoDefault(true);
+    m_closeButton->setDefault(true);
+    m_closeButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
 
-    checkConkyRunning();
+    // Layout: About | Help | [stretch] | Logo | [stretch] | (spacer) | Close
 
-    // Backup the current configuration file
-    QFile::remove(file_name + ".bak");
-    QFile::copy(file_name, file_name + ".bak");
+    bottomLayout->addWidget(m_aboutButton);
+    bottomLayout->addWidget(m_helpButton);
+    bottomLayout->addStretch();
+    bottomLayout->addWidget(logoLabel);
+    bottomLayout->addStretch();
 
-    // Read the configuration file and parse its content
-    if (readFile(file_name)) {
-        detectConkyFormat();
-        parseContent();
-    }
-    adjustSize();
+    // Add a spacer to the right of the logo, same width as the close button
+    QSpacerItem *buttonSpacer
+        = new QSpacerItem(m_closeButton->sizeHint().width(), 0, QSizePolicy::Fixed, QSizePolicy::Minimum);
+    bottomLayout->addItem(buttonSpacer);
+
+    bottomLayout->addWidget(m_closeButton);
+
+    mainContentLayout->addLayout(topLayout);
+    mainContentLayout->addWidget(m_splitter, 1);
+    mainContentLayout->addLayout(bottomLayout);
 }
 
 void MainWindow::setConnections()
 {
-    connect(ui->pushAbout, &QPushButton::clicked, this, &MainWindow::pushAbout_clicked);
-    connect(ui->pushCM, &QPushButton::clicked, this, &MainWindow::pushCM_clicked);
-    connect(ui->pushChange, &QPushButton::clicked, this, &MainWindow::pushChange_clicked);
-    connect(ui->pushDefaultColor, &QPushButton::clicked, this, &MainWindow::pushDefaultColor_clicked);
-    connect(ui->pushEdit, &QPushButton::clicked, this, &MainWindow::pushEdit_clicked);
-    connect(ui->pushRestore, &QPushButton::clicked, this, &MainWindow::pushRestore_clicked);
-    connect(ui->pushToggleOn, &QPushButton::clicked, this, &MainWindow::pushToggleOn_clicked);
-    connect(ui->radioAllDesktops, &QRadioButton::clicked, this, &MainWindow::radioAllDesktops_clicked);
-    connect(ui->radioDayLong, &QRadioButton::clicked, this, &MainWindow::radioDayLong_clicked);
-    connect(ui->radioDayShort, &QRadioButton::clicked, this, &MainWindow::radioDayShort_clicked);
-    connect(ui->radioDesktop1, &QRadioButton::clicked, this, &MainWindow::radioDesktop1_clicked);
-    connect(ui->radioMonthLong, &QRadioButton::clicked, this, &MainWindow::radioMonthLong_clicked);
-    connect(ui->radioMonthShort, &QRadioButton::clicked, this, &MainWindow::radioMonthShort_clicked);
-    for (int i = 0; i < 10; ++i) {
-        auto *colorButton = ui->groupBoxColors->findChild<QToolButton *>(QString("pushColor%1").arg(i));
-        if (colorButton) {
-            connect(colorButton, &QToolButton::clicked, this, [this, i]() { pushColorButton_clicked(i); });
-        }
-    }
-}
-
-void MainWindow::saveBackup()
-{
-    if (!modified) {
+    if (!m_conkyManager) {
         return;
     }
 
-    int ans = QMessageBox::question(this, tr("Backup Config File"), tr("Do you want to preserve the original file?"));
-    if (ans == QMessageBox::Yes) {
-        QString time_stamp = QDateTime::currentDateTime().toString("yyMMdd_HHmmss");
-        QFileInfo fi(file_name);
-        QString new_name = fi.canonicalPath() + '/' + fi.baseName() + '_' + time_stamp;
+    connect(m_settingsButton, &QPushButton::clicked, this, &MainWindow::onSettingsClicked);
+    connect(m_refreshButton, &QPushButton::clicked, this, &MainWindow::onRefreshClicked);
+    connect(m_startAllButton, &QPushButton::clicked, this, &MainWindow::onStartAllClicked);
+    connect(m_stopAllButton, &QPushButton::clicked, this, &MainWindow::onStopAllClicked);
 
-        if (!fi.completeSuffix().isEmpty()) {
-            new_name += '.' + fi.completeSuffix();
-        }
+    connect(m_aboutButton, &QPushButton::clicked, this, &MainWindow::pushAbout_clicked);
+    connect(m_helpButton, &QPushButton::clicked, this, &MainWindow::pushHelp_clicked);
+    connect(m_closeButton, &QPushButton::clicked, this, &QDialog::close);
 
-        if (QFile::copy(file_name + ".bak", new_name)) {
-            QMessageBox::information(this, tr("Backed Up Config File"),
-                                     tr("The original configuration was backed up to %1").arg(new_name));
-        } else {
-            QMessageBox::warning(this, tr("Backup Failed"), tr("Failed to create a backup file."));
-        }
-    }
+    connect(m_conkyListWidget, &ConkyListWidget::itemSelectionChanged, this, &MainWindow::onItemSelectionChanged);
+    connect(m_conkyListWidget, &ConkyListWidget::editRequested, this, &MainWindow::onEditRequested);
+    connect(m_conkyListWidget, &ConkyListWidget::customizeRequested, this, &MainWindow::onCustomizeRequested);
 
-    QFile::remove(file_name + ".bak");
+    connect(m_previewWidget, &ConkyPreviewWidget::previewImageLoaded, this, &MainWindow::onPreviewImageLoaded);
+
+    // Connect filter and search
+    connect(m_filterComboBox, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &MainWindow::onFilterChanged);
+    connect(m_searchLineEdit, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
+
+    // Add Ctrl+F shortcut to focus search field
+    auto *searchShortcut = new QShortcut(QKeySequence::Find, this);
+    connect(searchShortcut, &QShortcut::activated, this, &MainWindow::focusSearchField);
+
+    // Connect to know when conkies are loaded
+    connect(m_conkyManager, &ConkyManager::conkyItemsChanged, this, &MainWindow::onConkyItemsLoaded);
 }
 
-// Write color change back to the file
-void MainWindow::writeColor(QWidget *widget, const QColor &color)
+void MainWindow::onSettingsClicked()
 {
-    QRegularExpression regexp_color
-        = is_lua_format ? QRegularExpression(capture_lua_color) : QRegularExpression(capture_old_color);
-    QString comment_sep = is_lua_format ? "--" : "#";
-
-    QString item_name
-        = (widget->objectName() == "widgetDefaultColor")
-              ? "default_color"
-              : (widget->objectName().startsWith("widgetColor") ? QString("color%1").arg(widget->objectName().mid(11))
-                                                                : QString());
-
-    const QStringList list = file_content.split('\n');
-    QStringList new_list;
-    new_list.reserve(list.size());
-    bool lua_block_comment = false;
-
-    for (const QString &row : list) {
-        QString trow = row.trimmed();
-
-        // Handle Lua block comments
-        if (is_lua_format) {
-            if (lua_block_comment) {
-                if (trow.endsWith(block_comment_end)) {
-                    lua_block_comment = false;
-                    if (debug) {
-                        qDebug() << "Lua block comment end 'ENDS WITH LINE' found";
-                    }
-                    new_list << row;
-                    continue;
-                }
-                if (trow.contains(block_comment_end)) {
-                    lua_block_comment = false;
-                    QStringList ltrow = trow.split(block_comment_end);
-                    ltrow.removeFirst();
-                    trow = ltrow.join(block_comment_end);
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment end CONTAINS line found: after ]]: " << trow;
-                    }
-                } else {
-                    new_list << row;
-                    continue;
-                }
-            }
-            if (!lua_block_comment) {
-                if (trow.startsWith(block_comment_start)) {
-                    if (debug) {
-                        qDebug() << "Lua block comment 'STARTS WITH LINE' found";
-                    }
-                    lua_block_comment = true;
-                    new_list << row;
-                    continue;
-                }
-                if (trow.contains(block_comment_start)) {
-                    lua_block_comment = true;
-                    QStringList ltrow = trow.split(block_comment_start);
-                    trow = ltrow[0];
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment start CONTAINS line found: before start --[[: " << trow;
-                    }
-                }
-            }
-        }
-        // Comment line
-        if (trow.startsWith(comment_sep)) {
-            new_list << row;
-            continue;
-        }
-
-        // Match and update color lines
-        auto match_color = regexp_color.match(row);
-        if (match_color.hasMatch() && match_color.captured("color_item") == item_name) {
-            QString color_name = is_lua_format ? color.name() : color.name().remove('#');
-            new_list << match_color.captured("before") + color_name + match_color.captured("after");
-        } else {
-            new_list << row;
-        }
+    if (!m_conkyManager) {
+        return;
     }
-
-    file_content = new_list.join('\n') + '\n';
-    writeFile(QFile(file_name), file_content);
+    SettingsDialog dialog(m_conkyManager, this);
+    dialog.exec();
 }
 
-void MainWindow::writeFile(QFile file, const QString &content)
+void MainWindow::onRefreshClicked()
 {
-    if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "Error opening file " + file_name + " for output";
+    if (!m_conkyManager || !m_conkyListWidget) {
+        return;
+    }
+    m_conkyManager->scanForConkies();
+    m_conkyListWidget->refreshList();
+}
+
+void MainWindow::onStartAllClicked()
+{
+    if (!m_conkyManager) {
+        return;
+    }
+    m_conkyManager->startAutostart();
+}
+
+void MainWindow::onStopAllClicked()
+{
+    if (!m_conkyManager) {
+        return;
+    }
+    m_conkyManager->stopAllRunning();
+}
+
+void MainWindow::onItemSelectionChanged(ConkyItem *item)
+{
+    if (!m_previewWidget) {
+        return;
+    }
+    m_previewWidget->setConkyItem(item);
+}
+
+void MainWindow::onEditRequested(ConkyItem *item)
+{
+    if (item) {
+        editConkyFile(item->filePath());
+    }
+}
+
+void MainWindow::onCustomizeRequested(ConkyItem *item)
+{
+    if (item) {
+        ConkyCustomizeDialog dialog(item->filePath(), this);
+        dialog.exec();
+    }
+}
+
+void MainWindow::onPreviewImageLoaded(const QSize imageSize)
+{
+    if (imageSize.isEmpty()) {
         return;
     }
 
-    QTextStream out(&file);
-    out << content;
-    modified = true;
-    file.close();
-}
+    // Calculate desired preview pane width (image width, max 50% of window)
+    int maxPreviewWidth = width() / 2;
+    int desiredWidth = qMin(imageSize.width() + 20, maxPreviewWidth); // Add 20px padding
 
-void MainWindow::pickColor(QWidget *widget)
-{
-    QColor initialColor = widget->palette().color(QWidget::backgroundRole());
-    QColor selectedColor = QColorDialog::getColor(initialColor, this, tr("Select Color"));
+    QList<int> sizes = m_splitter->sizes();
+    if (sizes.size() == 2) {
+        int totalWidth = sizes[0] + sizes[1];
+        int newPreviewWidth = desiredWidth;
+        int newListWidth = totalWidth - newPreviewWidth;
 
-    if (selectedColor.isValid()) {
-        setColor(widget, selectedColor);
-        writeColor(widget, selectedColor);
-    } else {
-        qDebug() << "Color selection was canceled or invalid.";
+        // Ensure minimum widths
+        if (newListWidth < 300) {
+            newListWidth = 300;
+            newPreviewWidth = totalWidth - newListWidth;
+        }
+
+        if (newPreviewWidth > 100) { // Only resize if preview width is reasonable
+            sizes[0] = newListWidth;
+            sizes[1] = newPreviewWidth;
+            m_splitter->setSizes(sizes);
+        }
     }
 }
 
-void MainWindow::setColor(QWidget *widget, const QColor &color)
+void MainWindow::editConkyFile(const QString &filePath)
 {
-    if (widget && color.isValid()) {
-        widget->parentWidget()->show();
-        QPalette pal = widget->palette();
-        pal.setColor(QPalette::Window, color);
-        widget->setAutoFillBackground(true);
-        widget->setPalette(pal);
-    } else {
-        qDebug() << "Invalid widget or color.";
+    hide();
+    QString run = "set -o pipefail; ";
+    run += "XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ";
+    run += "eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}";
+    run += "$(xdg-mime query default text/plain) 2>/dev/null ";
+    run += "| head -1 | sed 's/^Exec=//' | tr -d '\"' | tr -s ' ' | sed 's/@@//g; s/%f//I; s/%u//I' ";
+
+    bool quiet = true;
+    bool debug = !QProcessEnvironment::systemEnvironment().value("DEBUG").isEmpty();
+
+    if (debug) {
+        qDebug() << "run-cmd: " << run;
+        quiet = false;
     }
+
+    QString editor;
+    Cmd cmd;
+    cmd.run(run, editor, quiet);
+
+    if (debug) {
+        qDebug() << "run:'" + editor + " '" + filePath.toUtf8() + "'";
+    }
+
+    if (editor.startsWith("kate -s") || editor.startsWith("kate --start")) {
+        editor = "kate";
+    }
+
+    // Try to start the editor using static startDetached
+    qDebug() << "MainWindow: Trying to start editor:" << editor << "with file:" << filePath;
+
+    bool started = QProcess::startDetached(editor, QStringList() << filePath);
+
+    if (!started) {
+        if (debug) {
+            qDebug() << "MainWindow: Failed to start editor:" << editor;
+        }
+
+        // Try featherpad as fallback
+        qDebug() << "MainWindow: Trying featherpad as fallback";
+        started = QProcess::startDetached("featherpad", QStringList() << filePath);
+
+        if (!started) {
+            if (debug) {
+                qDebug() << "MainWindow: Failed to start featherpad fallback";
+            }
+        } else {
+            qDebug() << "MainWindow: Featherpad started successfully";
+        }
+    } else {
+        qDebug() << "MainWindow: Editor started successfully";
+    }
+    show();
 }
 
 void MainWindow::pushAbout_clicked()
@@ -504,8 +473,9 @@ void MainWindow::pushAbout_clicked()
 
         auto *text = new QTextEdit;
         text->setReadOnly(true);
-        text->setText(Cmd().getCmdOut(
-            "zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"));
+        Cmd cmd;
+        text->setText(cmd.getCmdOut("zless /usr/share/doc/"
+                                    + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"));
 
         auto *btnClose = new QPushButton(tr("&Close"));
         btnClose->setIcon(QIcon::fromTheme("window-close"));
@@ -523,379 +493,43 @@ void MainWindow::pushAbout_clicked()
 void MainWindow::pushHelp_clicked()
 {
     QString url = "/usr/share/doc/mx-conky/mx-conky.html";
-    QString cmd_str = system("command -v mx-viewer") == 0 ? "mx-viewer " + url + " " + tr("MX Conky Help") + "&"
-                                                          : "xdg-open " + url;
-    system(cmd_str.toUtf8());
-}
+    qDebug() << "MainWindow: Opening help URL:" << url;
 
-void MainWindow::pushColorButton_clicked(int colorIndex)
-{
-    QWidget *colorWidget = (colorIndex >= 0 && colorIndex < 10)
-                               ? ui->groupBoxColors->findChild<QWidget *>(QString("widgetColor%1").arg(colorIndex))
-                               : ui->widgetDefaultColor;
+    // Check if mx-viewer exists using synchronous approach
+    QProcess checkProcess;
+    qDebug() << "MainWindow::pushHelp_clicked: Creating which QProcess object";
+    checkProcess.setProgram("which");
+    checkProcess.setArguments(QStringList() << "mx-viewer");
+    checkProcess.start();
 
-    if (colorWidget) {
-        pickColor(colorWidget);
-    } else {
-        qWarning() << "Color widget not found for index:" << colorIndex;
-    }
-}
+    bool started = false;
+    if (checkProcess.waitForFinished(3000)) {
+        qDebug() << "MainWindow: which command finished with exit code:" << checkProcess.exitCode();
 
-void MainWindow::pushDefaultColor_clicked()
-{
-    pushColorButton_clicked(-1); // Default color
-}
-
-void MainWindow::pushToggleOn_clicked()
-{
-    QString cmd_str = checkConkyRunning() ? "pkill -u $(id -nu) -x conky"
-                                          : QString("cd \"$(dirname '%1')\"; conky -c '%1' &").arg(file_name);
-    system(cmd_str.toUtf8());
-    checkConkyRunning();
-}
-
-void MainWindow::pushRestore_clicked()
-{
-    QString backupFileName = file_name + ".bak";
-    if (QFile::exists(backupFileName)) {
-        QFile::remove(file_name);
-        if (QFile::copy(backupFileName, file_name)) {
-            refresh();
+        if (checkProcess.exitCode() == 0) {
+            qDebug() << "MainWindow: Using mx-viewer for help";
+            started = QProcess::startDetached("mx-viewer", QStringList() << url << tr("MX Conky Help"));
         } else {
-            qWarning() << "Failed to restore from backup:" << backupFileName;
+            qDebug() << "MainWindow: Using xdg-open for help";
+            started = QProcess::startDetached("xdg-open", QStringList() << url);
         }
+
+        // Ensure process is fully finished and cleaned up
+        checkProcess.kill();
+        checkProcess.waitForFinished(1000);
     } else {
-        QMessageBox::warning(this, tr("Restore Failed"), tr("Backup file does not exist."));
+        qDebug() << "MainWindow: which command timed out, using xdg-open as fallback";
+        checkProcess.kill();
+        checkProcess.waitForFinished(1000);
+        started = QProcess::startDetached("xdg-open", QStringList() << url);
     }
-}
+    qDebug() << "MainWindow::pushHelp_clicked: Destroying which QProcess object";
 
-void MainWindow::pushEdit_clicked()
-{
-    hide();
-    QString run = "set -o pipefail; ";
-    run += "XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ";
-    run += "eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}";
-    run += "$(xdg-mime query default text/plain)  2>/dev/null ";
-    run += "| head -1 | sed 's/^Exec=//' | tr -d '\"' | tr -s ' ' | sed 's/@@//g; s/%f//I; s/%u//I' ";
-    bool quiet = true;
-    if (debug) {
-        qDebug() << "run-cmd: " << run;
-        quiet = false;
-    }
-    QString editor;
-    bool error = Cmd().run(run, editor, quiet);
-    if (debug) {
-        qDebug() << "run:'" + editor + " '" + file_name.toUtf8() + "'";
-    }
-    if (editor.startsWith("kate -s") || editor.startsWith("kate --start")) {
-        editor = "kate";
-    }
-    if (system(editor.toUtf8() + " '" + file_name.toUtf8() + "'") != 0) {
-        if (error || (system("which " + editor.toUtf8() + " 1>/dev/null") != 0)) {
-            if (debug) {
-                qDebug() << "no default text editor defined" << editor;
-            }
-            // try featherpad explicitly
-            if (system("which featherpad 1>/dev/null") == 0) {
-                if (debug) {
-                    qDebug() << "try featherpad text editor ";
-                }
-                system("featherpad '" + file_name.toUtf8() + "'");
-            }
-            refresh();
-            show();
-            return;
-        }
-    }
-    refresh();
-    show();
-}
-
-void MainWindow::pushChange_clicked()
-{
-    saveBackup();
-    QString selected = QFileDialog::getOpenFileName(nullptr, QObject::tr("Select Conky Manager config file"),
-                                                    QFileInfo(file_name).path());
-    if (!selected.isEmpty()) {
-        file_name = selected;
-    }
-    refresh();
-}
-
-void MainWindow::radioDesktop1_clicked()
-{
-    QRegularExpression regexp_lua_owh(capture_lua_owh);
-    QRegularExpression regexp_old_owh(capture_old_owh);
-    QRegularExpression regexp_owh = is_lua_format ? regexp_lua_owh : regexp_old_owh;
-    QString comment_sep = is_lua_format ? "--" : "#";
-    QRegularExpressionMatch match_owh;
-
-    bool lua_block_comment = false;
-
-    const QStringList list = file_content.split('\n');
-    QStringList new_list;
-    new_list.reserve(list.size());
-    for (const QString &row : list) {
-        // Lua comment block
-        QString trow = row.trimmed();
-        if (is_lua_format) {
-            if (lua_block_comment) {
-                if (trow.endsWith(block_comment_end)) {
-                    lua_block_comment = false;
-                    if (debug) {
-                        qDebug() << "Lua block comment end 'ENDS WITH LINE' found";
-                    }
-                    new_list << row;
-                    continue;
-                }
-                if (trow.contains(block_comment_end)) {
-                    lua_block_comment = false;
-                    QStringList ltrow = trow.split(block_comment_end);
-                    ltrow.removeFirst();
-                    trow = ltrow.join(block_comment_end);
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment end CONTAINS line found: after ]]: " << trow;
-                    }
-                } else {
-                    new_list << row;
-                    continue;
-                }
-            }
-            if (!lua_block_comment) {
-                if (trow.startsWith(block_comment_start)) {
-                    if (debug) {
-                        qDebug() << "Lua block comment 'STARTS WITH LINE' found";
-                    }
-                    lua_block_comment = true;
-                    new_list << row;
-                    continue;
-                }
-                if (trow.contains(block_comment_start)) {
-                    lua_block_comment = true;
-                    QStringList ltrow = trow.split(block_comment_start);
-                    trow = ltrow[0];
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment start CONTAINS line found: before start --[[: " << trow;
-                    }
-                }
-            }
-        }
-        // Comment line
-        if (trow.startsWith(comment_sep)) {
-            new_list << row;
-            continue;
-        }
-
-        if (!trow.startsWith("own_window_hints")) {
-            new_list << row;
-            continue;
-        } else {
-
-            if (debug) {
-                qDebug() << "on_radioDesktops1_clicked: own_window_hints found row : " << row;
-                qDebug() << "on_radioDesktops1_clicked: own_window_hints found trow: " << trow;
-            }
-            match_owh = regexp_owh.match(row);
-            if (match_owh.hasMatch() && match_owh.captured("item") == "own_window_hints") {
-                QString owh_value = match_owh.captured("value");
-                owh_value.replace(",sticky", "");
-                owh_value.replace("sticky", "");
-                QString new_row = match_owh.captured("before") + owh_value + match_owh.captured("after");
-                if (debug) {
-                    qDebug() << "Removed sticky: " << new_row;
-                }
-                new_list << new_row;
-            } else {
-                if (debug) {
-                    qDebug() << "ERROR : " << row;
-                }
-                if (is_lua_format) {
-                    if (debug) {
-                        qDebug() << "regexp_owh : " << regexp_lua_owh;
-                        qDebug() << "regexp_owh : " << regexp_owh;
-                    }
-                } else {
-                    if (debug) {
-                        qDebug() << "regexp_owh : " << regexp_old_owh;
-                    }
-                }
-                new_list << row;
-            }
-        }
-    }
-
-    file_content = new_list.join('\n').append('\n');
-    writeFile(QFile(file_name), file_content);
-}
-
-void MainWindow::radioAllDesktops_clicked()
-{
-    QString comment_sep;
-    QRegularExpression regexp_lua_owh(capture_lua_owh);
-    QRegularExpression regexp_old_owh(capture_old_owh);
-    QRegularExpression regexp_owh;
-    QRegularExpressionMatch match_owh;
-    QString conky_config_lua_end = "}";
-    QString conky_config_old_end = "TEXT";
-    QString conky_config_end;
-    QString conky_sticky;
-    bool lua_block_comment {false};
-    bool conky_config {false};
-
-    if (is_lua_format) {
-        regexp_owh = regexp_lua_owh;
-        comment_sep = "--";
-        conky_config = false;
-        conky_config_end = conky_config_lua_end;
-        conky_sticky = "\town_window_hints = 'sticky',";
+    if (started) {
+        qDebug() << "MainWindow: Help viewer started successfully";
     } else {
-        regexp_owh = regexp_old_owh;
-        comment_sep = "#";
-        conky_config = true;
-        conky_config_end = conky_config_old_end;
-        conky_sticky = "own_window_hints sticky";
+        qDebug() << "MainWindow: Failed to start help viewer";
     }
-
-    bool found = false;
-    const QStringList list = file_content.split('\n');
-    QStringList new_list;
-    QString trow;
-    for (const QString &row : list) {
-        trow = row.trimmed();
-        if (is_lua_format) {
-            if (lua_block_comment) {
-                if (trow.endsWith(block_comment_end)) {
-                    lua_block_comment = false;
-                    if (debug) {
-                        qDebug() << "Lua block comment end 'ENDS WITH LINE' found";
-                    }
-                    new_list << row;
-                    continue;
-                }
-                if (trow.contains(block_comment_end)) {
-                    lua_block_comment = false;
-                    QStringList ltrow = trow.split(block_comment_end);
-                    ltrow.removeFirst();
-                    trow = ltrow.join(block_comment_end);
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment end CONTAINS line found: after ]]: " << trow;
-                    }
-                } else {
-                    new_list << row;
-                    continue;
-                }
-            }
-            if (!lua_block_comment) {
-                if (trow.startsWith(block_comment_start)) {
-                    if (debug) {
-                        qDebug() << "Lua block comment 'STARTS WITH LINE' found";
-                    }
-                    lua_block_comment = true;
-                    new_list << row;
-                    continue;
-                }
-                if (trow.contains(block_comment_start)) {
-                    lua_block_comment = true;
-                    QStringList ltrow = trow.split(block_comment_start);
-                    trow = ltrow[0];
-                    trow = trow.trimmed();
-                    if (debug) {
-                        qDebug() << "Lua block comment start CONTAINS line found: before start --[[: " << trow;
-                    }
-                }
-            }
-        }
-        // comment line
-        if (trow.startsWith(comment_sep)) {
-            new_list << row;
-            continue;
-        }
-        if (is_lua_format && trow.startsWith("conky.config")) {
-            conky_config = true;
-        }
-
-        if (!found && conky_config && trow.startsWith(conky_config_end)) {
-            conky_config = false;
-            new_list << conky_sticky;
-            new_list << row;
-            continue;
-        }
-        if (!conky_config) {
-            new_list << row;
-            continue;
-        }
-
-        if (!trow.startsWith("own_window_hints ")) {
-            new_list << row;
-            continue;
-        } else {
-            if (debug) {
-                qDebug() << "on_radioAllDesktops_clicked: own_window_hints found row : " << row;
-                qDebug() << "on_radioAllDesktops_clicked: own_window_hints found trow: " << trow;
-            }
-            match_owh = regexp_owh.match(row);
-            if (match_owh.hasMatch() && match_owh.captured("item") == "own_window_hints") {
-                QString owh_value = match_owh.captured("value");
-                if (owh_value.length() == 0) {
-                    owh_value = "sticky";
-                } else {
-                    owh_value.append(",sticky");
-                }
-                QString new_row = match_owh.captured("before") + owh_value + match_owh.captured("after");
-                if (debug) {
-                    qDebug() << "Append sticky: " << new_row;
-                }
-
-                new_list << match_owh.captured("before") + owh_value + match_owh.captured("after");
-                found = true;
-            } else {
-                if (debug) {
-                    qDebug() << "ERROR : " << row;
-                }
-                if (is_lua_format) {
-                    if (debug) {
-                        qDebug() << "regexp_owh : " << regexp_lua_owh;
-                    }
-                } else {
-                    if (debug) {
-                        qDebug() << "regexp_owh : " << regexp_old_owh;
-                    }
-                }
-                found = false;
-                new_list << row;
-            }
-        }
-    }
-
-    file_content = new_list.join('\n').append('\n');
-    writeFile(file_name, file_content);
-}
-
-void MainWindow::radioDayLong_clicked()
-{
-    file_content.replace("%a", "%A");
-    writeFile(file_name, file_content);
-}
-
-void MainWindow::radioDayShort_clicked()
-{
-    file_content.replace("%A", "%a");
-    writeFile(file_name, file_content);
-}
-
-void MainWindow::radioMonthLong_clicked()
-{
-    file_content.replace("%b", "%B");
-    writeFile(file_name, file_content);
-}
-
-void MainWindow::radioMonthShort_clicked()
-{
-    file_content.replace("%B", "%b");
-    writeFile(file_name, file_content);
 }
 
 void MainWindow::pushCM_clicked()
@@ -904,7 +538,34 @@ void MainWindow::pushCM_clicked()
     QProcess::startDetached("bash", {"-c", command});
 }
 
+void MainWindow::onFilterChanged()
+{
+    if (!m_conkyListWidget) {
+        return;
+    }
+    QString filter = m_filterComboBox->currentText();
+    m_conkyListWidget->setStatusFilter(filter);
+}
+
+void MainWindow::onSearchTextChanged()
+{
+    if (!m_conkyListWidget) {
+        return;
+    }
+    QString searchText = m_searchLineEdit->text();
+    m_conkyListWidget->setSearchText(searchText);
+}
+
+void MainWindow::focusSearchField()
+{
+    if (m_searchLineEdit) {
+        m_searchLineEdit->setFocus();
+        m_searchLineEdit->selectAll();
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent * /*event*/)
 {
     settings.setValue("geometry", saveGeometry());
+    settings.setValue("splitter", m_splitter->saveState());
 }

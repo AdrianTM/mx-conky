@@ -1,5 +1,5 @@
 /**********************************************************************
- *  mxconky.h
+ *  MainWindow.h
  **********************************************************************
  * Copyright (C) 2017 MX Authors
  *
@@ -23,88 +23,86 @@
  **********************************************************************/
 #pragma once
 
-#include <QDir>
-#include <QMessageBox>
-#include <QProcess>
+#include <QAction>
+#include <QComboBox>
+#include <QDialog>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMovie>
+#include <QPushButton>
 #include <QSettings>
-#include <QTimer>
+#include <QSplitter>
+#include <QStackedWidget>
+#include <QVBoxLayout>
 
 #include "cmd.h"
-
-namespace Ui
-{
-class MainWindow;
-}
+#include "conkycustomizedialog.h"
+#include "conkylistwidget.h"
+#include "conkymanager.h"
+#include "settingsdialog.h"
 
 class MainWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, const QString &file = QLatin1String(""));
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
 private slots:
-    static void pushHelp_clicked();
+    void pushHelp_clicked();
     void closeEvent(QCloseEvent *event) override;
+    void onConkyItemsLoaded();
+    void onCustomizeRequested(ConkyItem *item);
+    void onEditRequested(ConkyItem *item);
+    void onItemSelectionChanged(ConkyItem *item);
+    void onPreviewImageLoaded(const QSize imageSize);
+    void onRefreshClicked();
+    void onSettingsClicked();
+    void onStartAllClicked();
+    void onStopAllClicked();
     void pushAbout_clicked();
     void pushCM_clicked();
-    void pushChange_clicked();
-    void pushColorButton_clicked(int colorIndex);
-    void pushDefaultColor_clicked();
-    void pushEdit_clicked();
-    void pushRestore_clicked();
-    void pushToggleOn_clicked();
-    void radioAllDesktops_clicked();
-    void radioDayLong_clicked();
-    void radioDayShort_clicked();
-    void radioDesktop1_clicked();
-    void radioMonthLong_clicked();
-    void radioMonthShort_clicked();
+    
+    // Filter and search slots
+    void onFilterChanged();
+    void onSearchTextChanged();
+    void focusSearchField();
 
 private:
-    Ui::MainWindow *ui;
-    Cmd cmd;
-    QTimer *timer {};
     QSettings settings;
-    QString file_content;
-    QString file_name;
-    bool modified {};
 
-    bool is_lua_format {};
-    bool conky_format_detected = false;
-    bool debug = false;
+    ConkyListWidget *m_conkyListWidget;
+    ConkyManager *m_conkyManager;
+    ConkyPreviewWidget *m_previewWidget;
+    QSplitter *m_splitter;
 
-    // Regexp pattern
-    QString capture_lua_color;
-    QString capture_old_color;
-    QString lua_comment_end;
-    QString lua_comment_line;
-    QString lua_comment_start;
-    QString lua_config;
-    QString lua_format;
-    QString old_comment_line;
-    QString old_format;
+    QPushButton *m_aboutButton;
+    QPushButton *m_closeButton;
+    QPushButton *m_helpButton;
+    QPushButton *m_refreshButton;
+    QPushButton *m_settingsButton;
+    QPushButton *m_startAllButton;
+    QPushButton *m_stopAllButton;
+    
+    // Filter and search widgets
+    QComboBox *m_filterComboBox;
+    QLineEdit *m_searchLineEdit;
 
-    QString capture_lua_owh = QStringLiteral("^(?<before>(?:.*\\]\\])?\\s*(?<item>own_window_hints)(?:\\s*=\\s*[\\\"\\'"
-                                             "]))(?<value>[[:alnum:],_]*)(?<after>(?:[\\\"\\']\\s*,).*)");
-    QString capture_old_owh = QStringLiteral(
-        "^(?<before>(?:.*\\]\\])?\\s*(?<item>own_window_hints)(?:\\s+))(?<value>[[:alnum:],_]*)(?<after>.*)");
+    // Loading state widgets
+    QLabel *m_loadingLabel;
+    QMovie *m_loadingMovie;
+    QStackedWidget *m_stackedWidget;
+    QWidget *m_loadingWidget;
+    QWidget *m_mainWidget;
 
-    QString block_comment_start = QStringLiteral("--[[");
-    QString block_comment_end = QStringLiteral("]]");
-    QRegularExpression regexp_lua_color(QString);
-
-    [[nodiscard]] bool readFile(const QString &file_name);
-    [[nodiscard]] static QColor strToColor(const QString &colorstr);
-    bool checkConkyRunning();
-    void detectConkyFormat();
-    void parseContent();
-    void pickColor(QWidget *widget);
-    void refresh();
-    void saveBackup();
-    void setColor(QWidget *widget, const QColor &color);
+    void editConkyFile(const QString &filePath);
     void setConnections();
-    void writeColor(QWidget *widget, const QColor &color);
-    void writeFile(QFile file, const QString &content);
+    void setupLoadingWidget();
+    void setupMainWidget();
+    void setupUI();
 };

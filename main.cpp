@@ -1,7 +1,7 @@
 /**********************************************************************
  *  main.cpp
  **********************************************************************
- * Copyright (C) 2017 MX Authors
+ * Copyright (C) 2017-2025 MX Authors
  *
  * Authors: Adrian
  *          MX Linux <http://mxlinux.org>
@@ -91,7 +91,21 @@ void updateThemes()
             dir.mkdir(dir.path());
         }
         // Copy the mx-conky-data themes to the default folder
-        system("cp -rn /usr/share/mx-conky-data/themes/* " + dir.path().toUtf8());
+        QProcess copyProcess;
+        qDebug() << "main: Creating copyProcess QProcess object";
+        copyProcess.setProgram("cp");
+        copyProcess.setArguments(QStringList() << "-rn"
+                                               << "/usr/share/mx-conky-data/themes/*" << dir.path());
+        copyProcess.start();
+
+        if (copyProcess.waitForFinished(10000)) {
+            qDebug() << "main: Copy process finished with exit code:" << copyProcess.exitCode();
+        } else {
+            qDebug() << "main: Copy process timed out";
+            copyProcess.kill();
+            copyProcess.waitForFinished(1000);
+        }
+        qDebug() << "main: Destroying copyProcess QProcess object";
         settings.setValue("data-version", current_version.toString());
         QMessageBox::information(nullptr, title, message);
     }
@@ -99,7 +113,15 @@ void updateThemes()
 
 int main(int argc, char *argv[])
 {
+    // Set Qt platform to XCB (X11) if not already set and we're in X11/WSL environment
+    if (qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")) {
+        if (!qEnvironmentVariableIsEmpty("DISPLAY") || !qEnvironmentVariableIsEmpty("WSL_DISTRO_NAME")) {
+            qputenv("QT_QPA_PLATFORM", "xcb");
+        }
+    }
+
     QApplication app(argc, argv);
+
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setOrganizationName("MX-Linux");
     QApplication::setApplicationVersion(VERSION);
@@ -120,26 +142,10 @@ int main(int argc, char *argv[])
         QApplication::installTranslator(&appTran);
     }
 
-    if (system("dpkg -s conky-manager | grep -q 'Status: install ok installed'") != 0
-        && system("dpkg -s conky-manager2 | grep -q 'Status: install ok installed'") != 0) {
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-                              QObject::tr("Could not find conky-manager, please install it before running mx-conky"));
-        return EXIT_FAILURE;
-    }
-
     if (getuid() != 0) {
-
         updateThemes();
 
-        const QString file = QApplication::arguments().length() >= 2 && QFile::exists(QApplication::arguments().at(1))
-                                 ? QApplication::arguments().at(1)
-                                 : openFile(QDir::homePath() + "/.conky");
-
-        if (file.isEmpty()) {
-            return EXIT_FAILURE;
-        }
-
-        MainWindow w(nullptr, file);
+        MainWindow w;
         w.show();
         return QApplication::exec();
 

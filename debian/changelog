@@ -1,3 +1,14 @@
+mx-conky (25.7) UNRELEASED; urgency=medium
+
+  * Redesign:
+  *  - List all conkys
+  *  - Allow to select and start more than one conky
+  *  - Add "autostart" checkbox to set the conky to start automatically
+  *  - Settings can define a number of directory to be scanned for conkys
+  *  - Added a number of options: size, location, transparency
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 20 Jul 2025 17:51:19 -0400
+
 mx-conky (24.4) mx; urgency=medium
 
   * Update to Qt6

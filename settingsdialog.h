@@ -1,5 +1,5 @@
 /**********************************************************************
- *  cmd.h
+ *  SettingsDialog.h
  **********************************************************************
  * Copyright (C) 2017-2025 MX Authors
  *
@@ -21,30 +21,46 @@
  * You should have received a copy of the GNU General Public License
  * along with mx-conky.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
+
 #pragma once
 
-#include <QProcess>
+#include "conkymanager.h"
+#include <QDialog>
+#include <QFileDialog>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QListWidget>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
-class QString;
-class QTextStream;
-
-class Cmd : public QProcess
+class SettingsDialog : public QDialog
 {
     Q_OBJECT
-public:
-    explicit Cmd(QObject *parent = nullptr);
-    ~Cmd();
-    bool run(const QString &cmd, bool quiet = false);
-    bool run(const QString &cmd, QString &output, bool quiet = false);
-    bool runUntrimmed(const QString &cmd, QString &output, bool quiet = false);
-    QString getCmdOut(const QString &cmd, bool quiet = false);
-    QString getCmdOutUntrimmed(const QString &cmd, bool quiet = false);
 
-signals:
-    void done();
-    void errorAvailable(const QString &err);
-    void outputAvailable(const QString &out);
+public:
+    explicit SettingsDialog(ConkyManager *manager, QWidget *parent = nullptr);
+
+private slots:
+    void onAccepted();
+    void onAddPath();
+    void onEditPath();
+    void onPathSelectionChanged();
+    void onRemovePath();
 
 private:
-    QString out_buffer;
+    ConkyManager *m_manager;
+    QListWidget *m_pathListWidget;
+    QPushButton *m_addButton;
+    QPushButton *m_editButton;
+    QPushButton *m_removeButton;
+    QSpinBox *m_startupDelaySpinBox;
+
+    void loadPaths();
+    void loadSettings();
+    void savePaths();
+    void saveSettings();
+    void setupUI();
 };

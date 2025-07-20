@@ -1,5 +1,5 @@
 # **********************************************************************
-# * Copyright (C) 2017 MX Authors
+# * Copyright (C) 2017-2025 MX Authors
 # *
 # * Authors: Adrian
 # *          MX Linux <http://mxlinux.org>
@@ -21,7 +21,17 @@
 # **********************************************************************/
 
 QT       += core gui widgets
-CONFIG   += c++20
+CONFIG   += debug_and_release warn_on strict_c++ c++20
+
+CONFIG(release, debug|release) {
+    DEFINES += NDEBUG
+    QMAKE_CXXFLAGS += -flto=auto
+    QMAKE_LFLAGS += -flto=auto
+    QMAKE_CXXFLAGS_RELEASE = -O3
+}
+
+QMAKE_CXXFLAGS += -Wpedantic -pedantic -Werror=return-type -Werror=switch
+QMAKE_CXXFLAGS += -Werror=uninitialized -Werror=return-local-addr -Werror
 
 TARGET = mx-conky
 TEMPLATE = app
@@ -36,15 +46,23 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     cmd.cpp \
-    versionnumber.cpp
+    versionnumber.cpp \
+    conkyitem.cpp \
+    conkymanager.cpp \
+    conkylistwidget.cpp \
+    settingsdialog.cpp \
+    conkycustomizedialog.cpp
 
 HEADERS  += \
     mainwindow.h \
     cmd.h \
-    versionnumber.h
+    versionnumber.h \
+    conkyitem.h \
+    conkymanager.h \
+    conkylistwidget.h \
+    settingsdialog.h \
+    conkycustomizedialog.h
 
-FORMS    += \
-    mainwindow.ui
 
 TRANSLATIONS += \
     translations/mx-conky_en.ts
