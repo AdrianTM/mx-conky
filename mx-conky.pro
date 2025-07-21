@@ -66,7 +66,8 @@ SOURCES += \
     conkymanager.cpp \
     conkylistwidget.cpp \
     settingsdialog.cpp \
-    conkycustomizedialog.cpp
+    conkycustomizedialog.cpp \
+    previewdialog.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -75,7 +76,8 @@ HEADERS  += \
     conkymanager.h \
     conkylistwidget.h \
     settingsdialog.h \
-    conkycustomizedialog.h
+    conkycustomizedialog.h \
+    previewdialog.h
 
 
 TRANSLATIONS += \

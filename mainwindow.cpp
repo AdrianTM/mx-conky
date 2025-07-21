@@ -159,6 +159,10 @@ void MainWindow::setupMainWidget()
     // Combined toolbar and filter/search layout
     auto *topLayout = new QHBoxLayout;
 
+    m_previewsButton = new QPushButton(tr("Previews"));
+    m_previewsButton->setIcon(QIcon::fromTheme("image-x-generic"));
+    m_previewsButton->setToolTip(tr("Generate preview images for conkies"));
+
     m_settingsButton = new QPushButton(tr("Settings"));
     m_settingsButton->setIcon(QIcon::fromTheme("preferences-system"));
     m_settingsButton->setToolTip(tr("Configure conky search paths"));
@@ -175,7 +179,6 @@ void MainWindow::setupMainWidget()
     m_stopAllButton->setIcon(QIcon::fromTheme("media-playback-stop"));
     m_stopAllButton->setToolTip(tr("Stop all running conkies"));
 
-    auto *filterLabel = new QLabel(tr("Filter:"));
     m_filterComboBox = new QComboBox;
     m_filterComboBox->addItem(tr("All"));
     m_filterComboBox->addItem(tr("Running"));
@@ -183,21 +186,19 @@ void MainWindow::setupMainWidget()
     m_filterComboBox->setCurrentText(tr("All"));
     m_filterComboBox->setToolTip(tr("Filter conkies by running status"));
 
-    auto *searchLabel = new QLabel(tr("Search:"));
     m_searchLineEdit = new QLineEdit;
     m_searchLineEdit->setPlaceholderText(tr("Search conky by name..."));
     m_searchLineEdit->setClearButtonEnabled(true);
     m_searchLineEdit->setToolTip(tr("Search conkies by name (Ctrl+F)"));
 
-    topLayout->addWidget(filterLabel);
     topLayout->addWidget(m_filterComboBox);
     topLayout->addSpacing(10);
-    topLayout->addWidget(searchLabel);
     topLayout->addWidget(m_searchLineEdit);
     topLayout->addStretch(); // Add stretch between search and buttons
     topLayout->addWidget(m_refreshButton);
     topLayout->addWidget(m_startAllButton);
     topLayout->addWidget(m_stopAllButton);
+    topLayout->addWidget(m_previewsButton);
     topLayout->addWidget(m_settingsButton);
 
     m_splitter = new QSplitter(Qt::Horizontal);
@@ -278,6 +279,7 @@ void MainWindow::setConnections()
         return;
     }
 
+    connect(m_previewsButton, &QPushButton::clicked, this, &MainWindow::onPreviewsClicked);
     connect(m_settingsButton, &QPushButton::clicked, this, &MainWindow::onSettingsClicked);
     connect(m_refreshButton, &QPushButton::clicked, this, &MainWindow::onRefreshClicked);
     connect(m_startAllButton, &QPushButton::clicked, this, &MainWindow::onStartAllClicked);
@@ -305,6 +307,39 @@ void MainWindow::setConnections()
 
     // Connect to know when conkies are loaded
     connect(m_conkyManager, &ConkyManager::conkyItemsChanged, this, &MainWindow::onConkyItemsLoaded);
+}
+
+void MainWindow::onPreviewsClicked()
+{
+    if (!m_conkyManager || !m_conkyListWidget) {
+        return;
+    }
+
+    // Get currently selected item if any
+    ConkyItem *selectedItem = m_conkyListWidget->selectedConkyItem();
+
+    PreviewDialog dialog(m_conkyManager, selectedItem, this);
+
+    // Connect signals to handle conky list refresh and selection
+    connect(&dialog, &PreviewDialog::conkyListNeedsRefresh, this, [this]() {
+        if (m_conkyListWidget) {
+            m_conkyListWidget->refreshList();
+        }
+    });
+
+    connect(&dialog, &PreviewDialog::conkyItemNeedsSelection, this, [this](const QString &filePath) {
+        if (m_conkyListWidget) {
+            m_conkyListWidget->selectConkyItem(filePath);
+        }
+    });
+
+    dialog.exec();
+
+    // Refresh preview widget in case new images were generated
+    ConkyItem *currentSelected = m_conkyListWidget->selectedConkyItem();
+    if (m_previewWidget && currentSelected) {
+        m_previewWidget->setConkyItem(currentSelected);
+    }
 }
 
 void MainWindow::onSettingsClicked()
@@ -357,7 +392,7 @@ void MainWindow::onEditRequested(ConkyItem *item)
 
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
-    
+
     // Check if the file/directory is writable
     bool needsCopy = false;
     if (!fileInfo.isWritable()) {
@@ -374,20 +409,20 @@ void MainWindow::onEditRequested(ConkyItem *item)
         // Copy the entire conky folder to ~/.conky
         QString sourceFolderPath = fileInfo.absolutePath();
         QString copiedPath = m_conkyManager->copyFolderToUserConky(sourceFolderPath);
-        
+
         if (!copiedPath.isEmpty()) {
             // Update the file path to point to the copied version
             QString fileName = fileInfo.fileName();
             filePath = copiedPath + "/" + fileName;
-            
+
             // Refresh the conky list to show the new copy
             m_conkyManager->scanForConkies();
-            
-            QMessageBox::information(this, tr("Conky Copied"), 
+
+            QMessageBox::information(
+                this, tr("Conky Copied"),
                 tr("Conky has been copied to your personal folder for editing:\n%1").arg(copiedPath));
         } else {
-            QMessageBox::critical(this, tr("Copy Failed"), 
-                tr("Failed to copy conky to your personal folder."));
+            QMessageBox::critical(this, tr("Copy Failed"), tr("Failed to copy conky to your personal folder."));
             return;
         }
     }
@@ -405,14 +440,12 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
     QFileInfo fileInfo(filePath);
     QString dirPath = fileInfo.absolutePath();
     QString folderName = QFileInfo(dirPath).fileName();
-    
-    int result = QMessageBox::question(
-        this,
-        tr("Delete Conky"),
-        tr("Are you sure you want to delete the entire conky directory:\n%1\n\nThis will delete all files in the folder. This action cannot be undone.").arg(folderName),
-        QMessageBox::Yes | QMessageBox::No,
-        QMessageBox::No
-    );
+
+    int result = QMessageBox::question(this, tr("Delete Conky"),
+                                       tr("Are you sure you want to delete the entire conky directory:\n%1\n\nThis "
+                                          "will delete all files in the folder. This action cannot be undone.")
+                                           .arg(folderName),
+                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
     if (result != QMessageBox::Yes) {
         return;
@@ -432,7 +465,7 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
 
     bool success = false;
     QString elevate = QFile::exists("/usr/bin/pkexec") ? "/usr/bin/pkexec" : "/usr/bin/gksu";
-    
+
     if (needsElevation) {
         QString command = elevate + " rm -rf '" + dirPath + "'";
         success = QProcess::execute("sh", QStringList() << "-c" << command) == 0;
@@ -442,8 +475,15 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
     }
 
     if (success) {
-        // Remove from manager which will trigger list refresh
+        // Remove from manager and rescan to ensure proper refresh
         m_conkyManager->removeConkyItem(item);
+        m_conkyManager->scanForConkies();
+        
+        // Force refresh of the list widget
+        if (m_conkyListWidget) {
+            m_conkyListWidget->refreshList();
+        }
+        
         QMessageBox::information(this, tr("Delete Successful"), tr("Conky directory deleted successfully."));
     } else {
         QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky directory:\n%1").arg(dirPath));
@@ -458,7 +498,7 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
 
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
-    
+
     // Check if the file/directory is writable
     bool needsCopy = false;
     if (!fileInfo.isWritable()) {
@@ -475,20 +515,20 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
         // Copy the entire conky folder to ~/.conky
         QString sourceFolderPath = fileInfo.absolutePath();
         QString copiedPath = m_conkyManager->copyFolderToUserConky(sourceFolderPath);
-        
+
         if (!copiedPath.isEmpty()) {
             // Update the file path to point to the copied version
             QString fileName = fileInfo.fileName();
             filePath = copiedPath + "/" + fileName;
-            
+
             // Refresh the conky list to show the new copy
             m_conkyManager->scanForConkies();
-            
-            QMessageBox::information(this, tr("Conky Copied"), 
+
+            QMessageBox::information(
+                this, tr("Conky Copied"),
                 tr("Conky has been copied to your personal folder for customization:\n%1").arg(copiedPath));
         } else {
-            QMessageBox::critical(this, tr("Copy Failed"), 
-                tr("Failed to copy conky to your personal folder."));
+            QMessageBox::critical(this, tr("Copy Failed"), tr("Failed to copy conky to your personal folder."));
             return;
         }
     }

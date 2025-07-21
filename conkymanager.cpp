@@ -25,16 +25,16 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
-#include <QProcess>
 #include <QPointer>
+#include <QProcess>
 #include <QSet>
 #include <QStandardPaths>
 #include <QTextStream>
 
 #include "cmd.h"
 #include "conkymanager.h"
-#include <chrono>
 #include <algorithm>
+#include <chrono>
 
 using namespace std::chrono_literals;
 
@@ -124,12 +124,11 @@ void ConkyManager::scanForConkies()
     }
 
     // Sort conky items by folder name
-    std::sort(m_conkyItems.begin(), m_conkyItems.end(),
-              [](const ConkyItem *a, const ConkyItem *b) {
-                  QString folderA = QFileInfo(a->directory()).fileName().toLower();
-                  QString folderB = QFileInfo(b->directory()).fileName().toLower();
-                  return folderA < folderB;
-              });
+    std::sort(m_conkyItems.begin(), m_conkyItems.end(), [](const ConkyItem *a, const ConkyItem *b) {
+        QString folderA = QFileInfo(a->directory()).fileName().toLower();
+        QString folderB = QFileInfo(b->directory()).fileName().toLower();
+        return folderA < folderB;
+    });
 
     emit conkyItemsChanged();
 }
@@ -240,8 +239,9 @@ void ConkyManager::saveSettings()
     for (int i = 0; i < m_conkyItems.size(); ++i) {
         m_settings.setArrayIndex(i);
         QPointer<ConkyItem> item = m_conkyItems.at(i);
-        if (!item)
+        if (!item) {
             continue;
+        }
         m_settings.setValue("filePath", item->filePath());
         m_settings.setValue("enabled", item->isEnabled());
         m_settings.setValue("autostart", item->isAutostart());
@@ -257,7 +257,10 @@ void ConkyManager::loadSettings()
 {
     m_settings.beginGroup("ConkyManager");
 
-    m_searchPaths = m_settings.value("searchPaths", QStringList() << QDir::homePath() + "/.conky" << "/usr/share/mx-conky-data/themes").toStringList();
+    m_searchPaths = m_settings
+                        .value("searchPaths", QStringList() << QDir::homePath() + "/.conky"
+                                                            << "/usr/share/mx-conky-data/themes")
+                        .toStringList();
 
     m_startupDelay = m_settings.value("startupDelay", 20).toInt();
 
@@ -413,8 +416,8 @@ void ConkyManager::scanDirectory(const QString &path)
 void ConkyManager::scanConkyDirectory(const QString &path)
 {
     static const QStringList skipExtensions
-        = {".sh", ".png", ".jpg", ".jpeg", ".txt", ".bak", ".zip", ".ttf", ".md", ".py"};
-    static const QStringList skipNames = {"README", "Changelog"};
+        = {".sh", ".png", ".jpg", ".jpeg", ".txt", ".bak", ".zip", ".ttf", ".md", ".py", ".lua"};
+    static const QStringList skipNames = {"Changelog", "Notes", "README", "README!!", "OPTIONS"};
 
     QDir dir(path);
     if (!dir.exists()) {

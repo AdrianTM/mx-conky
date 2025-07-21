@@ -43,6 +43,7 @@
 #include "conkycustomizedialog.h"
 #include "conkylistwidget.h"
 #include "conkymanager.h"
+#include "previewdialog.h"
 #include "settingsdialog.h"
 
 class MainWindow : public QDialog
@@ -62,6 +63,7 @@ private slots:
     void onDeleteRequested(ConkyItem *item);
     void onItemSelectionChanged(ConkyItem *item);
     void onPreviewImageLoaded(const QSize imageSize);
+    void onPreviewsClicked();
     void onRefreshClicked();
     void onSettingsClicked();
     void onStartAllClicked();
@@ -85,6 +87,7 @@ private:
     QPushButton *m_aboutButton;
     QPushButton *m_closeButton;
     QPushButton *m_helpButton;
+    QPushButton *m_previewsButton;
     QPushButton *m_refreshButton;
     QPushButton *m_settingsButton;
     QPushButton *m_startAllButton;

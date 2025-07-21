@@ -196,6 +196,31 @@ ConkyItem *ConkyListWidget::selectedConkyItem() const
     return nullptr;
 }
 
+void ConkyListWidget::selectConkyItem(const QString &filePath)
+{
+    // Find the ConkyItem with the given file path
+    ConkyItem *targetItem = nullptr;
+    for (ConkyItem *item : m_manager->conkyItems()) {
+        if (item->filePath() == filePath) {
+            targetItem = item;
+            break;
+        }
+    }
+
+    if (!targetItem) {
+        return;
+    }
+
+    // Find the corresponding tree widget item
+    if (m_treeItems.contains(targetItem)) {
+        QTreeWidgetItem *treeItem = m_treeItems[targetItem];
+        if (treeItem) {
+            m_treeWidget->setCurrentItem(treeItem);
+            m_treeWidget->scrollToItem(treeItem);
+        }
+    }
+}
+
 void ConkyListWidget::onConkyItemsChanged()
 {
     m_treeWidget->clear();
@@ -206,17 +231,15 @@ void ConkyListWidget::onConkyItemsChanged()
     for (ConkyItem *item : items) {
         addConkyItem(item);
     }
-    
+
     // Auto-select first item only on initial load
     if (!m_hasAutoSelected && m_treeWidget->topLevelItemCount() > 0) {
         QTreeWidgetItem *firstItem = m_treeWidget->topLevelItem(0);
         m_treeWidget->setCurrentItem(firstItem);
         m_hasAutoSelected = true;
-        
+
         // Use a short timer to ensure the tree widget is fully initialized
-        QTimer::singleShot(50, this, [this]() {
-            onItemSelectionChanged();
-        });
+        QTimer::singleShot(50, this, [this]() { onItemSelectionChanged(); });
     }
 }
 
@@ -319,7 +342,7 @@ void ConkyListWidget::applyFilters()
     for (auto it = m_treeItems.begin(); it != m_treeItems.end(); ++it) {
         ConkyItem *item = it.key();
         QTreeWidgetItem *treeItem = it.value();
-        
+
         bool visible = itemMatchesFilters(item);
         treeItem->setHidden(!visible);
     }
@@ -330,7 +353,7 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
     if (!item) {
         return false;
     }
-    
+
     // Apply status filter
     if (m_statusFilter == "Running" && !item->isRunning()) {
         return false;
@@ -338,7 +361,7 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
     if (m_statusFilter == "Stopped" && item->isRunning()) {
         return false;
     }
-    
+
     // Apply search text filter
     if (!m_searchText.isEmpty()) {
         QString itemName = item->name().toLower();
@@ -348,7 +371,7 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -418,7 +441,7 @@ void ConkyPreviewWidget::updatePreview()
         if (!pixmap.isNull()) {
             QPixmap scaledPixmap = pixmap.scaled(m_previewLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
             m_previewLabel->setPixmap(scaledPixmap);
-            
+
             // Emit signal with original image size
             emit previewImageLoaded(pixmap.size());
         } else {

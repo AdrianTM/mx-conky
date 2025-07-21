@@ -84,7 +84,7 @@ QString ConkyItem::previewImage() const
     // Lazy load preview image only when requested
     if (m_previewImage.isEmpty() && !m_filePath.isEmpty()) {
         // Cast away constness to allow lazy loading
-        ConkyItem *that = const_cast<ConkyItem*>(this);
+        ConkyItem *that = const_cast<ConkyItem *>(this);
         that->m_previewImage = that->findPreviewImage();
     }
     return m_previewImage;
