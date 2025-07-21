@@ -1,4 +1,4 @@
-mx-conky (25.07.13) UNRELEASED; urgency=medium
+mx-conky (25.07.14) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -19,8 +19,9 @@ mx-conky (25.07.13) UNRELEASED; urgency=medium
   * Add create previews option
   * Add user edited/original to the filter, also copy all the files that
     are edited to .conky folder
+  * Add option to rename the file. Change filter to 'All' after an edit
 
- -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 17:16:13 -0400
+ -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 17:42:08 -0400
 
 mx-conky (24.4) mx; urgency=medium
 

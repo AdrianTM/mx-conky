@@ -2,7 +2,7 @@ Format: 3.0 (native)
 Source: mx-conky
 Binary: mx-conky
 Architecture: any
-Version: 25.07.13
+Version: 25.07.14
 Maintainer: Adrian <adrian@mxlinux.org>
 Homepage: https://github.com/MX-Linux/mx-conky
 Standards-Version: 3.9.8
@@ -11,8 +11,8 @@ Build-Depends: debhelper-compat (= 13), qt6-base-dev, qt6-base-dev-tools, qt6-to
 Package-List:
  mx-conky deb admin optional arch=any
 Checksums-Sha1:
- b60cf1078ed8b82865cb735bd790bda89c60ce35 165248 mx-conky_25.07.13.tar.xz
+ b6d0f4cf486179dbf17dfb8df728cb6d9c2d6955 165784 mx-conky_25.07.14.tar.xz
 Checksums-Sha256:
- 1ec57c7d5d106154fc7b91581bc72c1b5580a7f1dcc2275bceb665dfc2aaa906 165248 mx-conky_25.07.13.tar.xz
+ 01e5fea6974d7cad39361878028b79fb829a1a09756230b6f86208ccfe947003 165784 mx-conky_25.07.14.tar.xz
 Files:
- 34b4126648c22cbab4d1596aae5d18ea 165248 mx-conky_25.07.13.tar.xz
+ 5c59a1897f76062db1ed7d0d3fa28f86 165784 mx-conky_25.07.14.tar.xz
