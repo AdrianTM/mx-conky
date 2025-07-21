@@ -25,16 +25,22 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QDebug>
+#include <QFile>
 #include <QFileInfo>
 #include <QKeySequence>
 #include <QMessageBox>
 #include <QMovie>
 #include <QProcess>
+#include <QRegularExpression>
 #include <QShortcut>
 #include <QStackedWidget>
 #include <QStandardPaths>
 #include <QTextEdit>
 #include <QTimer>
+#include <chrono>
+#include <unistd.h>
+
+using namespace std::chrono_literals;
 
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent),
@@ -53,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     show();
 
     // Start loading conkies asynchronously
-    QTimer::singleShot(100, this, [this]() {
+    QTimer::singleShot(100ms, this, [this]() {
         m_conkyManager = new ConkyManager(this);
 
         // Now create the widgets that depend on ConkyManager
@@ -66,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
         setConnections();
 
         // Manually trigger the transition since the initial scan already happened
-        QTimer::singleShot(50, this, &MainWindow::onConkyItemsLoaded);
+        QTimer::singleShot(50ms, this, &MainWindow::onConkyItemsLoaded);
     });
 }
 
@@ -288,7 +294,8 @@ void MainWindow::setConnections()
     connect(m_previewWidget, &ConkyPreviewWidget::previewImageLoaded, this, &MainWindow::onPreviewImageLoaded);
 
     // Connect filter and search
-    connect(m_filterComboBox, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &MainWindow::onFilterChanged);
+    connect(m_filterComboBox, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this,
+            &MainWindow::onFilterChanged);
     connect(m_searchLineEdit, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
 
     // Add Ctrl+F shortcut to focus search field
@@ -389,11 +396,11 @@ void MainWindow::onPreviewImageLoaded(const QSize imageSize)
 void MainWindow::editConkyFile(const QString &filePath)
 {
     hide();
-    
+
     // Check if we have write permission to the file
     QFileInfo fileInfo(filePath);
     bool needsElevation = false;
-    
+
     if (fileInfo.exists() && !fileInfo.isWritable()) {
         needsElevation = true;
     } else if (!fileInfo.exists()) {
@@ -403,94 +410,81 @@ void MainWindow::editConkyFile(const QString &filePath)
             needsElevation = true;
         }
     }
-    
-    QString run = "set -o pipefail; ";
-    run += "XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ";
-    run += "eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}";
-    run += "$(xdg-mime query default text/plain) 2>/dev/null ";
-    run += "| head -1 | sed 's/^Exec=//' | tr -d '\"' | tr -s ' ' | sed 's/@@//g; s/%f//I; s/%u//I' ";
 
-    bool quiet = true;
     bool debug = !QProcessEnvironment::systemEnvironment().value("DEBUG").isEmpty();
 
-    if (debug) {
-        qDebug() << "run-cmd: " << run;
-        quiet = false;
-    }
-
     QString editor;
-    Cmd cmd;
-    cmd.run(run, editor, quiet);
+    QString default_editor = Cmd().getCmdOut("xdg-mime query default text/plain");
+    QString desktop_file
+        = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
 
-    if (debug) {
-        qDebug() << "run:'" + editor + " '" + filePath.toUtf8() + "'";
-    }
-
-    if (editor.startsWith("kate -s") || editor.startsWith("kate --start")) {
-        editor = "kate";
-    }
-
-    // Try to start the editor using static startDetached
-    qDebug() << "MainWindow: Trying to start editor:" << editor << "with file:" << filePath;
-    qDebug() << "MainWindow: Needs elevation:" << needsElevation;
-
-    bool started = false;
-    
-    if (needsElevation) {
-        // Try elevated editors
-        QStringList elevatedCommands = {
-            QString("pkexec %1 '%2'").arg(editor, filePath),
-            QString("sudo %1 '%2'").arg(editor, filePath)
-        };
-        
-        for (const QString &command : elevatedCommands) {
-            started = QProcess::startDetached("sh", QStringList() << "-c" << command);
-            if (started) {
+    QFile file(desktop_file);
+    if (file.open(QIODevice::ReadOnly)) {
+        while (!file.atEnd()) {
+            QString line = file.readLine();
+            if (line.contains(QRegularExpression("^Exec="))) {
+                editor = line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C|-b")).trimmed();
                 break;
             }
         }
-        
-        if (!started) {
-            // Try elevated featherpad as fallback
-            QStringList fallbackCommands = {
-                QString("pkexec featherpad '%1'").arg(filePath),
-                QString("sudo featherpad '%1'").arg(filePath)
-            };
-            
-            for (const QString &command : fallbackCommands) {
-                started = QProcess::startDetached("sh", QStringList() << "-c" << command);
-                if (started) {
-                    break;
-                }
-            }
-        }
-        
-        if (!started) {
-            QMessageBox::warning(this, tr("Permission Denied"), 
-                                tr("Cannot edit file: %1\\nInsufficient permissions and elevation failed.").arg(filePath));
+        file.close();
+    }
+
+    if (editor.isEmpty()) {
+        editor = "nano";
+    }
+
+    if (debug) {
+        qDebug() << "Detected editor:" << editor;
+    }
+
+    const bool isRoot = getuid() == 0;
+    const bool isEditorThatElevates
+        = QRegularExpression(R"((kate|kwrite|featherpad|code|codium)$)").match(editor).hasMatch();
+    const bool isCliEditor = QRegularExpression(R"(nano|vi|vim|nvim|micro|emacs)").match(editor).hasMatch();
+
+    QString elevate = QFile::exists("/usr/bin/pkexec") ? "/usr/bin/pkexec" : "/usr/bin/gksu";
+    QString command;
+
+    if (needsElevation) {
+        if (isEditorThatElevates && !isRoot) {
+            command = editor + " " + filePath;
+        } else if (isRoot && isEditorThatElevates) {
+            command = elevate + " --user $(logname) " + editor + " " + filePath;
+        } else if (isCliEditor) {
+            command = "x-terminal-emulator -e " + elevate + " " + editor + " " + filePath;
+        } else {
+            command = elevate + " env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY " + editor + " " + filePath;
         }
     } else {
-        // Normal editor launch
-        started = QProcess::startDetached(editor, QStringList() << filePath);
+        if (isEditorThatElevates && !isRoot) {
+            command = editor + " " + filePath;
+        } else if (isRoot && isEditorThatElevates) {
+            command = elevate + " --user $(logname) " + editor + " " + filePath;
+        } else if (isCliEditor) {
+            command = "x-terminal-emulator -e " + editor + " " + filePath;
+        } else {
+            command = editor + " " + filePath;
+        }
+    }
+
+    if (debug) {
+        qDebug() << "Final command:" << command;
+    }
+
+    bool started = QProcess::startDetached("sh", QStringList() << "-c" << command);
+
+    if (!started) {
+        if (debug) {
+            qDebug() << "MainWindow: Failed to start editor with command:" << command;
+        }
+
+        // Fallback to simple featherpad launch
+        QString fallbackCommand = needsElevation ? elevate + " featherpad " + filePath : "featherpad " + filePath;
+        started = QProcess::startDetached("sh", QStringList() << "-c" << fallbackCommand);
 
         if (!started) {
-            if (debug) {
-                qDebug() << "MainWindow: Failed to start editor:" << editor;
-            }
-
-            // Try featherpad as fallback
-            qDebug() << "MainWindow: Trying featherpad as fallback";
-            started = QProcess::startDetached("featherpad", QStringList() << filePath);
-
-            if (!started) {
-                if (debug) {
-                    qDebug() << "MainWindow: Failed to start featherpad fallback";
-                }
-            } else {
-                qDebug() << "MainWindow: Featherpad started successfully";
-            }
-        } else {
-            qDebug() << "MainWindow: Editor started successfully";
+            QMessageBox::warning(this, tr("Editor Error"), tr("Cannot start editor for file: %1").arg(filePath));
         }
     }
     show();
