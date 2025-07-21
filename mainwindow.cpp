@@ -351,9 +351,48 @@ void MainWindow::onItemSelectionChanged(ConkyItem *item)
 
 void MainWindow::onEditRequested(ConkyItem *item)
 {
-    if (item) {
-        editConkyFile(item->filePath());
+    if (!item) {
+        return;
     }
+
+    QString filePath = item->filePath();
+    QFileInfo fileInfo(filePath);
+    
+    // Check if the file/directory is writable
+    bool needsCopy = false;
+    if (!fileInfo.isWritable()) {
+        needsCopy = true;
+    } else {
+        // Check if directory is writable
+        QFileInfo dirInfo(fileInfo.absolutePath());
+        if (!dirInfo.isWritable()) {
+            needsCopy = true;
+        }
+    }
+
+    if (needsCopy) {
+        // Copy the entire conky folder to ~/.conky
+        QString sourceFolderPath = fileInfo.absolutePath();
+        QString copiedPath = m_conkyManager->copyFolderToUserConky(sourceFolderPath);
+        
+        if (!copiedPath.isEmpty()) {
+            // Update the file path to point to the copied version
+            QString fileName = fileInfo.fileName();
+            filePath = copiedPath + "/" + fileName;
+            
+            // Refresh the conky list to show the new copy
+            m_conkyManager->scanForConkies();
+            
+            QMessageBox::information(this, tr("Conky Copied"), 
+                tr("Conky has been copied to your personal folder for editing:\n%1").arg(copiedPath));
+        } else {
+            QMessageBox::critical(this, tr("Copy Failed"), 
+                tr("Failed to copy conky to your personal folder."));
+            return;
+        }
+    }
+
+    editConkyFile(filePath);
 }
 
 void MainWindow::onDeleteRequested(ConkyItem *item)
@@ -362,11 +401,15 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
         return;
     }
 
-    QString fileName = QFileInfo(item->filePath()).fileName();
+    QString filePath = item->filePath();
+    QFileInfo fileInfo(filePath);
+    QString dirPath = fileInfo.absolutePath();
+    QString folderName = QFileInfo(dirPath).fileName();
+    
     int result = QMessageBox::question(
         this,
         tr("Delete Conky"),
-        tr("Are you sure you want to delete the conky file:\n%1\n\nThis action cannot be undone.").arg(fileName),
+        tr("Are you sure you want to delete the entire conky directory:\n%1\n\nThis will delete all files in the folder. This action cannot be undone.").arg(folderName),
         QMessageBox::Yes | QMessageBox::No,
         QMessageBox::No
     );
@@ -380,11 +423,10 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
         m_conkyManager->stopConky(item);
     }
 
-    QString filePath = item->filePath();
-    QFileInfo fileInfo(filePath);
+    QFileInfo dirInfo(dirPath);
     bool needsElevation = false;
 
-    if (fileInfo.exists() && !fileInfo.isWritable()) {
+    if (dirInfo.exists() && !dirInfo.isWritable()) {
         needsElevation = true;
     }
 
@@ -392,27 +434,67 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
     QString elevate = QFile::exists("/usr/bin/pkexec") ? "/usr/bin/pkexec" : "/usr/bin/gksu";
     
     if (needsElevation) {
-        QString command = elevate + " rm '" + filePath + "'";
+        QString command = elevate + " rm -rf '" + dirPath + "'";
         success = QProcess::execute("sh", QStringList() << "-c" << command) == 0;
     } else {
-        success = QFile::remove(filePath);
+        QDir dir(dirPath);
+        success = dir.removeRecursively();
     }
 
     if (success) {
         // Remove from manager which will trigger list refresh
         m_conkyManager->removeConkyItem(item);
-        QMessageBox::information(this, tr("Delete Successful"), tr("Conky file deleted successfully."));
+        QMessageBox::information(this, tr("Delete Successful"), tr("Conky directory deleted successfully."));
     } else {
-        QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky file:\n%1").arg(filePath));
+        QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky directory:\n%1").arg(dirPath));
     }
 }
 
 void MainWindow::onCustomizeRequested(ConkyItem *item)
 {
-    if (item) {
-        ConkyCustomizeDialog dialog(item->filePath(), this);
-        dialog.exec();
+    if (!item) {
+        return;
     }
+
+    QString filePath = item->filePath();
+    QFileInfo fileInfo(filePath);
+    
+    // Check if the file/directory is writable
+    bool needsCopy = false;
+    if (!fileInfo.isWritable()) {
+        needsCopy = true;
+    } else {
+        // Check if directory is writable
+        QFileInfo dirInfo(fileInfo.absolutePath());
+        if (!dirInfo.isWritable()) {
+            needsCopy = true;
+        }
+    }
+
+    if (needsCopy) {
+        // Copy the entire conky folder to ~/.conky
+        QString sourceFolderPath = fileInfo.absolutePath();
+        QString copiedPath = m_conkyManager->copyFolderToUserConky(sourceFolderPath);
+        
+        if (!copiedPath.isEmpty()) {
+            // Update the file path to point to the copied version
+            QString fileName = fileInfo.fileName();
+            filePath = copiedPath + "/" + fileName;
+            
+            // Refresh the conky list to show the new copy
+            m_conkyManager->scanForConkies();
+            
+            QMessageBox::information(this, tr("Conky Copied"), 
+                tr("Conky has been copied to your personal folder for customization:\n%1").arg(copiedPath));
+        } else {
+            QMessageBox::critical(this, tr("Copy Failed"), 
+                tr("Failed to copy conky to your personal folder."));
+            return;
+        }
+    }
+
+    ConkyCustomizeDialog dialog(filePath, this);
+    dialog.exec();
 }
 
 void MainWindow::onPreviewImageLoaded(const QSize imageSize)

@@ -35,7 +35,6 @@
 #include "cmd.h"
 #include "mainwindow.h"
 #include "version.h"
-#include "versionnumber.h"
 #include <unistd.h>
 
 // Return the config file used for the newest conky process
@@ -70,45 +69,6 @@ QString openFile(const QDir &dir)
     return {};
 }
 
-void updateThemes()
-{
-    const VersionNumber current_version {Cmd().getCmdOut("dpkg -l mx-conky-data | awk 'NR==6 {print $3}'", true)};
-
-    QSettings settings;
-    const QString version = settings.value("data-version").toString();
-    VersionNumber recorded_version {version};
-
-    const QString title = QObject::tr("Conky Data Update");
-    const QString message = QObject::tr("The MX Conky data set has been updated. <p><p>\
-                                  Copy from the folder where it is located <a href=\"/usr/share/mx-conky-data/themes\">/usr/share/mx-conky-data/themes</a> \
-                                  whatever you wish to your Home hidden conky folder <a href=\"%1/.conky\">~/.conky</a>. \
-                                  Be careful not to overwrite any conkies you have changed.")
-                                .arg(QDir::homePath());
-
-    QDir dir {QDir::homePath() + "/.conky"};
-    if (recorded_version.toString().isEmpty() || current_version > recorded_version || !dir.exists()) {
-        if (!dir.exists()) {
-            dir.mkdir(dir.path());
-        }
-        // Copy the mx-conky-data themes to the default folder
-        QProcess copyProcess;
-        copyProcess.setProgram("cp");
-        copyProcess.setArguments(QStringList() << "--recursive" << "--no-clobber"
-                                               << "/usr/share/mx-conky-data/themes/*" << dir.path());
-        copyProcess.start();
-
-        if (copyProcess.waitForFinished(10000)) {
-            qDebug() << "main: Copy process finished with exit code:" << copyProcess.exitCode();
-        } else {
-            qDebug() << "main: Copy process timed out";
-            copyProcess.kill();
-            copyProcess.waitForFinished(1000);
-        }
-        settings.setValue("data-version", current_version.toString());
-        QMessageBox::information(nullptr, title, message);
-    }
-}
-
 int main(int argc, char *argv[])
 {
     // Set Qt platform to XCB (X11) if not already set and we're in X11/WSL environment
@@ -141,12 +101,9 @@ int main(int argc, char *argv[])
     }
 
     if (getuid() != 0) {
-        updateThemes();
-
         MainWindow w;
         w.show();
         return QApplication::exec();
-
     } else {
         QApplication::beep();
         QMessageBox::critical(nullptr, QObject::tr("Error"), QObject::tr("You must run this program as normal user"));

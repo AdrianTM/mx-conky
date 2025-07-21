@@ -62,7 +62,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     cmd.cpp \
-    versionnumber.cpp \
     conkyitem.cpp \
     conkymanager.cpp \
     conkylistwidget.cpp \
@@ -72,7 +71,6 @@ SOURCES += \
 HEADERS  += \
     mainwindow.h \
     cmd.h \
-    versionnumber.h \
     conkyitem.h \
     conkymanager.h \
     conkylistwidget.h \

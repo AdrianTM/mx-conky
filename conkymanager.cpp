@@ -34,6 +34,7 @@
 #include "cmd.h"
 #include "conkymanager.h"
 #include <chrono>
+#include <algorithm>
 
 using namespace std::chrono_literals;
 
@@ -91,9 +92,44 @@ void ConkyManager::scanForConkies()
 {
     clearConkyItems();
 
+    QMap<QString, QString> conkyFolders; // folderName -> fullPath
+    QString userConkyPath = QDir::homePath() + "/.conky";
+
+    // First, collect all conky folders from all search paths
     for (const QString &path : m_searchPaths) {
-        scanDirectory(path);
+        QDir dir(path);
+        if (!dir.exists()) {
+            continue;
+        }
+
+        QStringList subdirs = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::NoSort);
+        for (const QString &subdir : subdirs) {
+            QString fullPath = dir.absoluteFilePath(subdir);
+
+            // If this is the user's .conky directory, always use it (highest priority)
+            if (path == userConkyPath) {
+                conkyFolders[subdir] = fullPath;
+            } else {
+                // Only add if we don't already have this folder name from ~/.conky
+                if (!conkyFolders.contains(subdir)) {
+                    conkyFolders[subdir] = fullPath;
+                }
+            }
+        }
     }
+
+    // Now scan all the selected folders
+    for (auto it = conkyFolders.begin(); it != conkyFolders.end(); ++it) {
+        scanConkyDirectory(it.value());
+    }
+
+    // Sort conky items by folder name
+    std::sort(m_conkyItems.begin(), m_conkyItems.end(), 
+              [](const ConkyItem *a, const ConkyItem *b) {
+                  QString folderA = QFileInfo(a->directory()).fileName().toLower();
+                  QString folderB = QFileInfo(b->directory()).fileName().toLower();
+                  return folderA < folderB;
+              });
 
     emit conkyItemsChanged();
 }
@@ -221,7 +257,7 @@ void ConkyManager::loadSettings()
 {
     m_settings.beginGroup("ConkyManager");
 
-    m_searchPaths = m_settings.value("searchPaths", QStringList() << QDir::homePath() + "/.conky").toStringList();
+    m_searchPaths = m_settings.value("searchPaths", QStringList() << QDir::homePath() + "/.conky" << "/usr/share/mx-conky-data/themes").toStringList();
 
     m_startupDelay = m_settings.value("startupDelay", 20).toInt();
 
@@ -522,4 +558,72 @@ bool ConkyManager::isAutostartEnabled() const
     QString home = QDir::homePath();
     QString desktopFile = home + "/.config/autostart/conky.desktop";
     return QFile::exists(desktopFile);
+}
+
+QString ConkyManager::copyFolderToUserConky(const QString &sourcePath)
+{
+    QFileInfo sourceInfo(sourcePath);
+    if (!sourceInfo.exists() || !sourceInfo.isDir()) {
+        qDebug() << "ConkyManager: Source path does not exist or is not a directory:" << sourcePath;
+        return QString();
+    }
+
+    QString userConkyPath = QDir::homePath() + "/.conky";
+    QString folderName = sourceInfo.fileName();
+    QString destPath = userConkyPath + "/" + folderName;
+
+    // Create ~/.conky directory if it doesn't exist
+    QDir().mkpath(userConkyPath);
+
+    // Remove existing destination if it exists
+    if (QFileInfo::exists(destPath)) {
+        QDir(destPath).removeRecursively();
+    }
+
+    // Copy the folder
+    if (copyDirectoryRecursively(sourcePath, destPath)) {
+        qDebug() << "ConkyManager: Successfully copied" << sourcePath << "to" << destPath;
+        return destPath;
+    } else {
+        qDebug() << "ConkyManager: Failed to copy" << sourcePath << "to" << destPath;
+        return QString();
+    }
+}
+
+bool ConkyManager::copyDirectoryRecursively(const QString &sourceDir, const QString &destDir)
+{
+    QDir sourceDirectory(sourceDir);
+    if (!sourceDirectory.exists()) {
+        return false;
+    }
+
+    QDir destDirectory(destDir);
+    if (!destDirectory.exists()) {
+        destDirectory.mkpath(".");
+    }
+
+    // Copy all files
+    QFileInfoList fileInfoList = sourceDirectory.entryInfoList(QDir::Files);
+    for (const QFileInfo &fileInfo : fileInfoList) {
+        QString srcFilePath = fileInfo.absoluteFilePath();
+        QString destFilePath = destDir + "/" + fileInfo.fileName();
+
+        if (!QFile::copy(srcFilePath, destFilePath)) {
+            qDebug() << "ConkyManager: Failed to copy file" << srcFilePath << "to" << destFilePath;
+            return false;
+        }
+    }
+
+    // Copy all subdirectories recursively
+    QFileInfoList subdirInfoList = sourceDirectory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const QFileInfo &subdirInfo : subdirInfoList) {
+        QString srcSubdirPath = subdirInfo.absoluteFilePath();
+        QString destSubdirPath = destDir + "/" + subdirInfo.fileName();
+
+        if (!copyDirectoryRecursively(srcSubdirPath, destSubdirPath)) {
+            return false;
+        }
+    }
+
+    return true;
 }

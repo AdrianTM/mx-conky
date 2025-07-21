@@ -49,6 +49,7 @@ public:
     void startConky(ConkyItem *item);
     void stopConky(ConkyItem *item);
     void removeConkyItem(ConkyItem *item);
+    QString copyFolderToUserConky(const QString &sourcePath);
 
     void startAutostart();
     void stopAllRunning();
@@ -98,4 +99,5 @@ private:
     void clearConkyItems();
     void scanConkyDirectory(const QString &path);
     void scanDirectory(const QString &path);
+    bool copyDirectoryRecursively(const QString &sourceDir, const QString &destDir);
 };
