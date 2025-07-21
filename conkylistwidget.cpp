@@ -24,6 +24,7 @@
 
 #include "conkylistwidget.h"
 #include <QDebug>
+#include <QDir>
 #include <QFileInfo>
 #include <QHeaderView>
 #include <QPixmap>
@@ -359,6 +360,17 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
         return false;
     }
     if (m_statusFilter == "Stopped" && item->isRunning()) {
+        return false;
+    }
+
+    // Apply location-based filters
+    QString userConkyPath = QDir::homePath() + "/.conky";
+    bool isUserEdited = item->directory().startsWith(userConkyPath);
+
+    if (m_statusFilter == "User edited" && !isUserEdited) {
+        return false;
+    }
+    if (m_statusFilter == "Original" && isUserEdited) {
         return false;
     }
 

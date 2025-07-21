@@ -87,9 +87,9 @@ public:
     void refreshList();
     ConkyItem *selectedConkyItem() const;
     void selectConkyItem(const QString &filePath);
-    
+
     // Filter and search methods
-    void setStatusFilter(const QString &filter);  // "All", "Running", "Stopped"
+    void setStatusFilter(const QString &filter); // "All", "Running", "Stopped"
     void setSearchText(const QString &searchText);
 
 signals:
@@ -113,7 +113,7 @@ private:
     QHash<ConkyItem *, ConkyItemWidget *> m_itemWidgets;
     QHash<ConkyItem *, QTreeWidgetItem *> m_treeItems;
     bool m_hasAutoSelected = false;
-    
+
     // Filter and search state
     QString m_statusFilter = "All";
     QString m_searchText;

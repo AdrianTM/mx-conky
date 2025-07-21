@@ -25,6 +25,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QKeySequence>
@@ -183,8 +184,10 @@ void MainWindow::setupMainWidget()
     m_filterComboBox->addItem(tr("All"));
     m_filterComboBox->addItem(tr("Running"));
     m_filterComboBox->addItem(tr("Stopped"));
+    m_filterComboBox->addItem(tr("User edited"));
+    m_filterComboBox->addItem(tr("Original"));
     m_filterComboBox->setCurrentText(tr("All"));
-    m_filterComboBox->setToolTip(tr("Filter conkies by running status"));
+    m_filterComboBox->setToolTip(tr("Filter conkies by running status or location"));
 
     m_searchLineEdit = new QLineEdit;
     m_searchLineEdit->setPlaceholderText(tr("Search conky by name..."));
@@ -393,17 +396,9 @@ void MainWindow::onEditRequested(ConkyItem *item)
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
 
-    // Check if the file/directory is writable
-    bool needsCopy = false;
-    if (!fileInfo.isWritable()) {
-        needsCopy = true;
-    } else {
-        // Check if directory is writable
-        QFileInfo dirInfo(fileInfo.absolutePath());
-        if (!dirInfo.isWritable()) {
-            needsCopy = true;
-        }
-    }
+    // Check if the file is outside ~/.conky (location-based copying)
+    QString userConkyPath = QDir::homePath() + "/.conky";
+    bool needsCopy = !item->directory().startsWith(userConkyPath);
 
     if (needsCopy) {
         // Copy the entire conky folder to ~/.conky
@@ -499,17 +494,9 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
 
-    // Check if the file/directory is writable
-    bool needsCopy = false;
-    if (!fileInfo.isWritable()) {
-        needsCopy = true;
-    } else {
-        // Check if directory is writable
-        QFileInfo dirInfo(fileInfo.absolutePath());
-        if (!dirInfo.isWritable()) {
-            needsCopy = true;
-        }
-    }
+    // Check if the file is outside ~/.conky (location-based copying)
+    QString userConkyPath = QDir::homePath() + "/.conky";
+    bool needsCopy = !item->directory().startsWith(userConkyPath);
 
     if (needsCopy) {
         // Copy the entire conky folder to ~/.conky
