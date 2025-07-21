@@ -239,8 +239,8 @@ void ConkyManager::updateRunningStatus()
     m_statusCheckRunning = true;
 
     // Use optimized command for better performance
-    m_statusProcess->start("pgrep", QStringList() << "-f"
-                                                  << "conky.*-c");
+    m_statusProcess->start("pgrep", QStringList() << "-x"
+                                                  << "conky");
 }
 
 void ConkyManager::onStatusProcessFinished()
