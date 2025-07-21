@@ -50,6 +50,7 @@ public:
     void stopConky(ConkyItem *item);
     void removeConkyItem(ConkyItem *item);
     QString copyFolderToUserConky(const QString &sourcePath);
+    QString copyFolderToUserConkyWithName(const QString &sourcePath, const QString &newName);
 
     void startAutostart();
     void stopAllRunning();

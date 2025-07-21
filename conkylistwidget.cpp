@@ -363,23 +363,40 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
         return false;
     }
 
-    // Apply location-based filters
+    // Apply location-based filters with priority logic
     QString userConkyPath = QDir::homePath() + "/.conky";
     bool isUserEdited = item->directory().startsWith(userConkyPath);
+    QString folderName = QFileInfo(item->directory()).fileName();
 
     if (m_statusFilter == "User edited" && !isUserEdited) {
         return false;
     }
+
     if (m_statusFilter == "Original" && isUserEdited) {
         return false;
+    }
+
+    // For "All" filter, show ~/.conky version if both exist, otherwise show the original
+    if (m_statusFilter == "All") {
+        if (!isUserEdited) {
+            // For original items, check if a ~/.conky version exists
+            for (ConkyItem *otherItem : m_manager->conkyItems()) {
+                if (otherItem != item && QFileInfo(otherItem->directory()).fileName() == folderName
+                    && otherItem->directory().startsWith(userConkyPath)) {
+                    // A ~/.conky version exists, hide this original
+                    return false;
+                }
+            }
+        }
+        // Always show ~/.conky versions in "All" filter
     }
 
     // Apply search text filter
     if (!m_searchText.isEmpty()) {
         QString itemName = item->name().toLower();
-        QString folderName = QFileInfo(item->directory()).fileName().toLower();
+        QString itemFolderName = folderName.toLower();
         QString searchLower = m_searchText.toLower();
-        if (!itemName.contains(searchLower) && !folderName.contains(searchLower)) {
+        if (!itemName.contains(searchLower) && !itemFolderName.contains(searchLower)) {
             return false;
         }
     }

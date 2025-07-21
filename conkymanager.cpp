@@ -92,7 +92,7 @@ void ConkyManager::scanForConkies()
 {
     clearConkyItems();
 
-    QMap<QString, QString> conkyFolders; // folderName -> fullPath
+    QMap<QString, QStringList> conkyFolders; // folderName -> list of fullPaths
     QString userConkyPath = QDir::homePath() + "/.conky";
 
     // First, collect all conky folders from all search paths
@@ -106,21 +106,39 @@ void ConkyManager::scanForConkies()
         for (const QString &subdir : subdirs) {
             QString fullPath = dir.absoluteFilePath(subdir);
 
-            // If this is the user's .conky directory, always use it (highest priority)
-            if (path == userConkyPath) {
-                conkyFolders[subdir] = fullPath;
-            } else {
-                // Only add if we don't already have this folder name from ~/.conky
-                if (!conkyFolders.contains(subdir)) {
-                    conkyFolders[subdir] = fullPath;
-                }
+            // Collect all paths for each folder name
+            if (!conkyFolders.contains(subdir)) {
+                conkyFolders[subdir] = QStringList();
             }
+            conkyFolders[subdir].append(fullPath);
         }
     }
 
-    // Now scan all the selected folders
+    // Now scan folders with priority logic for "All" view
+    // but keep all versions for filtering
     for (auto it = conkyFolders.begin(); it != conkyFolders.end(); ++it) {
-        scanConkyDirectory(it.value());
+        const QStringList &paths = it.value();
+
+        // Sort paths to prioritize ~/.conky first
+        QStringList sortedPaths = paths;
+        std::sort(sortedPaths.begin(), sortedPaths.end(), [&userConkyPath](const QString &a, const QString &b) {
+            bool aIsUser = a.startsWith(userConkyPath);
+            bool bIsUser = b.startsWith(userConkyPath);
+
+            // ~/.conky paths come first
+            if (aIsUser && !bIsUser) {
+                return true;
+            }
+            if (!aIsUser && bIsUser) {
+                return false;
+            }
+            return a < b; // Alphabetical for same type
+        });
+
+        // Scan all versions - the filtering will be done at display level
+        for (const QString &path : sortedPaths) {
+            scanConkyDirectory(path);
+        }
     }
 
     // Sort conky items by folder name
@@ -563,14 +581,20 @@ bool ConkyManager::isAutostartEnabled() const
 QString ConkyManager::copyFolderToUserConky(const QString &sourcePath)
 {
     QFileInfo sourceInfo(sourcePath);
+    QString folderName = sourceInfo.fileName();
+    return copyFolderToUserConkyWithName(sourcePath, folderName);
+}
+
+QString ConkyManager::copyFolderToUserConkyWithName(const QString &sourcePath, const QString &newName)
+{
+    QFileInfo sourceInfo(sourcePath);
     if (!sourceInfo.exists() || !sourceInfo.isDir()) {
         qDebug() << "ConkyManager: Source path does not exist or is not a directory:" << sourcePath;
         return QString();
     }
 
     QString userConkyPath = QDir::homePath() + "/.conky";
-    QString folderName = sourceInfo.fileName();
-    QString destPath = userConkyPath + "/" + folderName;
+    QString destPath = userConkyPath + "/" + newName;
 
     // Create ~/.conky directory if it doesn't exist
     QDir().mkpath(userConkyPath);

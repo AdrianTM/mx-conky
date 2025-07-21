@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QInputDialog>
 #include <QKeySequence>
 #include <QMessageBox>
 #include <QMovie>
@@ -401,14 +402,29 @@ void MainWindow::onEditRequested(ConkyItem *item)
     bool needsCopy = !item->directory().startsWith(userConkyPath);
 
     if (needsCopy) {
-        // Copy the entire conky folder to ~/.conky
+        // Copy the entire conky folder to ~/.conky with optional rename
         QString sourceFolderPath = fileInfo.absolutePath();
-        QString copiedPath = m_conkyManager->copyFolderToUserConky(sourceFolderPath);
+        QString defaultName = QFileInfo(sourceFolderPath).fileName();
+
+        bool ok;
+        QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
+                                                QLineEdit::Normal, defaultName, &ok);
+
+        if (!ok || newName.isEmpty()) {
+            return; // User cancelled or entered empty name
+        }
+
+        QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
 
         if (!copiedPath.isEmpty()) {
             // Update the file path to point to the copied version
             QString fileName = fileInfo.fileName();
             filePath = copiedPath + "/" + fileName;
+
+            // Switch filter to "All" to show the copied version
+            if (m_filterComboBox) {
+                m_filterComboBox->setCurrentText(tr("All"));
+            }
 
             // Refresh the conky list to show the new copy
             m_conkyManager->scanForConkies();
@@ -473,12 +489,12 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
         // Remove from manager and rescan to ensure proper refresh
         m_conkyManager->removeConkyItem(item);
         m_conkyManager->scanForConkies();
-        
+
         // Force refresh of the list widget
         if (m_conkyListWidget) {
             m_conkyListWidget->refreshList();
         }
-        
+
         QMessageBox::information(this, tr("Delete Successful"), tr("Conky directory deleted successfully."));
     } else {
         QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky directory:\n%1").arg(dirPath));
@@ -499,14 +515,29 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
     bool needsCopy = !item->directory().startsWith(userConkyPath);
 
     if (needsCopy) {
-        // Copy the entire conky folder to ~/.conky
+        // Copy the entire conky folder to ~/.conky with optional rename
         QString sourceFolderPath = fileInfo.absolutePath();
-        QString copiedPath = m_conkyManager->copyFolderToUserConky(sourceFolderPath);
+        QString defaultName = QFileInfo(sourceFolderPath).fileName();
+
+        bool ok;
+        QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
+                                                QLineEdit::Normal, defaultName, &ok);
+
+        if (!ok || newName.isEmpty()) {
+            return; // User cancelled or entered empty name
+        }
+
+        QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
 
         if (!copiedPath.isEmpty()) {
             // Update the file path to point to the copied version
             QString fileName = fileInfo.fileName();
             filePath = copiedPath + "/" + fileName;
+
+            // Switch filter to "All" to show the copied version
+            if (m_filterComboBox) {
+                m_filterComboBox->setCurrentText(tr("All"));
+            }
 
             // Refresh the conky list to show the new copy
             m_conkyManager->scanForConkies();
