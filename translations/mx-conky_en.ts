@@ -531,22 +531,22 @@ otherwise this setting will not have any effect</source>
 <context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="386"/>
+        <location filename="../conkylistwidget.cpp" line="387"/>
         <source>No Conky Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="388"/>
+        <location filename="../conkylistwidget.cpp" line="389"/>
         <source>Select a conky from the list to see its preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="407"/>
+        <location filename="../conkylistwidget.cpp" line="408"/>
         <source>Preview image could not be loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="410"/>
+        <location filename="../conkylistwidget.cpp" line="411"/>
         <source>No preview image available</source>
         <translation type="unfinished"></translation>
     </message>

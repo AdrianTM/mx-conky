@@ -1,4 +1,4 @@
-mx-conky (25.07.3) UNRELEASED; urgency=medium
+mx-conky (25.07.4) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -9,8 +9,9 @@ mx-conky (25.07.3) UNRELEASED; urgency=medium
     - Added preview functionality
     - Implement elevation support for editing system conky files
     - Fix running status detection to use full file paths
+  * Search matches now on the directory name too 
 
- -- Adrian <adrian@mxlinux.org>  Sun, 20 Jul 2025 17:51:19 -0400
+ -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 11:52:22 -0400
 
 mx-conky (24.4) mx; urgency=medium
 

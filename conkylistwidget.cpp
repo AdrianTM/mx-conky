@@ -325,8 +325,9 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
     // Apply search text filter
     if (!m_searchText.isEmpty()) {
         QString itemName = item->name().toLower();
+        QString folderName = QFileInfo(item->directory()).fileName().toLower();
         QString searchLower = m_searchText.toLower();
-        if (!itemName.contains(searchLower)) {
+        if (!itemName.contains(searchLower) && !folderName.contains(searchLower)) {
             return false;
         }
     }
