@@ -27,6 +27,7 @@
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QComboBox>
+#include <QCoreApplication>
 #include <QDialog>
 #include <QDir>
 #include <QEvent>
@@ -44,6 +45,7 @@
 #include <QScrollArea>
 #include <QSettings>
 #include <QSpinBox>
+#include <QStandardPaths>
 #include <QTabWidget>
 #include <QTimer>
 #include <QToolButton>
@@ -233,6 +235,8 @@ private:
     void writeColor(QWidget *widget, const QColor &color);
     void writeFile(QFile file, const QString &content);
     void writeFile(const QString &fileName, const QString &content);
+    bool writeFileWithElevation(const QString &fileName, const QString &content);
+    bool copyFileWithElevation(const QString &sourceFile, const QString &destFile);
     void writeConfigValue(const QString &key, const QString &value, bool quoted = false);
     int countHeightPadding();
     void updateHeightPadding(int paddingLines);

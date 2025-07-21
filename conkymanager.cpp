@@ -272,7 +272,7 @@ void ConkyManager::onStatusProcessFinished()
             for (int i = 0; i < parts.size() - 1; ++i) {
                 if (parts[i] == "-c" && i + 1 < parts.size()) {
                     QString configPath = parts[i + 1];
-                    runningConfigs.insert(QFileInfo(configPath).fileName());
+                    runningConfigs.insert(QFileInfo(configPath).absoluteFilePath());
                     break;
                 }
             }
@@ -282,8 +282,8 @@ void ConkyManager::onStatusProcessFinished()
     // Check each item against the running configs
     for (ConkyItem *item : m_conkyItems) {
         bool wasRunning = item->isRunning();
-        QString configFileName = QFileInfo(item->filePath()).fileName();
-        bool isRunning = runningConfigs.contains(configFileName);
+        QString configFilePath = QFileInfo(item->filePath()).absoluteFilePath();
+        bool isRunning = runningConfigs.contains(configFilePath);
 
         if (wasRunning != isRunning) {
             item->setRunning(isRunning);
@@ -323,7 +323,10 @@ void ConkyManager::clearConkyItems()
 
 QString ConkyManager::getConkyProcess(const QString &configPath) const
 {
-    QString output = m_cmd.getCmdOut(QString("pgrep -f 'conky.*%1'").arg(QFileInfo(configPath).fileName()), true);
+    QString escapedPath = QFileInfo(configPath).absoluteFilePath();
+    // Escape special regex characters for pgrep
+    escapedPath.replace("[", "\\[").replace("]", "\\]").replace("(", "\\(").replace(")", "\\)");
+    QString output = m_cmd.getCmdOut(QString("pgrep -f 'conky.*%1'").arg(escapedPath), true);
     return output.trimmed();
 }
 

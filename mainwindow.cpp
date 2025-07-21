@@ -389,6 +389,21 @@ void MainWindow::onPreviewImageLoaded(const QSize imageSize)
 void MainWindow::editConkyFile(const QString &filePath)
 {
     hide();
+    
+    // Check if we have write permission to the file
+    QFileInfo fileInfo(filePath);
+    bool needsElevation = false;
+    
+    if (fileInfo.exists() && !fileInfo.isWritable()) {
+        needsElevation = true;
+    } else if (!fileInfo.exists()) {
+        // Check if we can write to the directory
+        QFileInfo dirInfo(fileInfo.absolutePath());
+        if (!dirInfo.isWritable()) {
+            needsElevation = true;
+        }
+    }
+    
     QString run = "set -o pipefail; ";
     run += "XDHD=${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}; ";
     run += "eval grep -sh -m1 ^Exec {${XDHD//://applications/,}/applications/}";
@@ -417,27 +432,66 @@ void MainWindow::editConkyFile(const QString &filePath)
 
     // Try to start the editor using static startDetached
     qDebug() << "MainWindow: Trying to start editor:" << editor << "with file:" << filePath;
+    qDebug() << "MainWindow: Needs elevation:" << needsElevation;
 
-    bool started = QProcess::startDetached(editor, QStringList() << filePath);
-
-    if (!started) {
-        if (debug) {
-            qDebug() << "MainWindow: Failed to start editor:" << editor;
+    bool started = false;
+    
+    if (needsElevation) {
+        // Try elevated editors
+        QStringList elevatedCommands = {
+            QString("pkexec %1 '%2'").arg(editor, filePath),
+            QString("sudo %1 '%2'").arg(editor, filePath)
+        };
+        
+        for (const QString &command : elevatedCommands) {
+            started = QProcess::startDetached("sh", QStringList() << "-c" << command);
+            if (started) {
+                break;
+            }
         }
-
-        // Try featherpad as fallback
-        qDebug() << "MainWindow: Trying featherpad as fallback";
-        started = QProcess::startDetached("featherpad", QStringList() << filePath);
+        
+        if (!started) {
+            // Try elevated featherpad as fallback
+            QStringList fallbackCommands = {
+                QString("pkexec featherpad '%1'").arg(filePath),
+                QString("sudo featherpad '%1'").arg(filePath)
+            };
+            
+            for (const QString &command : fallbackCommands) {
+                started = QProcess::startDetached("sh", QStringList() << "-c" << command);
+                if (started) {
+                    break;
+                }
+            }
+        }
+        
+        if (!started) {
+            QMessageBox::warning(this, tr("Permission Denied"), 
+                                tr("Cannot edit file: %1\\nInsufficient permissions and elevation failed.").arg(filePath));
+        }
+    } else {
+        // Normal editor launch
+        started = QProcess::startDetached(editor, QStringList() << filePath);
 
         if (!started) {
             if (debug) {
-                qDebug() << "MainWindow: Failed to start featherpad fallback";
+                qDebug() << "MainWindow: Failed to start editor:" << editor;
+            }
+
+            // Try featherpad as fallback
+            qDebug() << "MainWindow: Trying featherpad as fallback";
+            started = QProcess::startDetached("featherpad", QStringList() << filePath);
+
+            if (!started) {
+                if (debug) {
+                    qDebug() << "MainWindow: Failed to start featherpad fallback";
+                }
+            } else {
+                qDebug() << "MainWindow: Featherpad started successfully";
             }
         } else {
-            qDebug() << "MainWindow: Featherpad started successfully";
+            qDebug() << "MainWindow: Editor started successfully";
         }
-    } else {
-        qDebug() << "MainWindow: Editor started successfully";
     }
     show();
 }

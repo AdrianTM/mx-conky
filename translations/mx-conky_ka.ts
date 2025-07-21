@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="vi">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ka">
 <context>
     <name>MainWindow</name>
     <message>
@@ -6,7 +6,7 @@
         <location filename="../mainwindow.cpp" line="48"/>
         <location filename="../mainwindow.cpp" line="510"/>
         <source>MX Conky</source>
-        <translation>MX Conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="20"/>
@@ -16,37 +16,37 @@
     <message>
         <location filename="../mainwindow.ui" line="73"/>
         <source>Launch</source>
-        <translation>Khởi chạy</translation>
+        <translation>გაშვება</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="85"/>
         <source>Run</source>
-        <translation>Chạy</translation>
+        <translation>გაიქეცი</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="141"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>გაუქმება</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="171"/>
         <source>Edit</source>
-        <translation>Chỉnh sửa</translation>
+        <translation>ჩასწორება</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="185"/>
         <source>Conky Name</source>
-        <translation>Tên Conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="211"/>
         <source>Conky Manager</source>
-        <translation>Trình Quản lí Conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="235"/>
         <source>Drag</source>
-        <translation type="unfinished"/>
+        <translation>გადათრევა</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="254"/>
@@ -71,12 +71,12 @@
     <message>
         <location filename="../mainwindow.ui" line="295"/>
         <source>NOTE: changes last only for the current session</source>
-        <translation>GHI CHÚ: thay đổi chỉ có hiệu lực trong phiên làm việc hiện tại</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="365"/>
         <source>Desktop</source>
-        <translation type="unfinished"/>
+        <translation>სამუშაო მაგიდა</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="387"/>
@@ -91,49 +91,49 @@
     <message>
         <location filename="../mainwindow.ui" line="436"/>
         <source>Format</source>
-        <translation>Định dạng</translation>
+        <translation>ფორმატი</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="488"/>
         <source>Day</source>
-        <translation>Ngày</translation>
+        <translation>დღე</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="517"/>
         <location filename="../mainwindow.ui" line="647"/>
         <source>Long</source>
-        <translation>Dạng dài</translation>
+        <translation>გრძელი</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="546"/>
         <source>Abbreviated name, e.g. Tu</source>
-        <translation>Tên viết tắt, vd: Tu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="549"/>
         <location filename="../mainwindow.ui" line="679"/>
         <source>Short</source>
-        <translation>Dạng ngắn</translation>
+        <translation>მოკლე</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="618"/>
         <source>Month</source>
-        <translation>Tháng</translation>
+        <translation>თვე</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="676"/>
         <source>Abbreviated name, e.g. Oct</source>
-        <translation>Tên viết tắt, vd: Oct</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="732"/>
         <source>Colors</source>
-        <translation>Màu sắc</translation>
+        <translation>ფერები</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="778"/>
         <source>Default</source>
-        <translation>Mặc định</translation>
+        <translation>ნაგულისხმევი</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="833"/>
@@ -153,62 +153,62 @@
     <message>
         <location filename="../mainwindow.ui" line="896"/>
         <source>Color0 </source>
-        <translation type="unfinished"/>
+        <translation>ფერი0</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1011"/>
         <source>Color1 </source>
-        <translation type="unfinished"/>
+        <translation>ფერი1</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1126"/>
         <source>Color2 </source>
-        <translation type="unfinished"/>
+        <translation>ფერი2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1244"/>
         <source>Color3 </source>
-        <translation type="unfinished"/>
+        <translation>ფერი3</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1362"/>
         <source>Color4 </source>
-        <translation type="unfinished"/>
+        <translation>ფერი4</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1480"/>
         <source>Color5</source>
-        <translation type="unfinished"/>
+        <translation>ფერი5</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1595"/>
         <source>Color6</source>
-        <translation type="unfinished"/>
+        <translation>ფერი6</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1710"/>
         <source>Color7</source>
-        <translation type="unfinished"/>
+        <translation>ფერი7</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1825"/>
         <source>Color8</source>
-        <translation type="unfinished"/>
+        <translation>ფერი8</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1940"/>
         <source>Color9</source>
-        <translation type="unfinished"/>
+        <translation>ფერი9</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2048"/>
         <source>About this application</source>
-        <translation>Về ứng dụng này</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2051"/>
         <source>About...</source>
-        <translation>Về ứng dụng này...</translation>
+        <translation>შესახებ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2058"/>
@@ -218,12 +218,12 @@
     <message>
         <location filename="../mainwindow.ui" line="2074"/>
         <source>Display help </source>
-        <translation>Hiển thị bản trợ giúp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2077"/>
         <source>Help</source>
-        <translation>Trợ giúp</translation>
+        <translation>დახმარება</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2084"/>
@@ -233,12 +233,12 @@
     <message>
         <location filename="../mainwindow.ui" line="2132"/>
         <source>Quit application</source>
-        <translation>Thoát ứng dụng</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2135"/>
         <source>Close</source>
-        <translation>Đóng</translation>
+        <translation>დახურვა</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="2142"/>
@@ -248,48 +248,48 @@
     <message>
         <location filename="../mainwindow.cpp" line="509"/>
         <source>About MX Conky</source>
-        <translation>Về MX Conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="510"/>
         <source>Version: </source>
-        <translation>Phiên bản:</translation>
+        <translation>ვერსია:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="511"/>
         <source>GUI program for configuring Conky in MX Linux</source>
-        <translation>Chương trình đồ họa để cấu hình Conky trong MX Linux</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="513"/>
         <source>Copyright (c) MX Linux</source>
-        <translation>Copyright (c) MX Linux</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="514"/>
         <source>License</source>
-        <translation>Giấy phép</translation>
+        <translation>ლიცენზია</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="515"/>
         <location filename="../mainwindow.cpp" line="528"/>
         <source>Changelog</source>
-        <translation>Nhật kí thay đổi</translation>
+        <translation>ცვლილებების ჟურნალი</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="516"/>
         <source>Cancel</source>
-        <translation>Hủy bỏ</translation>
+        <translation>გაუქმება</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="536"/>
         <source>&amp;Close</source>
-        <translation>&amp;Đóng</translation>
+        <translation>&amp;დახურვა</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="554"/>
         <source>MX Conky Help</source>
-        <translation>Trợ giúp MX Conky</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -298,12 +298,12 @@
         <location filename="../main.cpp" line="55"/>
         <location filename="../mainwindow.cpp" line="668"/>
         <source>Select Conky Manager config file</source>
-        <translation>Chọn tệp cấu hình cho Trình quản lí Conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../main.cpp" line="71"/>
         <source>Conky Data Update</source>
-        <translation>Cập nhật dữ liệu Conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../main.cpp" line="72"/>
@@ -314,17 +314,17 @@
         <location filename="../main.cpp" line="103"/>
         <location filename="../main.cpp" line="134"/>
         <source>Error</source>
-        <translation>Lỗi</translation>
+        <translation>შეცდომა</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="104"/>
         <source>Could not find conky-manager, please install it before running mx-conky</source>
-        <translation>Không thể tìm thấy conky-manager, xin hãy cài đặt nó trước khi chạy mx-conky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../main.cpp" line="134"/>
         <source>You must run this program as normal user</source>
-        <translation>Bạn phải chạy chương trình này với tư cách người dùng bình thường</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
