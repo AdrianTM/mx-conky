@@ -308,12 +308,12 @@ void ConkyCustomizeDialog::refresh()
     // Backup the current configuration file
     QString bakFileName = file_name + ".bak";
     QFile::remove(bakFileName);
-    
+
     // Try normal copy first, then elevation if needed
     if (!QFile::copy(file_name, bakFileName)) {
         QFileInfo fileInfo(file_name);
         QFileInfo dirInfo(fileInfo.absolutePath());
-        
+
         // Check if we need elevation for backup directory
         if (!dirInfo.isWritable()) {
             if (!copyFileWithElevation(file_name, bakFileName)) {
@@ -661,7 +661,7 @@ QColor ConkyCustomizeDialog::strToColor(const QString &colorstr)
 {
     QColor color(colorstr);
     if (!color.isValid()) {
-        color.setNamedColor('#' + colorstr);
+        color = QColor::fromString('#' + colorstr);
     }
     return color;
 }
@@ -787,7 +787,7 @@ void ConkyCustomizeDialog::writeFile(const QString &fileName, const QString &con
         // Try to write with elevation
         if (!writeFileWithElevation(fileName, content)) {
             QMessageBox::warning(this, tr("Permission Denied"),
-                                tr("Cannot write to file: %1\nInsufficient permissions.").arg(fileName));
+                                 tr("Cannot write to file: %1\nInsufficient permissions.").arg(fileName));
             return;
         }
     } else {
@@ -797,8 +797,7 @@ void ConkyCustomizeDialog::writeFile(const QString &fileName, const QString &con
             // If normal write fails, try elevation
             if (!writeFileWithElevation(fileName, content)) {
                 qDebug() << "Error opening file " + fileName + " for output";
-                QMessageBox::warning(this, tr("Write Error"),
-                                    tr("Cannot write to file: %1").arg(fileName));
+                QMessageBox::warning(this, tr("Write Error"), tr("Cannot write to file: %1").arg(fileName));
                 return;
             }
         } else {
@@ -827,10 +826,8 @@ bool ConkyCustomizeDialog::writeFileWithElevation(const QString &fileName, const
     tempFile.close();
 
     // Try pkexec first, then sudo as fallback
-    QStringList elevationCommands = {
-        QString("pkexec cp '%1' '%2'").arg(tempFileName, fileName),
-        QString("sudo cp '%1' '%2'").arg(tempFileName, fileName)
-    };
+    QStringList elevationCommands = {QString("pkexec cp '%1' '%2'").arg(tempFileName, fileName),
+                                     QString("sudo cp '%1' '%2'").arg(tempFileName, fileName)};
 
     bool success = false;
     for (const QString &command : elevationCommands) {
@@ -857,27 +854,25 @@ bool ConkyCustomizeDialog::writeFileWithElevation(const QString &fileName, const
 bool ConkyCustomizeDialog::copyFileWithElevation(const QString &sourceFile, const QString &destFile)
 {
     // Try pkexec first, then sudo as fallback
-    QStringList elevationCommands = {
-        QString("pkexec cp '%1' '%2'").arg(sourceFile, destFile),
-        QString("sudo cp '%1' '%2'").arg(sourceFile, destFile)
-    };
-    
+    QStringList elevationCommands = {QString("pkexec cp '%1' '%2'").arg(sourceFile, destFile),
+                                     QString("sudo cp '%1' '%2'").arg(sourceFile, destFile)};
+
     bool success = false;
     for (const QString &command : elevationCommands) {
         QProcess process;
         process.start("sh", QStringList() << "-c" << command);
         process.waitForFinished();
-        
+
         if (process.exitCode() == 0) {
             success = true;
             break;
         }
     }
-    
+
     if (!success) {
         qDebug() << "Failed to copy file with elevation:" << sourceFile << "to" << destFile;
     }
-    
+
     return success;
 }
 
@@ -902,13 +897,13 @@ void ConkyCustomizeDialog::saveBackup()
         if (!copySuccess) {
             QFileInfo newFileInfo(new_name);
             QFileInfo newDirInfo(newFileInfo.absolutePath());
-            
+
             // Check if we need elevation for destination directory
             if (!newDirInfo.isWritable()) {
                 copySuccess = copyFileWithElevation(file_name + ".bak", new_name);
             }
         }
-        
+
         if (copySuccess) {
             QMessageBox::information(this, tr("Backed Up Config File"),
                                      tr("The original configuration was backed up to %1").arg(new_name));
@@ -969,19 +964,19 @@ void ConkyCustomizeDialog::pushRestore_clicked()
     QString backupFileName = file_name + ".bak";
     if (QFile::exists(backupFileName)) {
         QFile::remove(file_name);
-        
+
         // Try normal copy first, then elevation if needed
         bool restoreSuccess = QFile::copy(backupFileName, file_name);
         if (!restoreSuccess) {
             QFileInfo fileInfo(file_name);
             QFileInfo dirInfo(fileInfo.absolutePath());
-            
+
             // Check if we need elevation for destination directory
             if (!dirInfo.isWritable()) {
                 restoreSuccess = copyFileWithElevation(backupFileName, file_name);
             }
         }
-        
+
         if (restoreSuccess) {
             refresh();
         } else {
