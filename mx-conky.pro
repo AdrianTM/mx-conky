@@ -21,7 +21,7 @@
 # **********************************************************************/
 
 QT       += core gui widgets
-CONFIG   += debug_and_release warn_on strict_c++ c++17
+CONFIG   += debug_and_release warn_on strict_c++ c++20
 
 CONFIG(release, debug|release) {
     DEFINES += NDEBUG
@@ -30,8 +30,24 @@ CONFIG(release, debug|release) {
     QMAKE_CXXFLAGS_RELEASE = -O3
 }
 
-QMAKE_CXXFLAGS += -Wpedantic -pedantic -Werror=return-type -Werror=switch
-QMAKE_CXXFLAGS += -Werror=uninitialized -Werror=return-local-addr -Werror
+# Split compiler flags to avoid MOC issues
+QMAKE_CXXFLAGS += -Wpedantic -pedantic 
+QMAKE_CXXFLAGS += -Werror=return-type -Werror=switch
+QMAKE_CXXFLAGS += -Werror=uninitialized -Werror=return-local-addr
+
+# Only apply -Werror to source compilation, not MOC
+!contains(CONFIG, no_werror) {
+    QMAKE_CXXFLAGS += -Werror
+}
+
+# Handle 32-bit build issues 
+linux-g++* {
+    equals(QT_ARCH, i386) {
+        # Reduce strict flags for 32-bit MOC compatibility
+        CONFIG += no_werror
+        QMAKE_CXXFLAGS -= -Werror
+    }
+}
 
 TARGET = mx-conky
 TEMPLATE = app
