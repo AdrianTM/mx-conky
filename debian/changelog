@@ -1,4 +1,4 @@
-mx-conky (25.07.9) UNRELEASED; urgency=medium
+mx-conky (25.07.10) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -11,8 +11,10 @@ mx-conky (25.07.9) UNRELEASED; urgency=medium
     - Fix running status detection to use full file paths
   * Search matches now on the directory name too 
   * Fix running conky detection
-  * Open editors that ask for elevation as normal user
   * Add delete conky option
+  * Don't copy anymore all the conkys to ~/.conky, copy only the directory
+    that is being edited (if it has no write access). Directories in ~/.conky
+    are displayed instead of the ones in /usr/share/mx-conky-data/
 
  -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 14:58:05 -0400
 
