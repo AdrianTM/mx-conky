@@ -858,17 +858,22 @@ This will delete all files in the folder. This action cannot be undone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="116"/>
+        <location filename="../settingsdialog.cpp" line="117"/>
+        <source>Start conky at system startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.cpp" line="121"/>
         <source>Startup delay (seconds):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="126"/>
+        <location filename="../settingsdialog.cpp" line="134"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="127"/>
+        <location filename="../settingsdialog.cpp" line="135"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
