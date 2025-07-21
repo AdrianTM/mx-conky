@@ -26,6 +26,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QProcess>
+#include <QPointer>
 #include <QSet>
 #include <QStandardPaths>
 #include <QTextStream>
@@ -166,7 +167,7 @@ void ConkyManager::removeConkyItem(ConkyItem *item)
 
     // Remove from the list
     m_conkyItems.removeAll(item);
-    
+
     // Delete the item
     item->deleteLater();
 
@@ -202,7 +203,9 @@ void ConkyManager::saveSettings()
     m_settings.beginWriteArray("conkyItems");
     for (int i = 0; i < m_conkyItems.size(); ++i) {
         m_settings.setArrayIndex(i);
-        ConkyItem *item = m_conkyItems[i];
+        QPointer<ConkyItem> item = m_conkyItems.at(i);
+        if (!item)
+            continue;
         m_settings.setValue("filePath", item->filePath());
         m_settings.setValue("enabled", item->isEnabled());
         m_settings.setValue("autostart", item->isAutostart());
@@ -218,10 +221,7 @@ void ConkyManager::loadSettings()
 {
     m_settings.beginGroup("ConkyManager");
 
-    m_searchPaths = m_settings
-                        .value("searchPaths", QStringList() << QDir::homePath() + "/.conky"
-                                                            << "/usr/share/mx-conky-data/themes")
-                        .toStringList();
+    m_searchPaths = m_settings.value("searchPaths", QStringList() << QDir::homePath() + "/.conky").toStringList();
 
     m_startupDelay = m_settings.value("startupDelay", 20).toInt();
 
