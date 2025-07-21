@@ -48,6 +48,7 @@ public:
 
     void startConky(ConkyItem *item);
     void stopConky(ConkyItem *item);
+    void removeConkyItem(ConkyItem *item);
 
     void startAutostart();
     void stopAllRunning();

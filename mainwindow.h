@@ -59,6 +59,7 @@ private slots:
     void onConkyItemsLoaded();
     void onCustomizeRequested(ConkyItem *item);
     void onEditRequested(ConkyItem *item);
+    void onDeleteRequested(ConkyItem *item);
     void onItemSelectionChanged(ConkyItem *item);
     void onPreviewImageLoaded(const QSize imageSize);
     void onRefreshClicked();

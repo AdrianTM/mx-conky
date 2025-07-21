@@ -84,6 +84,11 @@ void ConkyItemWidget::onRunToggleClicked()
     emit runToggleRequested(m_item);
 }
 
+void ConkyItemWidget::onDeleteClicked()
+{
+    emit deleteRequested(m_item);
+}
+
 void ConkyItemWidget::setupUI()
 {
     auto *layout = new QVBoxLayout(this);
@@ -116,8 +121,13 @@ void ConkyItemWidget::setupUI()
 
     m_runToggleButton = new QPushButton;
 
+    m_deleteButton = new QPushButton(tr("Delete"));
+    m_deleteButton->setIcon(QIcon::fromTheme("edit-delete"));
+    m_deleteButton->setStyleSheet("QPushButton { color: red; }");
+
     controlsLayout->addWidget(m_enabledCheckBox);
     controlsLayout->addStretch();
+    controlsLayout->addWidget(m_deleteButton);
     controlsLayout->addWidget(m_editButton);
     controlsLayout->addWidget(m_customizeButton);
     controlsLayout->addWidget(m_runToggleButton);
@@ -130,6 +140,7 @@ void ConkyItemWidget::setupUI()
     connect(m_editButton, &QPushButton::clicked, this, &ConkyItemWidget::onEditClicked);
     connect(m_customizeButton, &QPushButton::clicked, this, &ConkyItemWidget::onCustomizeClicked);
     connect(m_runToggleButton, &QPushButton::clicked, this, &ConkyItemWidget::onRunToggleClicked);
+    connect(m_deleteButton, &QPushButton::clicked, this, &ConkyItemWidget::onDeleteClicked);
 }
 
 void ConkyItemWidget::updateRunToggleButton()
@@ -241,6 +252,11 @@ void ConkyListWidget::onRunToggleRequested(ConkyItem *item)
     }
 }
 
+void ConkyListWidget::onDeleteRequested(ConkyItem *item)
+{
+    emit deleteRequested(item);
+}
+
 void ConkyListWidget::setupUI()
 {
     auto *layout = new QVBoxLayout(this);
@@ -265,6 +281,7 @@ void ConkyListWidget::addConkyItem(ConkyItem *item)
     connect(itemWidget, &ConkyItemWidget::editRequested, this, &ConkyListWidget::onEditRequested);
     connect(itemWidget, &ConkyItemWidget::customizeRequested, this, &ConkyListWidget::onCustomizeRequested);
     connect(itemWidget, &ConkyItemWidget::runToggleRequested, this, &ConkyListWidget::onRunToggleRequested);
+    connect(itemWidget, &ConkyItemWidget::deleteRequested, this, &ConkyListWidget::onDeleteRequested);
 
     m_treeWidget->setItemWidget(treeItem, 0, itemWidget);
 

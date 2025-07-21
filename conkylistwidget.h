@@ -53,12 +53,14 @@ signals:
     void editRequested(ConkyItem *item);
     void customizeRequested(ConkyItem *item);
     void runToggleRequested(ConkyItem *item);
+    void deleteRequested(ConkyItem *item);
 
 private slots:
     void onEnabledChanged(bool enabled);
     void onEditClicked();
     void onCustomizeClicked();
     void onRunToggleClicked();
+    void onDeleteClicked();
 
 private:
     ConkyItem *m_item;
@@ -66,6 +68,7 @@ private:
     QPushButton *m_editButton;
     QPushButton *m_customizeButton;
     QPushButton *m_runToggleButton;
+    QPushButton *m_deleteButton;
     QLabel *m_nameLabel;
     QLabel *m_pathLabel;
     QLabel *m_statusLabel;
@@ -92,6 +95,7 @@ signals:
     void itemSelectionChanged(ConkyItem *item);
     void editRequested(ConkyItem *item);
     void customizeRequested(ConkyItem *item);
+    void deleteRequested(ConkyItem *item);
 
 private slots:
     void onConkyItemsChanged();
@@ -100,6 +104,7 @@ private slots:
     void onEditRequested(ConkyItem *item);
     void onCustomizeRequested(ConkyItem *item);
     void onRunToggleRequested(ConkyItem *item);
+    void onDeleteRequested(ConkyItem *item);
 
 private:
     ConkyManager *m_manager;

@@ -290,6 +290,7 @@ void MainWindow::setConnections()
     connect(m_conkyListWidget, &ConkyListWidget::itemSelectionChanged, this, &MainWindow::onItemSelectionChanged);
     connect(m_conkyListWidget, &ConkyListWidget::editRequested, this, &MainWindow::onEditRequested);
     connect(m_conkyListWidget, &ConkyListWidget::customizeRequested, this, &MainWindow::onCustomizeRequested);
+    connect(m_conkyListWidget, &ConkyListWidget::deleteRequested, this, &MainWindow::onDeleteRequested);
 
     connect(m_previewWidget, &ConkyPreviewWidget::previewImageLoaded, this, &MainWindow::onPreviewImageLoaded);
 
@@ -352,6 +353,57 @@ void MainWindow::onEditRequested(ConkyItem *item)
 {
     if (item) {
         editConkyFile(item->filePath());
+    }
+}
+
+void MainWindow::onDeleteRequested(ConkyItem *item)
+{
+    if (!item) {
+        return;
+    }
+
+    QString fileName = QFileInfo(item->filePath()).fileName();
+    int result = QMessageBox::question(
+        this,
+        tr("Delete Conky"),
+        tr("Are you sure you want to delete the conky file:\n%1\n\nThis action cannot be undone.").arg(fileName),
+        QMessageBox::Yes | QMessageBox::No,
+        QMessageBox::No
+    );
+
+    if (result != QMessageBox::Yes) {
+        return;
+    }
+
+    // Stop the conky if it's running
+    if (item->isRunning()) {
+        m_conkyManager->stopConky(item);
+    }
+
+    QString filePath = item->filePath();
+    QFileInfo fileInfo(filePath);
+    bool needsElevation = false;
+
+    if (fileInfo.exists() && !fileInfo.isWritable()) {
+        needsElevation = true;
+    }
+
+    bool success = false;
+    QString elevate = QFile::exists("/usr/bin/pkexec") ? "/usr/bin/pkexec" : "/usr/bin/gksu";
+    
+    if (needsElevation) {
+        QString command = elevate + " rm '" + filePath + "'";
+        success = QProcess::execute("sh", QStringList() << "-c" << command) == 0;
+    } else {
+        success = QFile::remove(filePath);
+    }
+
+    if (success) {
+        // Remove from manager which will trigger list refresh
+        m_conkyManager->removeConkyItem(item);
+        QMessageBox::information(this, tr("Delete Successful"), tr("Conky file deleted successfully."));
+    } else {
+        QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky file:\n%1").arg(filePath));
     }
 }
 

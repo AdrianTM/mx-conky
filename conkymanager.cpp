@@ -153,6 +153,27 @@ void ConkyManager::stopConky(ConkyItem *item)
     }
 }
 
+void ConkyManager::removeConkyItem(ConkyItem *item)
+{
+    if (!item) {
+        return;
+    }
+
+    // Stop the conky if it's running
+    if (item->isRunning()) {
+        stopConky(item);
+    }
+
+    // Remove from the list
+    m_conkyItems.removeAll(item);
+    
+    // Delete the item
+    item->deleteLater();
+
+    // Emit signal to update UI
+    emit conkyItemsChanged();
+}
+
 void ConkyManager::startAutostart()
 {
     // Start all enabled conkies immediately
