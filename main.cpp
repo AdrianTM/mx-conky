@@ -85,16 +85,15 @@ void updateThemes()
                                   Be careful not to overwrite any conkies you have changed.")
                                 .arg(QDir::homePath());
 
-    if (recorded_version.toString().isEmpty() || current_version > recorded_version) {
-        QDir dir {QDir::homePath() + "/.conky"};
+    QDir dir {QDir::homePath() + "/.conky"};
+    if (recorded_version.toString().isEmpty() || current_version > recorded_version || !dir.exists()) {
         if (!dir.exists()) {
             dir.mkdir(dir.path());
         }
         // Copy the mx-conky-data themes to the default folder
         QProcess copyProcess;
-        qDebug() << "main: Creating copyProcess QProcess object";
         copyProcess.setProgram("cp");
-        copyProcess.setArguments(QStringList() << "-rn"
+        copyProcess.setArguments(QStringList() << "--recursive" << "--no-clobber"
                                                << "/usr/share/mx-conky-data/themes/*" << dir.path());
         copyProcess.start();
 
@@ -105,7 +104,6 @@ void updateThemes()
             copyProcess.kill();
             copyProcess.waitForFinished(1000);
         }
-        qDebug() << "main: Destroying copyProcess QProcess object";
         settings.setValue("data-version", current_version.toString());
         QMessageBox::information(nullptr, title, message);
     }
