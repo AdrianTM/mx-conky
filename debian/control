@@ -1,8 +1,7 @@
 Source: mx-conky
 Section: admin
 Priority: optional
-Maintainer: fehlix <fehlix@mxlinux.org>
-XSBC-Original-Maintainer: Adrian <adrian@mxlinux.org>
+Maintainer: Adrian <adrian@mxlinux.org>
 Build-Depends: debhelper-compat (= 13),
                qt6-base-dev,
                qt6-base-dev-tools,

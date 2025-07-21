@@ -118,374 +118,374 @@ Insufficient permissions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="801"/>
+        <location filename="../conkycustomizedialog.cpp" line="800"/>
         <source>Cannot write to file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="890"/>
+        <location filename="../conkycustomizedialog.cpp" line="885"/>
         <source>Backup Config File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="890"/>
+        <location filename="../conkycustomizedialog.cpp" line="885"/>
         <source>Do you want to preserve the original file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="913"/>
+        <location filename="../conkycustomizedialog.cpp" line="908"/>
         <source>Backed Up Config File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="914"/>
+        <location filename="../conkycustomizedialog.cpp" line="909"/>
         <source>The original configuration was backed up to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="916"/>
+        <location filename="../conkycustomizedialog.cpp" line="911"/>
         <source>Backup Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="916"/>
+        <location filename="../conkycustomizedialog.cpp" line="911"/>
         <source>Failed to create a backup file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="989"/>
-        <location filename="../conkycustomizedialog.cpp" line="992"/>
+        <location filename="../conkycustomizedialog.cpp" line="984"/>
+        <location filename="../conkycustomizedialog.cpp" line="987"/>
         <source>Restore Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="989"/>
+        <location filename="../conkycustomizedialog.cpp" line="984"/>
         <source>Failed to restore from backup file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="992"/>
+        <location filename="../conkycustomizedialog.cpp" line="987"/>
         <source>Backup file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1342"/>
+        <location filename="../conkycustomizedialog.cpp" line="1337"/>
         <source>Drag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1350"/>
+        <location filename="../conkycustomizedialog.cpp" line="1345"/>
         <source>To Move</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1353"/>
+        <location filename="../conkycustomizedialog.cpp" line="1348"/>
         <source>+ Left Click</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1368"/>
+        <location filename="../conkycustomizedialog.cpp" line="1363"/>
         <source>To Resize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1371"/>
+        <location filename="../conkycustomizedialog.cpp" line="1366"/>
         <source>+ Right Click</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1379"/>
+        <location filename="../conkycustomizedialog.cpp" line="1374"/>
         <source>NOTE: changes last only for the current session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1384"/>
+        <location filename="../conkycustomizedialog.cpp" line="1379"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1391"/>
+        <location filename="../conkycustomizedialog.cpp" line="1386"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1396"/>
+        <location filename="../conkycustomizedialog.cpp" line="1391"/>
         <source>Top Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1397"/>
+        <location filename="../conkycustomizedialog.cpp" line="1392"/>
         <source>Top Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1398"/>
+        <location filename="../conkycustomizedialog.cpp" line="1393"/>
         <source>Top Middle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1399"/>
+        <location filename="../conkycustomizedialog.cpp" line="1394"/>
         <source>Bottom Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1400"/>
+        <location filename="../conkycustomizedialog.cpp" line="1395"/>
         <source>Bottom Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1401"/>
+        <location filename="../conkycustomizedialog.cpp" line="1396"/>
         <source>Bottom Middle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1402"/>
+        <location filename="../conkycustomizedialog.cpp" line="1397"/>
         <source>Middle Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1403"/>
+        <location filename="../conkycustomizedialog.cpp" line="1398"/>
         <source>Middle Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1404"/>
+        <location filename="../conkycustomizedialog.cpp" line="1399"/>
         <source>Middle Middle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1409"/>
+        <location filename="../conkycustomizedialog.cpp" line="1404"/>
         <source>Horizontal Gap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1410"/>
+        <location filename="../conkycustomizedialog.cpp" line="1405"/>
         <source>[GAP_X] Horizontal distance from window border (in pixels)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1422"/>
+        <location filename="../conkycustomizedialog.cpp" line="1417"/>
         <source>Vertical Gap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1423"/>
+        <location filename="../conkycustomizedialog.cpp" line="1418"/>
         <source>[GAP_Y] Vertical distance from window border (in pixels)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1435"/>
+        <location filename="../conkycustomizedialog.cpp" line="1430"/>
         <source>Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1438"/>
+        <location filename="../conkycustomizedialog.cpp" line="1433"/>
         <source>Desktop 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1439"/>
+        <location filename="../conkycustomizedialog.cpp" line="1434"/>
         <source>All Desktops</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1452"/>
+        <location filename="../conkycustomizedialog.cpp" line="1447"/>
         <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1464"/>
+        <location filename="../conkycustomizedialog.cpp" line="1459"/>
         <source>Width should be larger than the size of window contents,
 otherwise this setting will not have any effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1468"/>
+        <location filename="../conkycustomizedialog.cpp" line="1463"/>
         <source>Minimum Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1483"/>
+        <location filename="../conkycustomizedialog.cpp" line="1478"/>
         <source>Height should be larger than the size of window contents,
 otherwise this setting will not have any effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1485"/>
+        <location filename="../conkycustomizedialog.cpp" line="1480"/>
         <source>Minimum Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1499"/>
+        <location filename="../conkycustomizedialog.cpp" line="1494"/>
         <source>Increases the window height by adding empty lines at the end of the Conky config file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1500"/>
+        <location filename="../conkycustomizedialog.cpp" line="1495"/>
         <source>Height Padding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1515"/>
+        <location filename="../conkycustomizedialog.cpp" line="1510"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1528"/>
+        <location filename="../conkycustomizedialog.cpp" line="1523"/>
         <source>Transparency Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1533"/>
+        <location filename="../conkycustomizedialog.cpp" line="1528"/>
         <source>Opaque</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1534"/>
+        <location filename="../conkycustomizedialog.cpp" line="1529"/>
         <source>Transparent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1535"/>
+        <location filename="../conkycustomizedialog.cpp" line="1530"/>
         <source>Pseudo-Transparent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1536"/>
+        <location filename="../conkycustomizedialog.cpp" line="1531"/>
         <source>Semi-Transparent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1541"/>
+        <location filename="../conkycustomizedialog.cpp" line="1536"/>
         <source>Opacity (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1542"/>
+        <location filename="../conkycustomizedialog.cpp" line="1537"/>
         <source>Window Opacity
 
 0 = Fully Transparent, 100 = Fully Opaque</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1556"/>
+        <location filename="../conkycustomizedialog.cpp" line="1551"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1561"/>
+        <location filename="../conkycustomizedialog.cpp" line="1556"/>
         <source>Choose Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1577"/>
+        <location filename="../conkycustomizedialog.cpp" line="1572"/>
         <source>Setting Type to &quot;Transparent&quot; will make the whole window transparent (including any images). Use &quot;Pseudo-Transparent&quot; if you want the images to be opaque.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1586"/>
+        <location filename="../conkycustomizedialog.cpp" line="1581"/>
         <source>Setting Type to &quot;Pseudo-Transparent&quot; will make the window transparent but the window will have a shadow. The shadow can be disabled by configuring your window manager.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1594"/>
+        <location filename="../conkycustomizedialog.cpp" line="1589"/>
         <source>Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1605"/>
+        <location filename="../conkycustomizedialog.cpp" line="1600"/>
         <source>Date Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1608"/>
+        <location filename="../conkycustomizedialog.cpp" line="1603"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1610"/>
-        <location filename="../conkycustomizedialog.cpp" line="1621"/>
+        <location filename="../conkycustomizedialog.cpp" line="1605"/>
+        <location filename="../conkycustomizedialog.cpp" line="1616"/>
         <source>Long</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1611"/>
-        <location filename="../conkycustomizedialog.cpp" line="1622"/>
+        <location filename="../conkycustomizedialog.cpp" line="1606"/>
+        <location filename="../conkycustomizedialog.cpp" line="1617"/>
         <source>Short</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1612"/>
+        <location filename="../conkycustomizedialog.cpp" line="1607"/>
         <source>Abbreviated name, e.g. Tu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1619"/>
+        <location filename="../conkycustomizedialog.cpp" line="1614"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1623"/>
+        <location filename="../conkycustomizedialog.cpp" line="1618"/>
         <source>Abbreviated name, e.g. Oct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1642"/>
+        <location filename="../conkycustomizedialog.cpp" line="1637"/>
         <source>Time Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1649"/>
+        <location filename="../conkycustomizedialog.cpp" line="1644"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1654"/>
+        <location filename="../conkycustomizedialog.cpp" line="1649"/>
         <source>12 Hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1655"/>
+        <location filename="../conkycustomizedialog.cpp" line="1650"/>
         <source>24 Hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1670"/>
+        <location filename="../conkycustomizedialog.cpp" line="1665"/>
         <source>Date &amp;&amp; Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1683"/>
+        <location filename="../conkycustomizedialog.cpp" line="1678"/>
         <source>Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1691"/>
+        <location filename="../conkycustomizedialog.cpp" line="1686"/>
         <source>WiFi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1694"/>
+        <location filename="../conkycustomizedialog.cpp" line="1689"/>
         <source>WiFi Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1697"/>
+        <location filename="../conkycustomizedialog.cpp" line="1692"/>
         <source>LAN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1700"/>
+        <location filename="../conkycustomizedialog.cpp" line="1695"/>
         <source>Wired LAN Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1714"/>
+        <location filename="../conkycustomizedialog.cpp" line="1709"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkycustomizedialog.cpp" line="1927"/>
+        <location filename="../conkycustomizedialog.cpp" line="1922"/>
         <source>Select Background Color</source>
         <translation type="unfinished"></translation>
     </message>

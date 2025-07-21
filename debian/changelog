@@ -1,12 +1,14 @@
-mx-conky (25.7.02) UNRELEASED; urgency=medium
+mx-conky (25.07.3) UNRELEASED; urgency=medium
 
-  * Redesign:
-  *  - List all conkys, added filtering and search option
-  *  - Allow to select and start more than one conky
-  *  - Add "autostart" checkbox to set the conky to start automatically
-  *  - Settings can define a number of directories to be scanned for conkys
-  *  - Added a number of options: size, location, transparency
-  *  - Added preview
+  * Redesign application with new features:
+    - List all conkys with filtering and search options
+    - Allow selecting and starting multiple conkys
+    - Add autostart checkbox to set conky to start automatically
+    - Settings can define multiple directories to scan for conkys
+    - Added options for size, location, and transparency
+    - Added preview functionality
+    - Implement elevation support for editing system conky files
+    - Fix running status detection to use full file paths
 
  -- Adrian <adrian@mxlinux.org>  Sun, 20 Jul 2025 17:51:19 -0400
 
