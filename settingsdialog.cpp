@@ -111,16 +111,24 @@ void SettingsDialog::setupUI()
 
     // Startup delay group
     auto *startupGroupBox = new QGroupBox(tr("Autostart Settings"));
-    auto *startupLayout = new QHBoxLayout(startupGroupBox);
+    auto *startupLayout = new QVBoxLayout(startupGroupBox);
 
+    // System startup checkbox
+    m_systemStartupCheckBox = new QCheckBox(tr("Start conky at system startup"));
+
+    // Delay setting
+    auto *delayLayout = new QHBoxLayout;
     auto *delayLabel = new QLabel(tr("Startup delay (seconds):"));
     m_startupDelaySpinBox = new QSpinBox;
     m_startupDelaySpinBox->setRange(0, 300);
     m_startupDelaySpinBox->setSuffix(" s");
 
-    startupLayout->addWidget(delayLabel);
-    startupLayout->addWidget(m_startupDelaySpinBox);
-    startupLayout->addStretch();
+    delayLayout->addWidget(delayLabel);
+    delayLayout->addWidget(m_startupDelaySpinBox);
+    delayLayout->addStretch();
+
+    startupLayout->addWidget(m_systemStartupCheckBox);
+    startupLayout->addLayout(delayLayout);
 
     auto *dialogButtonLayout = new QHBoxLayout;
     auto *okButton = new QPushButton(tr("OK"));
@@ -187,9 +195,11 @@ void SettingsDialog::savePaths()
 void SettingsDialog::loadSettings()
 {
     m_startupDelaySpinBox->setValue(m_manager->startupDelay());
+    m_systemStartupCheckBox->setChecked(m_manager->isAutostartEnabled());
 }
 
 void SettingsDialog::saveSettings()
 {
     m_manager->setStartupDelay(m_startupDelaySpinBox->value());
+    m_manager->setAutostart(m_systemStartupCheckBox->isChecked());
 }

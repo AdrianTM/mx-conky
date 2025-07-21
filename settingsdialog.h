@@ -25,6 +25,7 @@
 #pragma once
 
 #include "conkymanager.h"
+#include <QCheckBox>
 #include <QDialog>
 #include <QFileDialog>
 #include <QGroupBox>
@@ -57,6 +58,7 @@ private:
     QPushButton *m_editButton;
     QPushButton *m_removeButton;
     QSpinBox *m_startupDelaySpinBox;
+    QCheckBox *m_systemStartupCheckBox;
 
     void loadPaths();
     void loadSettings();

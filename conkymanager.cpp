@@ -124,7 +124,7 @@ void ConkyManager::scanForConkies()
     }
 
     // Sort conky items by folder name
-    std::sort(m_conkyItems.begin(), m_conkyItems.end(), 
+    std::sort(m_conkyItems.begin(), m_conkyItems.end(),
               [](const ConkyItem *a, const ConkyItem *b) {
                   QString folderA = QFileInfo(a->directory()).fileName().toLower();
                   QString folderB = QFileInfo(b->directory()).fileName().toLower();
@@ -537,10 +537,7 @@ void ConkyManager::setAutostart(bool enabled)
         desktopContent += "Hidden=false\n";
         desktopContent += "NoDisplay=false\n";
         desktopContent += "X-GNOME-Autostart-enabled=true\n";
-        desktopContent += "Name[en_IN]=Conky\n";
         desktopContent += "Name=Conky\n";
-        desktopContent += "Comment[en_IN]=\n";
-        desktopContent += "Comment=\n";
 
         QFile file(desktopFile);
         if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
