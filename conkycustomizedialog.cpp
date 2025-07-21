@@ -773,7 +773,7 @@ void ConkyCustomizeDialog::writeColor(QWidget *widget, const QColor &color)
     writeFile(QFile(file_name), file_content);
 }
 
-void ConkyCustomizeDialog::writeFile(QFile file, const QString &content)
+void ConkyCustomizeDialog::writeFile(const QFile &file, const QString &content)
 {
     writeFile(file.fileName(), content);
 }
@@ -1935,6 +1935,7 @@ void ConkyCustomizeDialog::writeConfigValue(const QString &key, const QString &v
 
     const QStringList lines = file_content.split('\n');
     QStringList newLines;
+    newLines.reserve(lines.count());
     bool found = false;
     bool inConfig = !is_lua_format; // Old format is always in config
 

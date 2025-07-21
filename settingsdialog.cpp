@@ -159,6 +159,7 @@ void SettingsDialog::loadPaths()
 void SettingsDialog::savePaths()
 {
     QStringList newPaths;
+    newPaths.reserve(m_pathListWidget->count());
     for (int i = 0; i < m_pathListWidget->count(); ++i) {
         QString path = m_pathListWidget->item(i)->text();
         if (!newPaths.contains(path)) {

@@ -32,6 +32,9 @@
 
 #include "cmd.h"
 #include "conkymanager.h"
+#include <chrono>
+
+using namespace std::chrono_literals;
 
 ConkyManager::ConkyManager(QObject *parent)
     : QObject(parent),
@@ -41,7 +44,7 @@ ConkyManager::ConkyManager(QObject *parent)
       m_statusCheckRunning(false),
       m_startupDelay(20)
 {
-    m_statusTimer->setInterval(2000);
+    m_statusTimer->setInterval(2s);
     connect(m_statusTimer, &QTimer::timeout, this, &ConkyManager::updateRunningStatus);
     m_statusTimer->start();
 

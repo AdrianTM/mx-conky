@@ -233,7 +233,7 @@ private:
     void setConnections();
     void setupUI();
     void writeColor(QWidget *widget, const QColor &color);
-    void writeFile(QFile file, const QString &content);
+    void writeFile(const QFile &file, const QString &content);
     void writeFile(const QString &fileName, const QString &content);
     bool writeFileWithElevation(const QString &fileName, const QString &content);
     bool copyFileWithElevation(const QString &sourceFile, const QString &destFile);
