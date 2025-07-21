@@ -1,4 +1,4 @@
-mx-conky (25.07.11) UNRELEASED; urgency=medium
+mx-conky (25.07.12) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -16,8 +16,9 @@ mx-conky (25.07.11) UNRELEASED; urgency=medium
     that is being edited (if it has no write access). Directories in ~/.conky
     are displayed instead of the ones in /usr/share/mx-conky-data/
   * Add option to enable/disable conky auto-startup
+  * Add create previews option
 
- -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 15:50:13 -0400
+ -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 16:51:13 -0400
 
 mx-conky (24.4) mx; urgency=medium
 

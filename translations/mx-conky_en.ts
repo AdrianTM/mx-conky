@@ -536,22 +536,22 @@ otherwise this setting will not have any effect</source>
 <context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="404"/>
+        <location filename="../conkylistwidget.cpp" line="427"/>
         <source>No Conky Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="406"/>
+        <location filename="../conkylistwidget.cpp" line="429"/>
         <source>Select a conky from the list to see its preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="425"/>
+        <location filename="../conkylistwidget.cpp" line="448"/>
         <source>Preview image could not be loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="428"/>
+        <location filename="../conkylistwidget.cpp" line="451"/>
         <source>No preview image available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -560,32 +560,32 @@ otherwise this setting will not have any effect</source>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.cpp" line="53"/>
-        <location filename="../mainwindow.cpp" line="632"/>
+        <location filename="../mainwindow.cpp" line="672"/>
         <source>MX Conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="229"/>
+        <location filename="../mainwindow.cpp" line="230"/>
         <source>About this application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="227"/>
+        <location filename="../mainwindow.cpp" line="228"/>
         <source>About...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="234"/>
+        <location filename="../mainwindow.cpp" line="235"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
+        <location filename="../mainwindow.cpp" line="250"/>
         <source>Quit application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="247"/>
+        <location filename="../mainwindow.cpp" line="248"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -595,122 +595,112 @@ otherwise this setting will not have any effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="162"/>
+        <location filename="../mainwindow.cpp" line="166"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="164"/>
+        <location filename="../mainwindow.cpp" line="168"/>
         <source>Configure conky search paths</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="166"/>
+        <location filename="../mainwindow.cpp" line="170"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="168"/>
+        <location filename="../mainwindow.cpp" line="172"/>
         <source>Refresh conky list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="170"/>
+        <location filename="../mainwindow.cpp" line="174"/>
         <source>Start All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="172"/>
+        <location filename="../mainwindow.cpp" line="176"/>
         <source>Start all enabled conkies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="174"/>
+        <location filename="../mainwindow.cpp" line="178"/>
         <source>Stop All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="176"/>
+        <location filename="../mainwindow.cpp" line="180"/>
         <source>Stop all running conkies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="178"/>
-        <source>Filter:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="180"/>
         <location filename="../mainwindow.cpp" line="183"/>
+        <location filename="../mainwindow.cpp" line="186"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="181"/>
+        <location filename="../mainwindow.cpp" line="184"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="182"/>
+        <location filename="../mainwindow.cpp" line="185"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="184"/>
+        <location filename="../mainwindow.cpp" line="187"/>
         <source>Filter conkies by running status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="186"/>
-        <source>Search:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="188"/>
+        <location filename="../mainwindow.cpp" line="190"/>
         <source>Search conky by name...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="190"/>
+        <location filename="../mainwindow.cpp" line="192"/>
         <source>Search conkies by name (Ctrl+F)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="237"/>
         <source>Display help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="386"/>
-        <location filename="../mainwindow.cpp" line="487"/>
+        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="528"/>
         <source>Conky Copied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="387"/>
+        <location filename="../mainwindow.cpp" line="423"/>
         <source>Conky has been copied to your personal folder for editing:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="389"/>
-        <location filename="../mainwindow.cpp" line="490"/>
+        <location filename="../mainwindow.cpp" line="425"/>
+        <location filename="../mainwindow.cpp" line="531"/>
         <source>Copy Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
-        <location filename="../mainwindow.cpp" line="491"/>
+        <location filename="../mainwindow.cpp" line="425"/>
+        <location filename="../mainwindow.cpp" line="531"/>
         <source>Failed to copy conky to your personal folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="411"/>
+        <location filename="../mainwindow.cpp" line="444"/>
         <source>Delete Conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="412"/>
+        <location filename="../mainwindow.cpp" line="445"/>
         <source>Are you sure you want to delete the entire conky directory:
 %1
 
@@ -718,86 +708,199 @@ This will delete all files in the folder. This action cannot be undone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="447"/>
+        <location filename="../mainwindow.cpp" line="487"/>
         <source>Conky directory deleted successfully.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="449"/>
+        <location filename="../mainwindow.cpp" line="489"/>
         <source>Failed to delete conky directory:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="488"/>
+        <location filename="../mainwindow.cpp" line="529"/>
         <source>Conky has been copied to your personal folder for customization:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="447"/>
+        <location filename="../mainwindow.cpp" line="487"/>
         <source>Delete Successful</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="449"/>
+        <location filename="../mainwindow.cpp" line="162"/>
+        <source>Previews</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="164"/>
+        <source>Generate preview images for conkies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="489"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="621"/>
+        <location filename="../mainwindow.cpp" line="661"/>
         <source>Editor Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="621"/>
+        <location filename="../mainwindow.cpp" line="661"/>
         <source>Cannot start editor for file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="631"/>
+        <location filename="../mainwindow.cpp" line="671"/>
         <source>About MX Conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="633"/>
+        <location filename="../mainwindow.cpp" line="673"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="634"/>
+        <location filename="../mainwindow.cpp" line="674"/>
         <source>GUI program for configuring Conky in MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="637"/>
+        <location filename="../mainwindow.cpp" line="677"/>
         <source>Copyright (c) MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="638"/>
+        <location filename="../mainwindow.cpp" line="678"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="639"/>
-        <location filename="../mainwindow.cpp" line="651"/>
+        <location filename="../mainwindow.cpp" line="679"/>
+        <location filename="../mainwindow.cpp" line="691"/>
         <source>Changelog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="640"/>
+        <location filename="../mainwindow.cpp" line="680"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="662"/>
+        <location filename="../mainwindow.cpp" line="702"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="693"/>
+        <location filename="../mainwindow.cpp" line="733"/>
         <source>MX Conky Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PreviewDialog</name>
+    <message>
+        <location filename="../previewdialog.cpp" line="50"/>
+        <source>Generate Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="75"/>
+        <source>Generate preview images for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="78"/>
+        <source>Selected Widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="79"/>
+        <source>All Widgets with Missing Previews</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="80"/>
+        <source>All Widgets (Overwrite Existing Images)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="85"/>
+        <source>No conky is currently selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="93"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="96"/>
+        <source>High quality images (PNG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="97"/>
+        <source>Generate preview images in PNG format instead of JPEG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="114"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="118"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="145"/>
+        <source>No Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="145"/>
+        <source>No conky widgets need preview generation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="155"/>
+        <source>Starting preview generation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="159"/>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="198"/>
+        <source>Generating preview for: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="419"/>
+        <source>Preview generation complete! Generated %1 previews.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="423"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="426"/>
+        <source>Preview Generation Complete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../previewdialog.cpp" line="427"/>
+        <source>Successfully generated %1 preview images.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
