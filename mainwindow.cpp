@@ -633,23 +633,23 @@ void MainWindow::editConkyFile(const QString &filePath)
 
     if (needsElevation) {
         if (isEditorThatElevates && !isRoot) {
-            command = editor + " " + filePath;
+            command = editor + " \"" + filePath + "\"";
         } else if (isRoot && isEditorThatElevates) {
-            command = elevate + " --user $(logname) " + editor + " " + filePath;
+            command = elevate + " --user $(logname) " + editor + " \"" + filePath + "\"";
         } else if (isCliEditor) {
-            command = "x-terminal-emulator -e " + elevate + " " + editor + " " + filePath;
+            command = "x-terminal-emulator -e " + elevate + " " + editor + " \"" + filePath + "\"";
         } else {
-            command = elevate + " env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY " + editor + " " + filePath;
+            command = elevate + " env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY " + editor + " \"" + filePath + "\"";
         }
     } else {
         if (isEditorThatElevates && !isRoot) {
-            command = editor + " " + filePath;
+            command = editor + " \"" + filePath + "\"";
         } else if (isRoot && isEditorThatElevates) {
-            command = elevate + " --user $(logname) " + editor + " " + filePath;
+            command = elevate + " --user $(logname) " + editor + " \"" + filePath + "\"";
         } else if (isCliEditor) {
-            command = "x-terminal-emulator -e " + editor + " " + filePath;
+            command = "x-terminal-emulator -e " + editor + " \"" + filePath + "\"";
         } else {
-            command = editor + " " + filePath;
+            command = editor + " \"" + filePath + "\"";
         }
     }
 
