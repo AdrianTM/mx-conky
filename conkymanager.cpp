@@ -203,23 +203,19 @@ void ConkyManager::stopConky(ConkyItem *item)
 
     QString pid = getConkyProcess(item->filePath());
     if (!pid.isEmpty()) {
-        qDebug() << "ConkyManager: Starting kill process for PID:" << pid;
-
         // Use synchronous approach to avoid lingering processes
         QProcess process;
-        qDebug() << "ConkyManager::stopRunning: Creating kill QProcess object for PID:" << pid;
         process.setProgram("kill");
         process.setArguments(QStringList() << pid);
         process.start();
 
         if (process.waitForFinished(3000)) {
-            qDebug() << "ConkyManager: Kill process finished successfully for PID:" << pid;
+            // Process killed successfully or failed
         } else {
-            qDebug() << "ConkyManager: Kill process timed out for PID:" << pid;
+            // Timeout - force kill the kill process
             process.kill();
             process.waitForFinished(1000);
         }
-        qDebug() << "ConkyManager::stopRunning: Destroying kill QProcess object for PID:" << pid;
 
         item->setRunning(false);
         emit conkyStopped(item);
@@ -338,9 +334,8 @@ void ConkyManager::updateRunningStatus()
 
     m_statusCheckRunning = true;
 
-    // Use optimized command for better performance
-    m_statusProcess->start("pgrep", QStringList() << "-x"
-                                                  << "conky");
+    // Use pattern matching to find conky processes (handles /usr/bin/conky, conky, etc.)
+    m_statusProcess->start("pgrep", QStringList() << "conky");
 }
 
 void ConkyManager::onStatusProcessFinished()
@@ -366,15 +361,20 @@ void ConkyManager::onStatusProcessFinished()
                                                  << "--no-headers");
         if (cmdlineProcess.waitForFinished(1000)) {
             QString cmdline = cmdlineProcess.readAllStandardOutput().trimmed();
-            QStringList parts = cmdline.split(' ', Qt::SkipEmptyParts);
 
-            // Look for -c flag and extract the config file
-            for (int i = 0; i < parts.size() - 1; ++i) {
-                if (parts[i] == "-c" && i + 1 < parts.size()) {
-                    QString configPath = parts[i + 1];
-                    runningConfigs.insert(QFileInfo(configPath).absoluteFilePath());
-                    break;
-                }
+            // Skip if this is not actually a conky process (could be grep, mx-conky, etc.)
+            // Look for conky executable (conky, /usr/bin/conky, etc.) but not mx-conky
+            if (!cmdline.contains("conky") || cmdline.contains("mx-conky")) {
+                continue;
+            }
+
+            // Find -c flag position in the command line
+            int cFlagIndex = cmdline.indexOf(" -c ");
+            if (cFlagIndex != -1) {
+                // Extract everything after " -c " as the config path
+                QString configPath = cmdline.mid(cFlagIndex + 4); // +4 for " -c "
+                QString absolutePath = QFileInfo(configPath).absoluteFilePath();
+                runningConfigs.insert(absolutePath);
             }
         }
     }
@@ -423,11 +423,45 @@ void ConkyManager::clearConkyItems()
 
 QString ConkyManager::getConkyProcess(const QString &configPath) const
 {
-    QString escapedPath = QFileInfo(configPath).absoluteFilePath();
-    // Escape special regex characters for pgrep
-    escapedPath.replace("[", "\\[").replace("]", "\\]").replace("(", "\\(").replace(")", "\\)");
-    QString output = m_cmd.getCmdOut(QString("pgrep -f 'conky.*%1'").arg(escapedPath), true);
-    return output.trimmed();
+    QString absolutePath = QFileInfo(configPath).absoluteFilePath();
+
+    // Get all conky PIDs using pattern matching (handles /usr/bin/conky, conky, etc.)
+    QProcess pgrepProcess;
+    pgrepProcess.start("pgrep", QStringList() << "conky");
+    pgrepProcess.waitForFinished(3000);
+
+    QString pgrepOutput = pgrepProcess.readAllStandardOutput();
+    QStringList pids = pgrepOutput.split('\n', Qt::SkipEmptyParts);
+
+    // Check each PID to find the one with matching config path
+    for (const QString &pid : pids) {
+        QProcess cmdlineProcess;
+        cmdlineProcess.start("ps", QStringList() << "-p" << pid << "-o" << "command=" << "--no-headers");
+        if (cmdlineProcess.waitForFinished(1000)) {
+            QString cmdline = cmdlineProcess.readAllStandardOutput().trimmed();
+
+            // Skip if this is not actually a conky process (could be grep, mx-conky, etc.)
+            // Look for conky executable (conky, /usr/bin/conky, etc.) but not mx-conky
+            if (!cmdline.contains("conky") || cmdline.contains("mx-conky")) {
+                continue;
+            }
+
+            // Find -c flag position in the command line
+            int cFlagIndex = cmdline.indexOf(" -c ");
+            if (cFlagIndex != -1) {
+                // Extract everything after " -c " as the config path
+                QString configPath = cmdline.mid(cFlagIndex + 4); // +4 for " -c "
+                QString foundAbsolutePath = QFileInfo(configPath).absoluteFilePath();
+
+                // Check if this matches our target config path
+                if (foundAbsolutePath == absolutePath) {
+                    return pid;
+                }
+            }
+        }
+    }
+
+    return QString(); // Not found
 }
 
 bool ConkyManager::isConkyRunning(const QString &configPath) const
