@@ -536,22 +536,22 @@ otherwise this setting will not have any effect</source>
 <context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="456"/>
+        <location filename="../conkylistwidget.cpp" line="470"/>
         <source>No Conky Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="458"/>
+        <location filename="../conkylistwidget.cpp" line="472"/>
         <source>Select a conky from the list to see its preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="477"/>
+        <location filename="../conkylistwidget.cpp" line="491"/>
         <source>Preview image could not be loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="480"/>
+        <location filename="../conkylistwidget.cpp" line="494"/>
         <source>No preview image available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -560,7 +560,7 @@ otherwise this setting will not have any effect</source>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.cpp" line="55"/>
-        <location filename="../mainwindow.cpp" line="690"/>
+        <location filename="../mainwindow.cpp" line="687"/>
         <source>MX Conky</source>
         <translation type="unfinished"></translation>
     </message>
@@ -638,7 +638,7 @@ otherwise this setting will not have any effect</source>
         <location filename="../mainwindow.cpp" line="185"/>
         <location filename="../mainwindow.cpp" line="190"/>
         <location filename="../mainwindow.cpp" line="426"/>
-        <location filename="../mainwindow.cpp" line="539"/>
+        <location filename="../mainwindow.cpp" line="533"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -669,19 +669,19 @@ otherwise this setting will not have any effect</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="410"/>
-        <location filename="../mainwindow.cpp" line="523"/>
+        <location filename="../mainwindow.cpp" line="517"/>
         <source>Copy Conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="410"/>
-        <location filename="../mainwindow.cpp" line="523"/>
+        <location filename="../mainwindow.cpp" line="517"/>
         <source>Enter name for the conky copy:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="433"/>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="540"/>
         <source>Conky Copied</source>
         <translation type="unfinished"></translation>
     </message>
@@ -693,13 +693,13 @@ otherwise this setting will not have any effect</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="436"/>
-        <location filename="../mainwindow.cpp" line="549"/>
+        <location filename="../mainwindow.cpp" line="543"/>
         <source>Copy Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="436"/>
-        <location filename="../mainwindow.cpp" line="549"/>
+        <location filename="../mainwindow.cpp" line="543"/>
         <source>Failed to copy conky to your personal folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -717,24 +717,24 @@ This will delete all files in the folder. This action cannot be undone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="498"/>
+        <location filename="../mainwindow.cpp" line="492"/>
         <source>Conky directory deleted successfully.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="500"/>
+        <location filename="../mainwindow.cpp" line="494"/>
         <source>Failed to delete conky directory:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="541"/>
         <source>Conky has been copied to your personal folder for customization:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="498"/>
+        <location filename="../mainwindow.cpp" line="492"/>
         <source>Delete Successful</source>
         <translation type="unfinished"></translation>
     </message>
@@ -764,63 +764,63 @@ This will delete all files in the folder. This action cannot be undone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="500"/>
+        <location filename="../mainwindow.cpp" line="494"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="679"/>
+        <location filename="../mainwindow.cpp" line="676"/>
         <source>Editor Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="679"/>
+        <location filename="../mainwindow.cpp" line="676"/>
         <source>Cannot start editor for file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="689"/>
+        <location filename="../mainwindow.cpp" line="686"/>
         <source>About MX Conky</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="691"/>
+        <location filename="../mainwindow.cpp" line="688"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="692"/>
+        <location filename="../mainwindow.cpp" line="689"/>
         <source>GUI program for configuring Conky in MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="695"/>
+        <location filename="../mainwindow.cpp" line="692"/>
         <source>Copyright (c) MX Linux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="696"/>
+        <location filename="../mainwindow.cpp" line="693"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="697"/>
-        <location filename="../mainwindow.cpp" line="709"/>
+        <location filename="../mainwindow.cpp" line="694"/>
+        <location filename="../mainwindow.cpp" line="706"/>
         <source>Changelog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="698"/>
+        <location filename="../mainwindow.cpp" line="695"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="720"/>
+        <location filename="../mainwindow.cpp" line="717"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="751"/>
+        <location filename="../mainwindow.cpp" line="748"/>
         <source>MX Conky Help</source>
         <translation type="unfinished"></translation>
     </message>
