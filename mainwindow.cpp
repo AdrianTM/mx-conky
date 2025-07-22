@@ -449,13 +449,11 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
 
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
-    QString dirPath = fileInfo.absolutePath();
-    QString folderName = QFileInfo(dirPath).fileName();
+    QString fileName = fileInfo.fileName();
 
     int result = QMessageBox::question(this, tr("Delete Conky"),
-                                       tr("Are you sure you want to delete the entire conky directory:\n%1\n\nThis "
-                                          "will delete all files in the folder. This action cannot be undone.")
-                                           .arg(folderName),
+                                       tr("Are you sure you want to delete the conky file:\n%1\n\nThis action cannot be undone.")
+                                           .arg(fileName),
                                        QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
     if (result != QMessageBox::Yes) {
@@ -467,10 +465,9 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
         m_conkyManager->stopConky(item);
     }
 
-    QFileInfo dirInfo(dirPath);
     bool needsElevation = false;
 
-    if (dirInfo.exists() && !dirInfo.isWritable()) {
+    if (fileInfo.exists() && !fileInfo.isWritable()) {
         needsElevation = true;
     }
 
@@ -478,20 +475,19 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
     QString elevate = QFile::exists("/usr/bin/pkexec") ? "/usr/bin/pkexec" : "/usr/bin/gksu";
 
     if (needsElevation) {
-        QString command = elevate + " rm -rf '" + dirPath + "'";
+        QString command = elevate + " rm '" + filePath + "'";
         success = QProcess::execute("sh", QStringList() << "-c" << command) == 0;
     } else {
-        QDir dir(dirPath);
-        success = dir.removeRecursively();
+        success = QFile::remove(filePath);
     }
 
     if (success) {
         // Remove from manager - this will emit conkyItemsChanged signal
         m_conkyManager->removeConkyItem(item);
 
-        QMessageBox::information(this, tr("Delete Successful"), tr("Conky directory deleted successfully."));
+        QMessageBox::information(this, tr("Delete Successful"), tr("Conky file deleted successfully."));
     } else {
-        QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky directory:\n%1").arg(dirPath));
+        QMessageBox::critical(this, tr("Delete Failed"), tr("Failed to delete conky file:\n%1").arg(filePath));
     }
 }
 

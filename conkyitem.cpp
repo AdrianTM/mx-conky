@@ -167,7 +167,10 @@ void ConkyItem::updateFromFile()
     }
 
     if (m_name.isEmpty()) {
-        m_name = fileInfo.completeBaseName();
+        // Include parent directory name in the display name
+        QString parentDirName = fileInfo.absoluteDir().dirName();
+        QString fileName = fileInfo.completeBaseName();
+        m_name = QString("%1: %2").arg(parentDirName, fileName);
     }
 
     // Don't search for preview image during initial scan - defer until user selects this conky
