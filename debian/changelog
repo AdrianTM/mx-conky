@@ -26,8 +26,10 @@ mx-conky (25.07.19) UNRELEASED; urgency=medium
     in path
   * Delete only the selected conky not the entire directory. Add dir
     name before the name of the conky
+  * Rename filter option 'All' to 'Default', move to ~/.conky only
+    conkys from /usr/share/mx-conky-data, otherwise elevate
 
- -- Adrian <adrian@mxlinux.org>  Tue, 22 Jul 2025 17:29:48 -0400
+ -- Adrian <adrian@mxlinux.org>  Tue, 22 Jul 2025 18:04:34 -0400
 
 mx-conky (24.4) mx; urgency=medium
 
