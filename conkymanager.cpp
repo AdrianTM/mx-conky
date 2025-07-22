@@ -487,7 +487,7 @@ void ConkyManager::scanDirectory(const QString &path)
 void ConkyManager::scanConkyDirectory(const QString &path)
 {
     static const QStringList skipExtensions
-        = {".sh", ".png", ".jpg", ".jpeg", ".txt", ".bak", ".zip", ".ttf", ".md", ".py", ".lua"};
+        = {".sh", ".png", ".jpg", ".jpeg", ".txt", ".bak", ".zip", ".ttf", ".md", ".py", ".lua", ".cmtheme"};
     static const QStringList skipNames = {"Changelog", "Notes", "README", "README!!", "OPTIONS"};
 
     QDir dir(path);
