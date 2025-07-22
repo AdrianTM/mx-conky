@@ -426,8 +426,8 @@ void MainWindow::onEditRequested(ConkyItem *item)
                 m_filterComboBox->setCurrentText(tr("All"));
             }
 
-            // Refresh the conky list to show the new copy
-            m_conkyManager->scanForConkies();
+            // Add the new copy to the conky list (much faster than full rescan)
+            m_conkyManager->addConkyItemsFromDirectory(copiedPath);
 
             QMessageBox::information(
                 this, tr("Conky Copied"),
@@ -486,14 +486,8 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
     }
 
     if (success) {
-        // Remove from manager and rescan to ensure proper refresh
+        // Remove from manager - this will emit conkyItemsChanged signal
         m_conkyManager->removeConkyItem(item);
-        m_conkyManager->scanForConkies();
-
-        // Force refresh of the list widget
-        if (m_conkyListWidget) {
-            m_conkyListWidget->refreshList();
-        }
 
         QMessageBox::information(this, tr("Delete Successful"), tr("Conky directory deleted successfully."));
     } else {
@@ -539,8 +533,8 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
                 m_filterComboBox->setCurrentText(tr("All"));
             }
 
-            // Refresh the conky list to show the new copy
-            m_conkyManager->scanForConkies();
+            // Add the new copy to the conky list (much faster than full rescan)
+            m_conkyManager->addConkyItemsFromDirectory(copiedPath);
 
             QMessageBox::information(
                 this, tr("Conky Copied"),
@@ -561,28 +555,31 @@ void MainWindow::onPreviewImageLoaded(const QSize imageSize)
         return;
     }
 
-    // Calculate desired preview pane width (image width, max 50% of window)
-    int maxPreviewWidth = width() / 2;
-    int desiredWidth = qMin(imageSize.width() + 20, maxPreviewWidth); // Add 20px padding
+    // Use a small delay to ensure preview widget layout is complete before adjusting splitter
+    QTimer::singleShot(10, this, [this, imageSize]() {
+        // Calculate desired preview pane width (image width, max 50% of window)
+        int maxPreviewWidth = width() / 2;
+        int desiredWidth = qMin(imageSize.width() + 20, maxPreviewWidth); // Add 20px padding
 
-    QList<int> sizes = m_splitter->sizes();
-    if (sizes.size() == 2) {
-        int totalWidth = sizes[0] + sizes[1];
-        int newPreviewWidth = desiredWidth;
-        int newListWidth = totalWidth - newPreviewWidth;
+        QList<int> sizes = m_splitter->sizes();
+        if (sizes.size() == 2) {
+            int totalWidth = sizes[0] + sizes[1];
+            int newPreviewWidth = desiredWidth;
+            int newListWidth = totalWidth - newPreviewWidth;
 
-        // Ensure minimum widths
-        if (newListWidth < 300) {
-            newListWidth = 300;
-            newPreviewWidth = totalWidth - newListWidth;
+            // Ensure minimum widths
+            if (newListWidth < 300) {
+                newListWidth = 300;
+                newPreviewWidth = totalWidth - newListWidth;
+            }
+
+            if (newPreviewWidth > 100) { // Only resize if preview width is reasonable
+                sizes[0] = newListWidth;
+                sizes[1] = newPreviewWidth;
+                m_splitter->setSizes(sizes);
+            }
         }
-
-        if (newPreviewWidth > 100) { // Only resize if preview width is reasonable
-            sizes[0] = newListWidth;
-            sizes[1] = newPreviewWidth;
-            m_splitter->setSizes(sizes);
-        }
-    }
+    });
 }
 
 void MainWindow::editConkyFile(const QString &filePath)

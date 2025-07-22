@@ -44,6 +44,7 @@ public:
     QStringList searchPaths() const;
 
     void scanForConkies();
+    void addConkyItemsFromDirectory(const QString &directoryPath);
     QList<ConkyItem *> conkyItems() const;
 
     void startConky(ConkyItem *item);

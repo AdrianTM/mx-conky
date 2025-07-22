@@ -456,8 +456,8 @@ ConkyItem *PreviewDialog::ensureConkyInUserDir(ConkyItem *item)
         return nullptr;
     }
 
-    // Refresh the conky list to pick up the new copy
-    m_manager->scanForConkies();
+    // Add the new copy to the conky list (much faster than full rescan)
+    m_manager->addConkyItemsFromDirectory(copiedPath);
 
     // Find the ConkyItem in the new location
     QString fileName = QFileInfo(item->filePath()).fileName();

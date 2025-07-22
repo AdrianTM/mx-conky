@@ -151,6 +151,25 @@ void ConkyManager::scanForConkies()
     emit conkyItemsChanged();
 }
 
+void ConkyManager::addConkyItemsFromDirectory(const QString &directoryPath)
+{
+    if (!QFileInfo::exists(directoryPath) || !QFileInfo(directoryPath).isDir()) {
+        return;
+    }
+
+    // Scan the specific directory and add any new items
+    scanConkyDirectory(directoryPath);
+
+    // Sort conky items by folder name (maintain consistent ordering)
+    std::sort(m_conkyItems.begin(), m_conkyItems.end(), [](const ConkyItem *a, const ConkyItem *b) {
+        QString folderA = QFileInfo(a->directory()).fileName().toLower();
+        QString folderB = QFileInfo(b->directory()).fileName().toLower();
+        return folderA < folderB;
+    });
+
+    emit conkyItemsChanged();
+}
+
 QList<ConkyItem *> ConkyManager::conkyItems() const
 {
     return m_conkyItems;

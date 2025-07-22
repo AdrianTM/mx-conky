@@ -98,7 +98,7 @@ void ConkyItemWidget::setupUI()
     auto *topLayout = new QHBoxLayout;
 
     m_nameLabel = new QLabel;
-    m_nameLabel->setStyleSheet("font-weight: bold;");
+    m_nameLabel->setStyleSheet("font-weight: bold; font-size: 14px;");
 
     m_statusLabel = new QLabel;
     m_statusLabel->setAlignment(Qt::AlignRight);
@@ -124,8 +124,8 @@ void ConkyItemWidget::setupUI()
 
     m_deleteButton = new QPushButton(tr("Delete"));
     m_deleteButton->setIcon(QIcon::fromTheme("edit-delete"));
-    m_deleteButton->setStyleSheet("QPushButton { color: red; }");
 
+    controlsLayout->addSpacing(20);
     controlsLayout->addWidget(m_enabledCheckBox);
     controlsLayout->addStretch();
     controlsLayout->addWidget(m_deleteButton);
@@ -233,14 +233,28 @@ void ConkyListWidget::onConkyItemsChanged()
         addConkyItem(item);
     }
 
-    // Auto-select first item only on initial load
-    if (!m_hasAutoSelected && m_treeWidget->topLevelItemCount() > 0) {
-        QTreeWidgetItem *firstItem = m_treeWidget->topLevelItem(0);
-        m_treeWidget->setCurrentItem(firstItem);
-        m_hasAutoSelected = true;
+    // Apply filters to hide/show items based on current filter settings
+    applyFilters();
 
-        // Use a short timer to ensure the tree widget is fully initialized
-        QTimer::singleShot(50, this, [this]() { onItemSelectionChanged(); });
+    // Auto-select first visible item only on initial load
+    if (!m_hasAutoSelected && m_treeWidget->topLevelItemCount() > 0) {
+        // Find the first visible item after filtering
+        QTreeWidgetItem *firstVisibleItem = nullptr;
+        for (int i = 0; i < m_treeWidget->topLevelItemCount(); ++i) {
+            QTreeWidgetItem *item = m_treeWidget->topLevelItem(i);
+            if (!item->isHidden()) {
+                firstVisibleItem = item;
+                break;
+            }
+        }
+        
+        if (firstVisibleItem) {
+            m_treeWidget->setCurrentItem(firstVisibleItem);
+            m_hasAutoSelected = true;
+
+            // Use a timer to ensure the tree widget is fully initialized and preview can load
+            QTimer::singleShot(200, this, [this]() { onItemSelectionChanged(); });
+        }
     }
 }
 
