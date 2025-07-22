@@ -75,6 +75,7 @@ void ConkyCustomizeDialog::setupUI()
 
     // Create Launch group box (common to all tabs)
     groupBoxRun = new QGroupBox(tr("Launch"));
+    groupBoxRun->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     auto *runLayout = new QGridLayout(groupBoxRun);
 
     pushToggleOn = new QPushButton(tr("Start"));
@@ -198,7 +199,7 @@ void ConkyCustomizeDialog::setupUI()
 
     // Add Launch group at top, then tabs, then buttons
     mainLayout->addWidget(groupBoxRun);
-    mainLayout->addWidget(tabWidget);
+    mainLayout->addWidget(tabWidget, 1); // Give tab widget stretch factor of 1
     mainLayout->addLayout(buttonLayout);
 }
 
@@ -1318,6 +1319,8 @@ bool ConkyCustomizeDialog::eventFilter(QObject *obj, QEvent *event)
                 } else if (widget->objectName().startsWith("widgetColor")) {
                     int colorIndex = widget->objectName().mid(11).toInt(); // Remove "widgetColor" prefix
                     pushColorButton_clicked(colorIndex);
+                } else if (widget->objectName() == "widgetBackgroundColor") {
+                    onBackgroundColorClicked(); // Background color for transparency
                 }
                 return true; // Event handled
             }
@@ -1332,48 +1335,6 @@ void ConkyCustomizeDialog::createLocationTab()
     auto *locationLayout = new QVBoxLayout(locationWidget);
     locationLayout->setContentsMargins(12, 12, 12, 12);
     locationLayout->setSpacing(12);
-
-    // Drag Info Group
-    groupBoxDrag = new QGroupBox(tr("Drag"));
-    auto *dragLayout = new QGridLayout(groupBoxDrag);
-
-    // Row 0: Alt + Left Click: To Move
-    auto *altIcon1 = new QLabel;
-    altIcon1->setPixmap(QPixmap(":/icons/AltKey.png").scaled(35, 35, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    altIcon1->setAlignment(Qt::AlignCenter);
-
-    auto *moveLabel = new QLabel(tr("To Move"));
-    moveLabel->setAlignment(Qt::AlignCenter);
-
-    auto *leftClickLabel = new QLabel(tr("+ Left Click"));
-    leftClickLabel->setAlignment(Qt::AlignCenter);
-
-    dragLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding), 0, 0);
-    dragLayout->addWidget(moveLabel, 0, 1);
-    dragLayout->addItem(new QSpacerItem(10, 20, QSizePolicy::Minimum), 0, 2);
-    dragLayout->addWidget(altIcon1, 0, 3);
-    dragLayout->addWidget(leftClickLabel, 0, 4);
-    dragLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding), 0, 5);
-
-    // Row 1: Alt + Right Click: To Resize
-    auto *altIcon2 = new QLabel;
-    altIcon2->setPixmap(QPixmap(":/icons/AltKey.png").scaled(35, 35, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    altIcon2->setAlignment(Qt::AlignCenter);
-
-    auto *resizeLabel = new QLabel(tr("To Resize"));
-    resizeLabel->setAlignment(Qt::AlignCenter);
-
-    auto *rightClickLabel = new QLabel(tr("+ Right Click"));
-    rightClickLabel->setAlignment(Qt::AlignCenter);
-
-    dragLayout->addWidget(resizeLabel, 1, 1);
-    dragLayout->addWidget(altIcon2, 1, 3);
-    dragLayout->addWidget(rightClickLabel, 1, 4);
-
-    // Row 2: Note spanning all columns
-    auto *noteLabel = new QLabel(tr("NOTE: changes last only for the current session"));
-    noteLabel->setAlignment(Qt::AlignCenter);
-    dragLayout->addWidget(noteLabel, 2, 0, 1, 6);
 
     // Position Settings Group
     auto *positionGroup = new QGroupBox(tr("Position"));
@@ -1440,7 +1401,6 @@ void ConkyCustomizeDialog::createLocationTab()
 
     locationLayout->addWidget(groupBoxDesktop);
     locationLayout->addWidget(positionGroup);
-    locationLayout->addWidget(groupBoxDrag);
 
     locationLayout->addStretch();
 
@@ -1504,7 +1464,7 @@ void ConkyCustomizeDialog::createSizeTab()
     spinHeightPadding->setToolTip(tooltip);
     sizeLayout->addWidget(spinHeightPadding, row, 1);
 
-    // Add vertical stretch
+    // Add empty row with stretch to push content to top
     sizeLayout->setRowStretch(++row, 1);
 
     tabWidget->addTab(sizeWidget, tr("Size"));
@@ -1529,7 +1489,7 @@ void ConkyCustomizeDialog::createTransparencyTab()
     cmbTransparencyType->addItem(tr("Transparent"), "trans");
     cmbTransparencyType->addItem(tr("Pseudo-Transparent"), "pseudo");
     cmbTransparencyType->addItem(tr("Semi-Transparent"), "semi");
-    transparencyLayout->addWidget(cmbTransparencyType, row, 1, 1, 2);
+    transparencyLayout->addWidget(cmbTransparencyType, row, 1);
 
     // Opacity
     ++row;
@@ -1562,12 +1522,16 @@ void ConkyCustomizeDialog::createTransparencyTab()
     widgetBackgroundColor = new QWidget;
     widgetBackgroundColor->setMinimumSize(30, 30);
     widgetBackgroundColor->setStyleSheet("border: 1px solid black; background-color: #000000;");
+    widgetBackgroundColor->setCursor(Qt::PointingHandCursor);
+    widgetBackgroundColor->setObjectName("widgetBackgroundColor");
+
+    // Install event filter to make background color widget clickable
+    widgetBackgroundColor->installEventFilter(this);
+
     transparencyLayout->addWidget(widgetBackgroundColor, row, 2);
 
-    // Add vertical stretch
-    transparencyLayout->setRowStretch(++row, 1);
-
-    // Add informational notes
+    // Add informational notes as separate widgets spanning full width
+    ++row;
     QString note1 = "○ "
                     + tr("Setting Type to \"Transparent\" will make the whole window transparent (including any "
                          "images). Use \"Pseudo-Transparent\" if you want the images to be opaque.");
@@ -1575,8 +1539,9 @@ void ConkyCustomizeDialog::createTransparencyTab()
     lblNote1->setWordWrap(true);
     lblNote1->setAlignment(Qt::AlignLeft);
     lblNote1->setContentsMargins(6, 6, 6, 6);
-    transparencyLayout->addWidget(lblNote1, ++row, 0, 1, 3);
+    transparencyLayout->addWidget(lblNote1, row, 0, 1, 3);
 
+    ++row;
     QString note2 = "○ "
                     + tr("Setting Type to \"Pseudo-Transparent\" will make the window transparent but the window will "
                          "have a shadow. The shadow can be disabled by configuring your window manager.");
@@ -1584,7 +1549,10 @@ void ConkyCustomizeDialog::createTransparencyTab()
     lblNote2->setWordWrap(true);
     lblNote2->setAlignment(Qt::AlignLeft);
     lblNote2->setContentsMargins(6, 6, 6, 6);
-    transparencyLayout->addWidget(lblNote2, ++row, 0, 1, 3);
+    transparencyLayout->addWidget(lblNote2, row, 0, 1, 3);
+
+    // Add empty row with stretch to push content to top
+    transparencyLayout->setRowStretch(++row, 1);
 
     tabWidget->addTab(transparencyWidget, tr("Transparency"));
 }
@@ -1703,7 +1671,7 @@ void ConkyCustomizeDialog::createNetworkTab()
     lblNetworkNotFound->setContentsMargins(6, 6, 6, 6);
     networkLayout->addWidget(lblNetworkNotFound, row, 0, 1, 4);
 
-    // Add vertical stretch
+    // Add empty row with stretch to push content to top
     networkLayout->setRowStretch(++row, 1);
 
     tabWidget->addTab(networkWidget, tr("Network"));
@@ -1872,23 +1840,73 @@ void ConkyCustomizeDialog::applyNetworkDeviceChanges()
         return;
     }
 
-    // Replace network interface references in the config
-    QRegularExpression netRe(R"(\$\{[^}]*?(eth\d+|wlan\d+|enp\w+)[^}]*?\})");
+    // Comprehensive network interface replacement based on conky-manager2 patterns
+
+    // Pattern 1: Basic network variables (totaldown, totalup, upspeed, etc.)
+    QString pattern1
+        = R"(\$\{(totaldown|totalup|upspeed|upspeedf|downspeed|downspeedf|wireless_ap|wireless_bitrate|wireless_essid|wireless_link_qual|wireless_link_qual_max|wireless_link_qual_perc|wireless_mode|if_up|addr|TOTALDOWN|TOTALUP|UPSPEED|UPSPEEDF|DOWNSPEED|DOWNSPEEDF|WIRELESS_AP|WIRELESS_BITRATE|WIRELESS_ESSID|WIRELESS_LINK_QUAL|WIRELESS_LINK_QUAL_MAX|WIRELESS_LINK_QUAL_PERC|WIRELESS_MODE|IF_UP|ADDR)[ \t]*([A-Za-z0-9]+)[ \t]*\})";
+
+    // Pattern 2: Network graph variables (upspeedgraph, downspeedgraph)
+    QString pattern2
+        = R"(\$\{(upspeedgraph|downspeedgraph|UPSPEEDGRAPH|DOWNSPEEDGRAPH)[ \t]*([A-Za-z0-9]+)[ \t]*[^}]*\})";
+
+    // Pattern 3: Wireless bar variables
+    QString pattern3
+        = R"(\$\{(wireless_link_bar|WIRELESS_LINK_BAR)[ \t]*[0-9]+[ \t]*,[0-9]+[ \t]*([A-Za-z0-9]+)[ \t]*\})";
 
     const QStringList lines = file_content.split('\n');
     QStringList newLines;
     newLines.reserve(lines.count());
 
+    QRegularExpression regex1(pattern1);
+    QRegularExpression regex2(pattern2);
+    QRegularExpression regex3(pattern3);
+
     for (const QString &line : lines) {
         QString newLine = line;
-        QRegularExpressionMatchIterator it = netRe.globalMatch(line);
-        while (it.hasNext()) {
-            QRegularExpressionMatch match = it.next();
+
+        // Apply Pattern 1: Basic network variables
+        QRegularExpressionMatchIterator it1 = regex1.globalMatch(newLine);
+        while (it1.hasNext()) {
+            QRegularExpressionMatch match = it1.next();
             QString fullMatch = match.captured(0);
-            QString updatedMatch = fullMatch;
-            updatedMatch.replace(QRegularExpression("(eth\\d+|wlan\\d+|enp\\w+)"), newDevice);
-            newLine.replace(fullMatch, updatedMatch);
+            QString networkVar = match.captured(1);
+            QString oldDevice = match.captured(2);
+            QString replacement = QString("${%1 %2}").arg(networkVar, newDevice);
+            newLine.replace(fullMatch, replacement);
         }
+
+        // Apply Pattern 2: Network graph variables
+        QRegularExpressionMatchIterator it2 = regex2.globalMatch(newLine);
+        while (it2.hasNext()) {
+            QRegularExpressionMatch match = it2.next();
+            QString fullMatch = match.captured(0);
+            QString networkVar = match.captured(1);
+            QString oldDevice = match.captured(2);
+            // Preserve everything after the device name
+            QString afterDevice = fullMatch;
+            int deviceEnd = afterDevice.indexOf(oldDevice) + oldDevice.length();
+            QString suffix = afterDevice.mid(deviceEnd);
+            suffix = suffix.left(suffix.lastIndexOf('}'));
+            QString replacement = QString("${%1 %2%3}").arg(networkVar, newDevice, suffix);
+            newLine.replace(fullMatch, replacement);
+        }
+
+        // Apply Pattern 3: Wireless bar variables
+        QRegularExpressionMatchIterator it3 = regex3.globalMatch(newLine);
+        while (it3.hasNext()) {
+            QRegularExpressionMatch match = it3.next();
+            QString fullMatch = match.captured(0);
+            QString networkVar = match.captured(1);
+            QString oldDevice = match.captured(2);
+            // Extract the width,height parameters
+            QString beforeDevice = fullMatch;
+            int deviceStart = beforeDevice.indexOf(oldDevice);
+            QString prefix = beforeDevice.left(deviceStart);
+            QString replacement = QString("%1%2}").arg(prefix, newDevice);
+            newLine.replace(fullMatch, replacement);
+        }
+
         newLines << newLine;
     }
 
