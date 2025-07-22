@@ -1,4 +1,4 @@
-mx-conky (25.07.18) UNRELEASED; urgency=medium
+mx-conky (25.07.19) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -27,7 +27,7 @@ mx-conky (25.07.18) UNRELEASED; urgency=medium
   * Delete only the selected conky not the entire directory. Add dir
     name before the name of the conky
 
- -- Adrian <adrian@mxlinux.org>  Tue, 22 Jul 2025 09:05:26 -0400
+ -- Adrian <adrian@mxlinux.org>  Tue, 22 Jul 2025 17:29:48 -0400
 
 mx-conky (24.4) mx; urgency=medium
 

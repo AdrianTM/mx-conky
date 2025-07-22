@@ -186,7 +186,7 @@ void MainWindow::setupMainWidget()
 
     m_filterComboBox = new QComboBox;
     populateFilterComboBox();
-    m_filterComboBox->setCurrentText(tr("All"));
+    m_filterComboBox->setCurrentText(tr("Default"));
     m_filterComboBox->setToolTip(tr("Filter conkies by running status or location"));
 
     m_searchLineEdit = new QLineEdit;
@@ -396,44 +396,86 @@ void MainWindow::onEditRequested(ConkyItem *item)
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
 
-    // Check if the file is outside ~/.conky (location-based copying)
     QString userConkyPath = QDir::homePath() + "/.conky";
-    bool needsCopy = !item->directory().startsWith(userConkyPath);
+    QString systemThemesPath = "/usr/share/mx-conky-data/themes";
 
-    if (needsCopy) {
-        // Copy the entire conky folder to ~/.conky with optional rename
-        QString sourceFolderPath = fileInfo.absolutePath();
-        QString defaultName = QFileInfo(sourceFolderPath).fileName();
+    // Check if file needs to be copied (only from system themes) or edited in place
+    if (!item->directory().startsWith(userConkyPath)) {
+        // File is outside ~/.conky
+        if (item->directory().startsWith(systemThemesPath)) {
+            // Copy from system themes folder to ~/.conky
+            QString sourceFolderPath = fileInfo.absolutePath();
+            QString defaultName = QFileInfo(sourceFolderPath).fileName();
 
-        bool ok;
-        QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
-                                                QLineEdit::Normal, defaultName, &ok);
+            bool ok;
+            QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
+                                                    QLineEdit::Normal, defaultName, &ok);
 
-        if (!ok || newName.isEmpty()) {
-            return; // User cancelled or entered empty name
-        }
-
-        QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
-
-        if (!copiedPath.isEmpty()) {
-            // Update the file path to point to the copied version
-            QString fileName = fileInfo.fileName();
-            filePath = copiedPath + "/" + fileName;
-
-            // Switch filter to "All" to show the copied version
-            if (m_filterComboBox) {
-                m_filterComboBox->setCurrentText(tr("All"));
+            if (!ok || newName.isEmpty()) {
+                return; // User cancelled or entered empty name
             }
 
-            // Add the new copy to the conky list (much faster than full rescan)
-            m_conkyManager->addConkyItemsFromDirectory(copiedPath);
+            QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
 
-            QMessageBox::information(
-                this, tr("Conky Copied"),
-                tr("Conky has been copied to your personal folder for editing:\n%1").arg(copiedPath));
+            if (!copiedPath.isEmpty()) {
+                // Update the file path to point to the copied version
+                QString fileName = fileInfo.fileName();
+                filePath = copiedPath + "/" + fileName;
+
+                // Switch filter to "Default" to show the copied version
+                if (m_filterComboBox) {
+                    m_filterComboBox->setCurrentText(tr("Default"));
+                }
+
+                // Add the new copy to the conky list (much faster than full rescan)
+                m_conkyManager->addConkyItemsFromDirectory(copiedPath);
+
+                QMessageBox::information(
+                    this, tr("Conky Copied"),
+                    tr("Conky has been copied to your personal folder for editing:\n%1").arg(copiedPath));
+            } else {
+                QMessageBox::critical(this, tr("Copy Failed"), tr("Failed to copy conky to your personal folder."));
+                return;
+            }
         } else {
-            QMessageBox::critical(this, tr("Copy Failed"), tr("Failed to copy conky to your personal folder."));
-            return;
+            // File in other location - check if writable, otherwise offer elevation
+            if (!fileInfo.isWritable()) {
+                // Check if the detected editor can handle elevation automatically
+                QString editor;
+                QString default_editor = Cmd().getCmdOut("xdg-mime query default text/plain");
+                QString desktop_file = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
+
+                QFile file(desktop_file);
+                if (file.open(QIODevice::ReadOnly)) {
+                    while (!file.atEnd()) {
+                        QString line = file.readLine();
+                        if (line.contains(QRegularExpression("^Exec="))) {
+                            editor = line.remove(QRegularExpression("^Exec=|%u|%U|%f|%F|%c|%C|-b")).trimmed();
+                            break;
+                        }
+                    }
+                    file.close();
+                }
+                if (editor.isEmpty()) {
+                    editor = "nano";
+                }
+
+                const bool isEditorThatElevates = QRegularExpression(R"((kate|kwrite|featherpad|code|codium)$)").match(editor).hasMatch();
+
+                // Only show elevation prompt if editor cannot handle it automatically
+                if (!isEditorThatElevates) {
+                    int result = QMessageBox::question(this, tr("Edit Conky"),
+                        tr("This conky file is read-only and requires administrator privileges to edit.\n"
+                           "Do you want to edit it with elevated privileges?"),
+                        QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+
+                    if (result != QMessageBox::Yes) {
+                        return;
+                    }
+                }
+                // filePath remains the same - editConkyFile will handle elevation
+            }
+            // For writable files in other locations, edit directly
         }
     }
 
@@ -499,44 +541,70 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
     QString filePath = item->filePath();
     QFileInfo fileInfo(filePath);
 
-    // Check if the file is outside ~/.conky (location-based copying)
     QString userConkyPath = QDir::homePath() + "/.conky";
-    bool needsCopy = !item->directory().startsWith(userConkyPath);
+    QString systemThemesPath = "/usr/share/mx-conky-data/themes";
 
-    if (needsCopy) {
-        // Copy the entire conky folder to ~/.conky with optional rename
-        QString sourceFolderPath = fileInfo.absolutePath();
-        QString defaultName = QFileInfo(sourceFolderPath).fileName();
+    // Check if file needs to be copied (only from system themes) or customized in place
+    if (!item->directory().startsWith(userConkyPath)) {
+        // File is outside ~/.conky
+        if (item->directory().startsWith(systemThemesPath)) {
+            // Copy from system themes folder to ~/.conky
+            QString sourceFolderPath = fileInfo.absolutePath();
+            QString defaultName = QFileInfo(sourceFolderPath).fileName();
 
-        bool ok;
-        QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
-                                                QLineEdit::Normal, defaultName, &ok);
+            bool ok;
+            QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
+                                                    QLineEdit::Normal, defaultName, &ok);
 
-        if (!ok || newName.isEmpty()) {
-            return; // User cancelled or entered empty name
-        }
-
-        QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
-
-        if (!copiedPath.isEmpty()) {
-            // Update the file path to point to the copied version
-            QString fileName = fileInfo.fileName();
-            filePath = copiedPath + "/" + fileName;
-
-            // Switch filter to "All" to show the copied version
-            if (m_filterComboBox) {
-                m_filterComboBox->setCurrentText(tr("All"));
+            if (!ok || newName.isEmpty()) {
+                return; // User cancelled or entered empty name
             }
 
-            // Add the new copy to the conky list (much faster than full rescan)
-            m_conkyManager->addConkyItemsFromDirectory(copiedPath);
+            QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
 
-            QMessageBox::information(
-                this, tr("Conky Copied"),
-                tr("Conky has been copied to your personal folder for customization:\n%1").arg(copiedPath));
+            if (!copiedPath.isEmpty()) {
+                // Update the file path to point to the copied version
+                QString fileName = fileInfo.fileName();
+                filePath = copiedPath + "/" + fileName;
+
+                // Switch filter to "Default" to show the copied version
+                if (m_filterComboBox) {
+                    m_filterComboBox->setCurrentText(tr("Default"));
+                }
+
+                // Add the new copy to the conky list (much faster than full rescan)
+                m_conkyManager->addConkyItemsFromDirectory(copiedPath);
+
+                QMessageBox::information(
+                    this, tr("Conky Copied"),
+                    tr("Conky has been copied to your personal folder for customization:\n%1").arg(copiedPath));
+            } else {
+                QMessageBox::critical(this, tr("Copy Failed"), tr("Failed to copy conky to your personal folder."));
+                return;
+            }
         } else {
-            QMessageBox::critical(this, tr("Copy Failed"), tr("Failed to copy conky to your personal folder."));
-            return;
+            // File in other location - check if writable, otherwise offer elevation
+            if (!fileInfo.isWritable()) {
+                int result = QMessageBox::question(this, tr("Customize Conky"),
+                    tr("This conky file is read-only and requires administrator privileges to customize.\n"
+                       "Do you want to customize it with elevated privileges?"),
+                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+
+                if (result != QMessageBox::Yes) {
+                    return;
+                }
+
+                // Test if elevation works by attempting a quick touch test
+                QString elevationTool = QFile::exists("/usr/bin/pkexec") ? "pkexec" : (QFile::exists("/usr/bin/gksu") ? "gksu" : "sudo");
+                QString testCommand = QString("%1 touch '%2'").arg(elevationTool, filePath);
+
+                int exitCode = QProcess::execute("sh", QStringList() << "-c" << testCommand);
+                if (exitCode != 0) {
+                    // User cancelled elevation or it failed
+                    return;
+                }
+            }
+            // For writable files in other locations, customize directly
         }
     }
 
@@ -804,7 +872,7 @@ void MainWindow::populateFilterComboBox()
 
     // Clear existing items and add status-based filters
     m_filterComboBox->clear();
-    m_filterComboBox->addItem(tr("All"));
+    m_filterComboBox->addItem(tr("Default"));
     m_filterComboBox->addItem(tr("Running"));
     m_filterComboBox->addItem(tr("Stopped"));
 

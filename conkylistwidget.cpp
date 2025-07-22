@@ -383,7 +383,7 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
     QString folderName = QFileInfo(item->directory()).fileName();
 
     // Check if filter is a folder name from search paths
-    if (m_statusFilter != "All" && m_statusFilter != "Running" && m_statusFilter != "Stopped") {
+    if (m_statusFilter != "Default" && m_statusFilter != "Running" && m_statusFilter != "Stopped") {
         // This is a folder-based filter
         QStringList searchPaths = m_manager->searchPaths();
         bool matchesFolder = false;
@@ -421,8 +421,8 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
         }
     }
 
-    // For "All" filter, show ~/.conky version if both exist, otherwise show the original
-    if (m_statusFilter == "All") {
+    // For "Default" filter, show ~/.conky version if both exist, otherwise show the original
+    if (m_statusFilter == "Default") {
         if (!isUserEdited) {
             // For original items, check if a ~/.conky version exists
             for (ConkyItem *otherItem : m_manager->conkyItems()) {
@@ -433,7 +433,7 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
                 }
             }
         }
-        // Always show ~/.conky versions in "All" filter
+        // Always show ~/.conky versions in "Default" filter
     }
 
     // Apply search text filter

@@ -826,21 +826,15 @@ bool ConkyCustomizeDialog::writeFileWithElevation(const QString &fileName, const
     out << content;
     tempFile.close();
 
-    // Try pkexec first, then sudo as fallback
-    QStringList elevationCommands = {QString("pkexec cp '%1' '%2'").arg(tempFileName, fileName),
-                                     QString("sudo cp '%1' '%2'").arg(tempFileName, fileName)};
+    // Use pkexec if available, otherwise fall back to gksu
+    QString elevationTool = QFile::exists("/usr/bin/pkexec") ? "pkexec" : (QFile::exists("/usr/bin/gksu") ? "gksu" : "sudo");
+    QString command = QString("%1 cp '%2' '%3'").arg(elevationTool, tempFileName, fileName);
 
-    bool success = false;
-    for (const QString &command : elevationCommands) {
-        QProcess process;
-        process.start("sh", QStringList() << "-c" << command);
-        process.waitForFinished();
+    QProcess process;
+    process.start("sh", QStringList() << "-c" << command);
+    process.waitForFinished();
 
-        if (process.exitCode() == 0) {
-            success = true;
-            break;
-        }
-    }
+    bool success = (process.exitCode() == 0);
 
     // Clean up temporary file
     tempFile.remove();
@@ -854,21 +848,15 @@ bool ConkyCustomizeDialog::writeFileWithElevation(const QString &fileName, const
 
 bool ConkyCustomizeDialog::copyFileWithElevation(const QString &sourceFile, const QString &destFile)
 {
-    // Try pkexec first, then sudo as fallback
-    QStringList elevationCommands = {QString("pkexec cp '%1' '%2'").arg(sourceFile, destFile),
-                                     QString("sudo cp '%1' '%2'").arg(sourceFile, destFile)};
+    // Use pkexec if available, otherwise fall back to gksu
+    QString elevationTool = QFile::exists("/usr/bin/pkexec") ? "pkexec" : (QFile::exists("/usr/bin/gksu") ? "gksu" : "sudo");
+    QString command = QString("%1 cp '%2' '%3'").arg(elevationTool, sourceFile, destFile);
 
-    bool success = false;
-    for (const QString &command : elevationCommands) {
-        QProcess process;
-        process.start("sh", QStringList() << "-c" << command);
-        process.waitForFinished();
+    QProcess process;
+    process.start("sh", QStringList() << "-c" << command);
+    process.waitForFinished();
 
-        if (process.exitCode() == 0) {
-            success = true;
-            break;
-        }
-    }
+    bool success = (process.exitCode() == 0);
 
     if (!success) {
         qDebug() << "Failed to copy file with elevation:" << sourceFile << "to" << destFile;
