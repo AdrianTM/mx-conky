@@ -1,4 +1,4 @@
-mx-conky (25.07.16) UNRELEASED; urgency=medium
+mx-conky (25.07.17) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -22,8 +22,10 @@ mx-conky (25.07.16) UNRELEASED; urgency=medium
   * Add option to rename the file. Change filter to 'All' after an edit
   * Ui tweaks
   * Implement wifi/lan change; fix some Ui resizing, remove drag info
+  * Fix running conky detection for files that have special characters
+    in path
 
- -- Adrian <adrian@mxlinux.org>  Mon, 21 Jul 2025 22:36:05 -0400
+ -- Adrian <adrian@mxlinux.org>  Tue, 22 Jul 2025 08:54:19 -0400
 
 mx-conky (24.4) mx; urgency=medium
 
