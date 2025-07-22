@@ -70,7 +70,7 @@ private slots:
     void onStopAllClicked();
     void pushAbout_clicked();
     void pushCM_clicked();
-    
+
     // Filter and search slots
     void onFilterChanged();
     void onSearchTextChanged();
@@ -92,7 +92,7 @@ private:
     QPushButton *m_settingsButton;
     QPushButton *m_startAllButton;
     QPushButton *m_stopAllButton;
-    
+
     // Filter and search widgets
     QComboBox *m_filterComboBox;
     QLineEdit *m_searchLineEdit;
@@ -105,6 +105,7 @@ private:
     QWidget *m_mainWidget;
 
     void editConkyFile(const QString &filePath);
+    void populateFilterComboBox();
     void setConnections();
     void setupLoadingWidget();
     void setupMainWidget();

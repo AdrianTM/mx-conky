@@ -85,6 +85,9 @@ void MainWindow::onConkyItemsLoaded()
         m_loadingMovie->stop();
     }
     m_stackedWidget->setCurrentWidget(m_mainWidget);
+
+    // Refresh filter options based on current search paths
+    populateFilterComboBox();
 }
 
 MainWindow::~MainWindow()
@@ -182,11 +185,7 @@ void MainWindow::setupMainWidget()
     m_stopAllButton->setToolTip(tr("Stop all running conkies"));
 
     m_filterComboBox = new QComboBox;
-    m_filterComboBox->addItem(tr("All"));
-    m_filterComboBox->addItem(tr("Running"));
-    m_filterComboBox->addItem(tr("Stopped"));
-    m_filterComboBox->addItem(tr("User edited"));
-    m_filterComboBox->addItem(tr("Original"));
+    populateFilterComboBox();
     m_filterComboBox->setCurrentText(tr("All"));
     m_filterComboBox->setToolTip(tr("Filter conkies by running status or location"));
 
@@ -794,6 +793,45 @@ void MainWindow::focusSearchField()
     if (m_searchLineEdit) {
         m_searchLineEdit->setFocus();
         m_searchLineEdit->selectAll();
+    }
+}
+
+void MainWindow::populateFilterComboBox()
+{
+    if (!m_filterComboBox || !m_conkyManager) {
+        return;
+    }
+
+    // Clear existing items and add status-based filters
+    m_filterComboBox->clear();
+    m_filterComboBox->addItem(tr("All"));
+    m_filterComboBox->addItem(tr("Running"));
+    m_filterComboBox->addItem(tr("Stopped"));
+
+    // Add folder-based filters from search paths
+    QStringList searchPaths = m_conkyManager->searchPaths();
+    for (const QString &path : searchPaths) {
+        QFileInfo pathInfo(path);
+        QString folderName = pathInfo.fileName();
+        if (folderName.isEmpty()) {
+            folderName = pathInfo.absolutePath().split('/').last();
+        }
+
+        // Include parent directory for better clarity (e.g., "mx-conky-data/themes", "~/.conky")
+        QFileInfo parentInfo(pathInfo.absolutePath());
+        QString parentFolderName = parentInfo.fileName();
+        QString displayName;
+
+        if (path.startsWith(QDir::homePath())) {
+            // Replace home path with ~ for readability
+            displayName = QString("~") + path.mid(QDir::homePath().length());
+        } else if (!parentFolderName.isEmpty() && parentFolderName != folderName) {
+            displayName = QString("%1/%2").arg(parentFolderName, folderName);
+        } else {
+            displayName = folderName;
+        }
+
+        m_filterComboBox->addItem(displayName);
     }
 }
 

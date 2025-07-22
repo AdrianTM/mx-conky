@@ -247,7 +247,7 @@ void ConkyListWidget::onConkyItemsChanged()
                 break;
             }
         }
-        
+
         if (firstVisibleItem) {
             m_treeWidget->setCurrentItem(firstVisibleItem);
             m_hasAutoSelected = true;
@@ -377,17 +377,48 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
         return false;
     }
 
-    // Apply location-based filters with priority logic
+    // Apply folder-based filters
     QString userConkyPath = QDir::homePath() + "/.conky";
     bool isUserEdited = item->directory().startsWith(userConkyPath);
     QString folderName = QFileInfo(item->directory()).fileName();
 
-    if (m_statusFilter == "User edited" && !isUserEdited) {
-        return false;
-    }
+    // Check if filter is a folder name from search paths
+    if (m_statusFilter != "All" && m_statusFilter != "Running" && m_statusFilter != "Stopped") {
+        // This is a folder-based filter
+        QStringList searchPaths = m_manager->searchPaths();
+        bool matchesFolder = false;
 
-    if (m_statusFilter == "Original" && isUserEdited) {
-        return false;
+        for (const QString &path : searchPaths) {
+            QFileInfo pathInfo(path);
+            QString pathFolderName = pathInfo.fileName();
+            if (pathFolderName.isEmpty()) {
+                pathFolderName = pathInfo.absolutePath().split('/').last();
+            }
+
+            // Create display name to match the filter dropdown format
+            QFileInfo parentInfo(pathInfo.absolutePath());
+            QString parentFolderName = parentInfo.fileName();
+            QString displayName;
+
+            if (path.startsWith(QDir::homePath())) {
+                // Replace home path with ~ for readability
+                displayName = QString("~") + path.mid(QDir::homePath().length());
+            } else if (!parentFolderName.isEmpty() && parentFolderName != pathFolderName) {
+                displayName = QString("%1/%2").arg(parentFolderName, pathFolderName);
+            } else {
+                displayName = pathFolderName;
+            }
+
+            // Check if this filter matches the search path and if item is in that path
+            if (m_statusFilter == displayName && item->directory().startsWith(path)) {
+                matchesFolder = true;
+                break;
+            }
+        }
+
+        if (!matchesFolder) {
+            return false;
+        }
     }
 
     // For "All" filter, show ~/.conky version if both exist, otherwise show the original
