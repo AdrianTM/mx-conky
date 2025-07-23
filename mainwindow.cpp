@@ -415,6 +415,20 @@ void MainWindow::onEditRequested(ConkyItem *item)
                 return; // User cancelled or entered empty name
             }
 
+            // Check if destination directory already exists
+            QString destPath = userConkyPath + "/" + newName;
+
+            if (QFileInfo::exists(destPath)) {
+                int result = QMessageBox::question(this, tr("Directory Exists"),
+                    tr("A conky with the name '%1' already exists in your personal folder.\n"
+                       "Do you want to overwrite it?").arg(newName),
+                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+
+                if (result != QMessageBox::Yes) {
+                    return; // User chose not to overwrite
+                }
+            }
+
             QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
 
             if (!copiedPath.isEmpty()) {
@@ -429,6 +443,11 @@ void MainWindow::onEditRequested(ConkyItem *item)
 
                 // Add the new copy to the conky list (much faster than full rescan)
                 m_conkyManager->addConkyItemsFromDirectory(copiedPath);
+
+                // Select the newly copied conky in the interface
+                if (m_conkyListWidget) {
+                    m_conkyListWidget->selectConkyItem(filePath);
+                }
 
                 QMessageBox::information(
                     this, tr("Conky Copied"),
@@ -560,6 +579,20 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
                 return; // User cancelled or entered empty name
             }
 
+            // Check if destination directory already exists
+            QString destPath = userConkyPath + "/" + newName;
+
+            if (QFileInfo::exists(destPath)) {
+                int result = QMessageBox::question(this, tr("Directory Exists"),
+                    tr("A conky with the name '%1' already exists in your personal folder.\n"
+                       "Do you want to overwrite it?").arg(newName),
+                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+
+                if (result != QMessageBox::Yes) {
+                    return; // User chose not to overwrite
+                }
+            }
+
             QString copiedPath = m_conkyManager->copyFolderToUserConkyWithName(sourceFolderPath, newName);
 
             if (!copiedPath.isEmpty()) {
@@ -574,6 +607,11 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
 
                 // Add the new copy to the conky list (much faster than full rescan)
                 m_conkyManager->addConkyItemsFromDirectory(copiedPath);
+
+                // Select the newly copied conky in the interface
+                if (m_conkyListWidget) {
+                    m_conkyListWidget->selectConkyItem(filePath);
+                }
 
                 QMessageBox::information(
                     this, tr("Conky Copied"),
