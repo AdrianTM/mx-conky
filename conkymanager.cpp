@@ -114,7 +114,7 @@ void ConkyManager::scanForConkies()
         }
     }
 
-    // Now scan folders with priority logic for "Default" view
+    // Now scan folders with priority logic for "All" view
     // but keep all versions for filtering
     for (auto it = conkyFolders.begin(); it != conkyFolders.end(); ++it) {
         const QStringList &paths = it.value();

@@ -186,7 +186,7 @@ void MainWindow::setupMainWidget()
 
     m_filterComboBox = new QComboBox;
     populateFilterComboBox();
-    m_filterComboBox->setCurrentText(tr("Default"));
+    m_filterComboBox->setCurrentText(tr("All"));
     m_filterComboBox->setToolTip(tr("Filter conkies by running status or location"));
 
     m_searchLineEdit = new QLineEdit;
@@ -422,9 +422,9 @@ void MainWindow::onEditRequested(ConkyItem *item)
                 QString fileName = fileInfo.fileName();
                 filePath = copiedPath + "/" + fileName;
 
-                // Switch filter to "Default" to show the copied version
+                // Switch filter to "All" to show the copied version
                 if (m_filterComboBox) {
-                    m_filterComboBox->setCurrentText(tr("Default"));
+                    m_filterComboBox->setCurrentText(tr("All"));
                 }
 
                 // Add the new copy to the conky list (much faster than full rescan)
@@ -567,9 +567,9 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
                 QString fileName = fileInfo.fileName();
                 filePath = copiedPath + "/" + fileName;
 
-                // Switch filter to "Default" to show the copied version
+                // Switch filter to "All" to show the copied version
                 if (m_filterComboBox) {
-                    m_filterComboBox->setCurrentText(tr("Default"));
+                    m_filterComboBox->setCurrentText(tr("All"));
                 }
 
                 // Add the new copy to the conky list (much faster than full rescan)
@@ -872,7 +872,7 @@ void MainWindow::populateFilterComboBox()
 
     // Clear existing items and add status-based filters
     m_filterComboBox->clear();
-    m_filterComboBox->addItem(tr("Default"));
+    m_filterComboBox->addItem(tr("All"));
     m_filterComboBox->addItem(tr("Running"));
     m_filterComboBox->addItem(tr("Stopped"));
 

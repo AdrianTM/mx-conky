@@ -89,7 +89,7 @@ public:
     void selectConkyItem(const QString &filePath);
 
     // Filter and search methods
-    void setStatusFilter(const QString &filter); // "Default", "Running", "Stopped"
+    void setStatusFilter(const QString &filter); // "All", "Running", "Stopped"
     void setSearchText(const QString &searchText);
 
 signals:
@@ -115,7 +115,7 @@ private:
     bool m_hasAutoSelected = false;
 
     // Filter and search state
-    QString m_statusFilter = "Default";
+    QString m_statusFilter = "All";
     QString m_searchText;
 
     void setupUI();
