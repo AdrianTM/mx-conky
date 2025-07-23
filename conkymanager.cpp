@@ -363,8 +363,8 @@ void ConkyManager::onStatusProcessFinished()
             QString cmdline = cmdlineProcess.readAllStandardOutput().trimmed();
 
             // Skip if this is not actually a conky process (could be grep, mx-conky, etc.)
-            // Look for conky executable (conky, /usr/bin/conky, etc.) but not mx-conky
-            if (!cmdline.contains("conky") || cmdline.contains("mx-conky")) {
+            // Look for conky executable (conky, /usr/bin/conky, etc.) but not mx-conky application itself
+            if (!cmdline.contains("conky") || cmdline.contains("./mx-conky") || cmdline.endsWith("mx-conky")) {
                 continue;
             }
 
@@ -441,8 +441,8 @@ QString ConkyManager::getConkyProcess(const QString &configPath) const
             QString cmdline = cmdlineProcess.readAllStandardOutput().trimmed();
 
             // Skip if this is not actually a conky process (could be grep, mx-conky, etc.)
-            // Look for conky executable (conky, /usr/bin/conky, etc.) but not mx-conky
-            if (!cmdline.contains("conky") || cmdline.contains("mx-conky")) {
+            // Look for conky executable (conky, /usr/bin/conky, etc.) but not mx-conky application itself
+            if (!cmdline.contains("conky") || cmdline.contains("./mx-conky") || cmdline.endsWith("mx-conky")) {
                 continue;
             }
 
