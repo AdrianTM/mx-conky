@@ -13,9 +13,10 @@ Homepage: https://github.com/MX-Linux/mx-conky
 
 Package: mx-conky
 Architecture: any
-Depends: conky-all | conky,
-         ${misc:Depends},
-         ${shlibs:Depends}
+Depends: mx-conky-data-bin,
+	conky-all | conky,
+	${misc:Depends},
+	${shlibs:Depends}
 Recommends: mx-conky-data	 
 Description: Conky configuration tool for MX Linux
  MX Conky is a graphical tool used for configuring and managing Conky
