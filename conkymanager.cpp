@@ -436,7 +436,9 @@ QString ConkyManager::getConkyProcess(const QString &configPath) const
     // Check each PID to find the one with matching config path
     for (const QString &pid : pids) {
         QProcess cmdlineProcess;
-        cmdlineProcess.start("ps", QStringList() << "-p" << pid << "-o" << "command=" << "--no-headers");
+        cmdlineProcess.start("ps", QStringList() << "-p" << pid << "-o"
+                                                 << "command="
+                                                 << "--no-headers");
         if (cmdlineProcess.waitForFinished(1000)) {
             QString cmdline = cmdlineProcess.readAllStandardOutput().trimmed();
 
@@ -601,8 +603,7 @@ void ConkyManager::setAutostart(bool enabled)
     }
 
     if (enabled) {
-        QString conkyDir = home + "/.conky";
-        QString startupScript = conkyDir + "/conky-startup.sh";
+        QString startupScript = "/usr/share/mx-conky-data/conky-startup.sh";
 
         QString desktopContent;
         desktopContent += "[Desktop Entry]\n";
