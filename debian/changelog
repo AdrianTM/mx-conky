@@ -1,4 +1,4 @@
-mx-conky (25.07.23) UNRELEASED; urgency=medium
+mx-conky (25.07.24) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -29,7 +29,7 @@ mx-conky (25.07.23) UNRELEASED; urgency=medium
   * Rename filter option 'All' to 'Default', move to ~/.conky only
     conkys from /usr/share/mx-conky-data, otherwise elevate
 
- -- Adrian <adrian@mxlinux.org>  Wed, 23 Jul 2025 21:24:34 -0400
+ -- Adrian <adrian@mxlinux.org>  Wed, 23 Jul 2025 22:13:05 -0400
 
 mx-conky (24.4) mx; urgency=medium
 
