@@ -1,67 +1,81 @@
 #!/bin/bash
-set -x
+set -euo pipefail
 
-# Building .debs with custom names
-# Name the package using the folder name, otherwise use the name provide as argument
-NAME="$(basename $(pwd))"
-[ "$1" ] && NAME="$1"
+# Enable debug if DEBUG env is set
+[[ "${DEBUG:-}" == "1" ]] && set -x
+
+# Determine package name
+NAME="${1:-$(basename "$(pwd)")}"
 
 ORIG_DIR="$(pwd)"
 DEB_DIR="$ORIG_DIR/debs"
-OLD_DEB_DIR="${DEB_DIR}.old_$(date '+%Y-%m-%d_%H:%M:%S')"
-[ -d "$DEB_DIR" ] && mv    "${DEB_DIR}" "$OLD_DEB_DIR"
-[ -d "$DEB_DIR" ] || mkdir "${DEB_DIR}"
+OLD_DEB_DIR="${DEB_DIR}.old_$(date '+%Y-%m-%d_%H-%M-%S')"
 
-# get version number 
-[  -f debian/changelog ] && sed -nr -e '/.*(\([^(]*\)).*/{s//#define VERSION \1/p;q}' debian/changelog >  version.h
+if [ -d "$DEB_DIR" ]; then
+    mv "$DEB_DIR" "$OLD_DEB_DIR"
+fi
+mkdir -p "$DEB_DIR"
 
-TMP_DIR=$(mktemp -d /tmp/build_${NAME}_XXXXXXXX) # Tried to use /run/shm but it's mounted with noexec
-BUILD_DIR="$TMP_DIR"/src # Build in a subdirectory because the produced files are placed in /..
-mkdir "$BUILD_DIR"
+# Extract version from changelog
+if [ ! -f debian/changelog ]; then
+    echo "debian/changelog not found"
+    exit 1
+fi
+head -n1 debian/changelog | sed -e "s/.*(\([^(]*\)).*/inline const QString VERSION {\"\1\"};/" > version.h
 
-# Get title name (with spaces and capitalized)
-NAME_MX="${NAME/#mx-/MX" "}" # for MX programs replaces mx- with MX
+TMP_DIR=$(mktemp -d "/tmp/build_${NAME}_XXXXXXXX")
+BUILD_DIR="$TMP_DIR/src"
+mkdir -p "$BUILD_DIR"
+
+# Generate title name (capitalize, replace mx- with MX, dashes with spaces)
+NAME_MX="${NAME/#mx-/MX }"
 NAME_SPACES="${NAME_MX//-/" "}"
-ARRAY=($NAME_SPACES)
-TITLE_NAME="${ARRAY[@]^}"
+read -ra ARRAY <<< "$NAME_SPACES"
+TITLE_NAME="${ARRAY[*]^}"
 
-lupdate *.pro
+# Update translations if lupdate exists
+if command -v /usr/lib/qt6/bin/lupdate &>/dev/null; then
+    /usr/lib/qt6/bin/lupdate ./*.pro
+fi
 
-# Cleanup before copy
-make distclean
+# Clean before copying
+make distclean || true
+
+# Copy project to build dir, excluding unnecessary files
+rsync -a --delete --exclude='.git' --exclude='*.changes' --exclude='*.dsc' \
+    --exclude='*.deb' --exclude="$NAME*.tar.xz" --exclude='debs*' \
+    --exclude='*.pro.user*' --exclude="build.sh" "$ORIG_DIR"/ "$BUILD_DIR"/
 
 cd "$BUILD_DIR" || { echo "could not cd to $BUILD_DIR"; exit 1; }
-rsync -av "$ORIG_DIR"/ .  --exclude='.git'  --exclude='*.changes' \
-		--exclude='*.dsc' --exclude='*.deb' --exclude="$NAME*.tar.xz" \
-		--exclude='debs*' \
-		--exclude='*.pro.user*' \
-		--exclude="build.sh" 
 
+# Clean again in build dir
+make distclean || true
 
-# Cleanup code
-make distclean
+# Rename files if directories exist
+for dir in . translations help; do
+    [ -d "$dir" ] && rename "s/CUSTOMPROGRAMNAME/$NAME/" "$dir"/* 2>/dev/null || true
+done
 
-# Rename files
-rename "s/CUSTOMPROGRAMNAME/$NAME/" *
-rename "s/CUSTOMPROGRAMNAME/$NAME/" translations/*
-rename "s/CUSTOMPROGRAMNAME/$NAME/" help/*
-
-
-# Rename strings
+# Replace strings in all files
 find . -type f -exec sed -i "s/CUSTOMPROGRAMNAME/$NAME/g" {} +
 find . -type f -exec sed -i "s/Custom_Program_Name/$TITLE_NAME/g" {} +
 
-# Build
-[ $(arch) == "x86_64" ] && debuild && cd ..
-[ $(arch) != "x86_64" ] && debuild -B && cd ..
+# Build package
+if [ "$(arch)" = "x86_64" ]; then
+    debuild
+else
+    debuild -B
+fi
 
-# Move files to original folder
 cd "$TMP_DIR" || { echo "could not cd to $TMP_DIR"; exit 1; }
 
-mv *.dsc *.deb *.changes *.tar.xz "$DEB_DIR"
+# Move build artifacts to debs dir
+shopt -s nullglob
+mv ./*.dsc ./*.deb ./*.changes ./*.tar.xz "$DEB_DIR" 2>/dev/null || true
+shopt -u nullglob
+
 cd "$ORIG_DIR" || { echo "could not cd to $ORIG_DIR"; exit 1; }
 
 # Cleanup
-[ -d "$TMP_DIR"     ] && rm -r "$TMP_DIR"
-[ -d "$OLD_DEB_DIR" ] && rm -r "$OLD_DEB_DIR"
-
+rm -rf "$TMP_DIR"
+[ -d "$OLD_DEB_DIR" ] && rm -rf "$OLD_DEB_DIR"
