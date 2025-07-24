@@ -628,7 +628,29 @@ bool ConkyManager::isAutostartEnabled() const
 {
     QString home = QDir::homePath();
     QString desktopFile = home + "/.config/autostart/conky.desktop";
-    return QFile::exists(desktopFile);
+
+    if (!QFile::exists(desktopFile)) {
+        return false;
+    }
+
+    // Read the desktop file and check if Hidden=true
+    QFile file(desktopFile);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        if (line.startsWith("Hidden=", Qt::CaseInsensitive)) {
+            QString value = line.mid(7).trimmed(); // Remove "Hidden=" prefix
+            if (value.compare("true", Qt::CaseInsensitive) == 0) {
+                return false; // Autostart is disabled
+            }
+        }
+    }
+
+    return true; // File exists and Hidden is not true
 }
 
 QString ConkyManager::copyFolderToUserConky(const QString &sourcePath)
