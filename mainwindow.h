@@ -104,6 +104,9 @@ private:
     QWidget *m_loadingWidget;
     QWidget *m_mainWidget;
 
+    // Session tracking
+    bool m_copyDialogShownThisSession;
+
     void editConkyFile(const QString &filePath);
     void populateFilterComboBox();
     void setConnections();

@@ -118,7 +118,7 @@ void ConkyItemWidget::setupUI()
     m_editButton->setIcon(QIcon::fromTheme("edit"));
 
     m_customizeButton = new QPushButton(tr("Customize"));
-    m_customizeButton->setIcon(QIcon::fromTheme("preferences-desktop"));
+    m_customizeButton->setIcon(QIcon::fromTheme("preferences-other-symbolic"));
 
     m_runToggleButton = new QPushButton;
 

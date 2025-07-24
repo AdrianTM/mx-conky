@@ -47,7 +47,8 @@ using namespace std::chrono_literals;
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent),
       m_conkyManager(nullptr),
-      m_loadingMovie(nullptr)
+      m_loadingMovie(nullptr),
+      m_copyDialogShownThisSession(false)
 {
     qDebug().noquote() << QCoreApplication::applicationName() << "version:" << QCoreApplication::applicationVersion();
 
@@ -165,11 +166,11 @@ void MainWindow::setupMainWidget()
     auto *topLayout = new QHBoxLayout;
 
     m_previewsButton = new QPushButton(tr("Previews"));
-    m_previewsButton->setIcon(QIcon::fromTheme("image-x-generic"));
+    m_previewsButton->setIcon(QIcon::fromTheme("image-x-generic-symbolic"));
     m_previewsButton->setToolTip(tr("Generate preview images for conkies"));
 
     m_settingsButton = new QPushButton(tr("Settings"));
-    m_settingsButton->setIcon(QIcon::fromTheme("preferences-system"));
+    m_settingsButton->setIcon(QIcon::fromTheme("preferences-system-symbolic"));
     m_settingsButton->setToolTip(tr("Configure conky search paths"));
 
     m_refreshButton = new QPushButton(tr("Refresh"));
@@ -408,21 +409,30 @@ void MainWindow::onEditRequested(ConkyItem *item)
             QString defaultName = QFileInfo(sourceFolderPath).fileName();
 
             bool ok;
-            QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
+            QString dialogMessage = m_copyDialogShownThisSession
+                ? tr("Enter a name for the copy:")
+                : tr("In order for you to edit and save a conky, it must first be copied to "
+                     "~/.conky where you have permission.\nEnter a name for the copy.");
+
+            QString newName = QInputDialog::getText(this, tr("Copy Conky"), dialogMessage,
                                                     QLineEdit::Normal, defaultName, &ok);
 
             if (!ok || newName.isEmpty()) {
                 return; // User cancelled or entered empty name
             }
 
+            m_copyDialogShownThisSession = true;
+
             // Check if destination directory already exists
             QString destPath = userConkyPath + "/" + newName;
 
             if (QFileInfo::exists(destPath)) {
-                int result = QMessageBox::question(this, tr("Directory Exists"),
-                    tr("A conky with the name '%1' already exists in your personal folder.\n"
-                       "Do you want to overwrite it?").arg(newName),
-                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+                int result
+                    = QMessageBox::question(this, tr("Directory Exists"),
+                                            tr("A conky with the name '%1' already exists in your personal folder.\n"
+                                               "Do you want to overwrite it?")
+                                                .arg(newName),
+                                            QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
                 if (result != QMessageBox::Yes) {
                     return; // User chose not to overwrite
@@ -462,7 +472,8 @@ void MainWindow::onEditRequested(ConkyItem *item)
                 // Check if the detected editor can handle elevation automatically
                 QString editor;
                 QString default_editor = Cmd().getCmdOut("xdg-mime query default text/plain");
-                QString desktop_file = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor, QStandardPaths::LocateFile);
+                QString desktop_file = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, default_editor,
+                                                              QStandardPaths::LocateFile);
 
                 QFile file(desktop_file);
                 if (file.open(QIODevice::ReadOnly)) {
@@ -479,11 +490,13 @@ void MainWindow::onEditRequested(ConkyItem *item)
                     editor = "nano";
                 }
 
-                const bool isEditorThatElevates = QRegularExpression(R"((kate|kwrite|featherpad|code|codium)$)").match(editor).hasMatch();
+                const bool isEditorThatElevates
+                    = QRegularExpression(R"((kate|kwrite|featherpad|code|codium)$)").match(editor).hasMatch();
 
                 // Only show elevation prompt if editor cannot handle it automatically
                 if (!isEditorThatElevates) {
-                    int result = QMessageBox::question(this, tr("Edit Conky"),
+                    int result = QMessageBox::question(
+                        this, tr("Edit Conky"),
                         tr("This conky file is read-only and requires administrator privileges to edit.\n"
                            "Do you want to edit it with elevated privileges?"),
                         QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
@@ -511,10 +524,10 @@ void MainWindow::onDeleteRequested(ConkyItem *item)
     QFileInfo fileInfo(filePath);
     QString fileName = fileInfo.fileName();
 
-    int result = QMessageBox::question(this, tr("Delete Conky"),
-                                       tr("Are you sure you want to delete the conky file:\n%1\n\nThis action cannot be undone.")
-                                           .arg(fileName),
-                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int result = QMessageBox::question(
+        this, tr("Delete Conky"),
+        tr("Are you sure you want to delete the conky file:\n%1\n\nThis action cannot be undone.").arg(fileName),
+        QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
     if (result != QMessageBox::Yes) {
         return;
@@ -572,8 +585,17 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
             QString defaultName = QFileInfo(sourceFolderPath).fileName();
 
             bool ok;
-            QString newName = QInputDialog::getText(this, tr("Copy Conky"), tr("Enter name for the conky copy:"),
+            QString dialogMessage = m_copyDialogShownThisSession
+                ? tr("Enter a name for the copy:")
+                : tr("In order for you to edit and save a conky, it must first be copied to "
+                     "~/.conky where you have permission.\nEnter a name for the copy.");
+
+            QString newName = QInputDialog::getText(this, tr("Copy Conky"), dialogMessage,
                                                     QLineEdit::Normal, defaultName, &ok);
+
+            if (ok && !newName.isEmpty()) {
+                m_copyDialogShownThisSession = true;
+            }
 
             if (!ok || newName.isEmpty()) {
                 return; // User cancelled or entered empty name
@@ -583,10 +605,12 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
             QString destPath = userConkyPath + "/" + newName;
 
             if (QFileInfo::exists(destPath)) {
-                int result = QMessageBox::question(this, tr("Directory Exists"),
-                    tr("A conky with the name '%1' already exists in your personal folder.\n"
-                       "Do you want to overwrite it?").arg(newName),
-                    QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+                int result
+                    = QMessageBox::question(this, tr("Directory Exists"),
+                                            tr("A conky with the name '%1' already exists in your personal folder.\n"
+                                               "Do you want to overwrite it?")
+                                                .arg(newName),
+                                            QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
                 if (result != QMessageBox::Yes) {
                     return; // User chose not to overwrite
@@ -623,7 +647,8 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
         } else {
             // File in other location - check if writable, otherwise offer elevation
             if (!fileInfo.isWritable()) {
-                int result = QMessageBox::question(this, tr("Customize Conky"),
+                int result = QMessageBox::question(
+                    this, tr("Customize Conky"),
                     tr("This conky file is read-only and requires administrator privileges to customize.\n"
                        "Do you want to customize it with elevated privileges?"),
                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
@@ -633,7 +658,8 @@ void MainWindow::onCustomizeRequested(ConkyItem *item)
                 }
 
                 // Test if elevation works by attempting a quick touch test
-                QString elevationTool = QFile::exists("/usr/bin/pkexec") ? "pkexec" : (QFile::exists("/usr/bin/gksu") ? "gksu" : "sudo");
+                QString elevationTool
+                    = QFile::exists("/usr/bin/pkexec") ? "pkexec" : (QFile::exists("/usr/bin/gksu") ? "gksu" : "sudo");
                 QString testCommand = QString("%1 touch '%2'").arg(elevationTool, filePath);
 
                 int exitCode = QProcess::execute("sh", QStringList() << "-c" << testCommand);
