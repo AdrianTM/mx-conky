@@ -35,7 +35,10 @@ TITLE_NAME="${ARRAY[*]^}"
 
 # Update translations if lupdate exists
 if command -v /usr/lib/qt6/bin/lupdate &>/dev/null; then
+    echo "Updating translations..."
     /usr/lib/qt6/bin/lupdate ./*.pro
+else
+    echo "Warning: lupdate not found, skipping translation updates"
 fi
 
 # Clean before copying
@@ -53,7 +56,9 @@ make distclean || true
 
 # Rename files if directories exist
 for dir in . translations help; do
-    [ -d "$dir" ] && rename "s/CUSTOMPROGRAMNAME/$NAME/" "$dir"/* 2>/dev/null || true
+    if [ -d "$dir" ]; then
+        rename "s/CUSTOMPROGRAMNAME/$NAME/" "$dir"/* 2>/dev/null || true
+    fi
 done
 
 # Replace strings in all files
@@ -61,6 +66,7 @@ find . -type f -exec sed -i "s/CUSTOMPROGRAMNAME/$NAME/g" {} +
 find . -type f -exec sed -i "s/Custom_Program_Name/$TITLE_NAME/g" {} +
 
 # Build package
+echo "Building package for $(arch) architecture..."
 if [ "$(arch)" = "x86_64" ]; then
     debuild
 else
@@ -70,8 +76,15 @@ fi
 cd "$TMP_DIR" || { echo "could not cd to $TMP_DIR"; exit 1; }
 
 # Move build artifacts to debs dir
+echo "Moving build artifacts to debs directory..."
 shopt -s nullglob
-mv ./*.dsc ./*.deb ./*.changes ./*.tar.xz "$DEB_DIR" 2>/dev/null || true
+artifacts=(./*.dsc ./*.deb ./*.changes ./*.tar.xz)
+if [ ${#artifacts[@]} -gt 0 ]; then
+    mv "${artifacts[@]}" "$DEB_DIR"
+    echo "Moved ${#artifacts[@]} artifact(s) to $DEB_DIR"
+else
+    echo "Warning: No build artifacts found"
+fi
 shopt -u nullglob
 
 cd "$ORIG_DIR" || { echo "could not cd to $ORIG_DIR"; exit 1; }
