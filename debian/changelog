@@ -1,4 +1,4 @@
-mx-conky (25.07.26) UNRELEASED; urgency=medium
+mx-conky (25.07.27) UNRELEASED; urgency=medium
 
   * Redesign application with new features:
     - List all conkys with filtering and search options
@@ -28,8 +28,9 @@ mx-conky (25.07.26) UNRELEASED; urgency=medium
     name before the name of the conky
   * Rename filter option 'All' to 'Default', move to ~/.conky only
     conkys from /usr/share/mx-conky-data, otherwise elevate
+  * Add Enlightenment desktop environment autostart support
 
- -- Adrian <adrian@mxlinux.org>  Thu, 24 Jul 2025 19:37:35 -0400
+ -- Adrian <adrian@mxlinux.org>  Fri, 25 Jul 2025 17:59:01 -0400
 
 mx-conky (24.4) mx; urgency=medium
 
