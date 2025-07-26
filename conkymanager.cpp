@@ -599,66 +599,58 @@ void ConkyManager::setAutostart(bool enabled)
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     QString desktop = env.value("XDG_CURRENT_DESKTOP", "").toLower();
     
-    // Create desktop file in standard location for all desktop environments
-    QString autostartDir = home + "/.config/autostart";
-    QString desktopFile = autostartDir + "/conky.desktop";
-
-    // Ensure autostart directory exists
-    QDir dir;
-    if (!dir.exists(autostartDir)) {
-        dir.mkpath(autostartDir);
-    }
-
-    if (enabled) {
-        QString startupScript = "/usr/share/mx-conky-data/conky-startup.sh";
-
-        QString desktopContent;
-        desktopContent += "[Desktop Entry]\n";
-        desktopContent += "Type=Application\n";
-        desktopContent += QString("Exec=sh \"%1\"\n").arg(startupScript);
-        desktopContent += "Hidden=false\n";
-        desktopContent += "NoDisplay=false\n";
-        desktopContent += "X-GNOME-Autostart-enabled=true\n";
-        desktopContent += "Name=Conky\n";
-
-        QFile file(desktopFile);
-        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream out(&file);
-            out << desktopContent;
-            file.close();
-        }
-    } else {
-        QFile::remove(desktopFile);
-    }
-
-    // Additional Enlightenment-specific handling
     if (desktop.contains("enlightenment") || desktop.contains("e17") || desktop.contains("e18") || desktop.contains("e19") || desktop.contains("e20") || desktop.contains("e21") || desktop.contains("e22") || desktop.contains("e23") || desktop.contains("e24") || desktop.contains("e25") || desktop.contains("e26")) {
+        // Enlightenment-specific handling
+        QString applicationsDir = home + "/.local/share/applications";
+        QString desktopFile = applicationsDir + "/conky.desktop";
         QString e17AutostartDir = home + "/.e/e/applications/startup";
         QString e17DesktopFile = e17AutostartDir + "/.order";
-        QString fullDesktopPath = home + "/.config/autostart/conky.desktop";
         
+        QDir dir;
+        // Ensure applications directory exists
+        if (!dir.exists(applicationsDir)) {
+            dir.mkpath(applicationsDir);
+        }
         // Ensure E17 autostart directory exists
         if (!dir.exists(e17AutostartDir)) {
             dir.mkpath(e17AutostartDir);
         }
         
         if (enabled) {
-            // Update .order file with full path to desktop file
+            QString startupScript = "/usr/share/mx-conky-data/conky-startup.sh";
+
+            QString desktopContent;
+            desktopContent += "[Desktop Entry]\n";
+            desktopContent += "Type=Application\n";
+            desktopContent += QString("Exec=sh \"%1\"\n").arg(startupScript);
+            desktopContent += "Hidden=false\n";
+            desktopContent += "NoDisplay=false\n";
+            desktopContent += "X-GNOME-Autostart-enabled=true\n";
+            desktopContent += "Name=Conky\n";
+
+            QFile file(desktopFile);
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&file);
+                out << desktopContent;
+                file.close();
+            }
+            
+            // Update .order file with desktop filename only
             QStringList orderEntries;
             QFile orderFile(e17DesktopFile);
             if (orderFile.exists() && orderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 QTextStream in(&orderFile);
                 while (!in.atEnd()) {
                     QString line = in.readLine().trimmed();
-                    if (!line.isEmpty() && line != fullDesktopPath) {
+                    if (!line.isEmpty() && line != "conky.desktop") {
                         orderEntries.append(line);
                     }
                 }
                 orderFile.close();
             }
             
-            // Add full path to desktop file if not already present
-            orderEntries.append(fullDesktopPath);
+            // Add conky.desktop if not already present
+            orderEntries.append("conky.desktop");
             
             // Write updated .order file
             if (orderFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -669,14 +661,17 @@ void ConkyManager::setAutostart(bool enabled)
                 orderFile.close();
             }
         } else {
-            // Update .order file to remove full path to desktop file
+            // Remove desktop file and from .order file
+            QFile::remove(desktopFile);
+            
+            // Update .order file to remove conky.desktop
             QStringList orderEntries;
             QFile orderFile(e17DesktopFile);
             if (orderFile.exists() && orderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 QTextStream in(&orderFile);
                 while (!in.atEnd()) {
                     QString line = in.readLine().trimmed();
-                    if (!line.isEmpty() && line != fullDesktopPath) {
+                    if (!line.isEmpty() && line != "conky.desktop") {
                         orderEntries.append(line);
                     }
                 }
@@ -692,6 +687,38 @@ void ConkyManager::setAutostart(bool enabled)
                 }
             }
         }
+    } else {
+        // Standard XDG autostart handling for other desktop environments
+        QString autostartDir = home + "/.config/autostart";
+        QString desktopFile = autostartDir + "/conky.desktop";
+
+        // Ensure autostart directory exists
+        QDir dir;
+        if (!dir.exists(autostartDir)) {
+            dir.mkpath(autostartDir);
+        }
+
+        if (enabled) {
+            QString startupScript = "/usr/share/mx-conky-data/conky-startup.sh";
+
+            QString desktopContent;
+            desktopContent += "[Desktop Entry]\n";
+            desktopContent += "Type=Application\n";
+            desktopContent += QString("Exec=sh \"%1\"\n").arg(startupScript);
+            desktopContent += "Hidden=false\n";
+            desktopContent += "NoDisplay=false\n";
+            desktopContent += "X-GNOME-Autostart-enabled=true\n";
+            desktopContent += "Name=Conky\n";
+
+            QFile file(desktopFile);
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&file);
+                out << desktopContent;
+                file.close();
+            }
+        } else {
+            QFile::remove(desktopFile);
+        }
     }
 }
 
@@ -703,38 +730,36 @@ bool ConkyManager::isAutostartEnabled() const
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     QString desktop = env.value("XDG_CURRENT_DESKTOP", "").toLower();
     
-    // Check standard XDG autostart location
-    QString desktopFile = home + "/.config/autostart/conky.desktop";
-
-    if (!QFile::exists(desktopFile)) {
-        return false;
-    }
-
-    // Read the desktop file and check if Hidden=true
-    QFile file(desktopFile);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return false;
-    }
-
-    QTextStream in(&file);
-    while (!in.atEnd()) {
-        QString line = in.readLine().trimmed();
-        if (line.startsWith("Hidden=", Qt::CaseInsensitive)) {
-            QString value = line.mid(7).trimmed(); // Remove "Hidden=" prefix
-            if (value.compare("true", Qt::CaseInsensitive) == 0) {
-                return false; // Autostart is disabled
-            }
-        }
-    }
-    file.close();
-
-    // Additional check for Enlightenment - verify it's in .order file
     if (desktop.contains("enlightenment") || desktop.contains("e17") || desktop.contains("e18") || desktop.contains("e19") || desktop.contains("e20") || desktop.contains("e21") || desktop.contains("e22") || desktop.contains("e23") || desktop.contains("e24") || desktop.contains("e25") || desktop.contains("e26")) {
+        // Check Enlightenment autostart
+        QString applicationsDir = home + "/.local/share/applications";
+        QString desktopFile = applicationsDir + "/conky.desktop";
         QString e17AutostartDir = home + "/.e/e/applications/startup";
         QString e17DesktopFile = e17AutostartDir + "/.order";
-        QString fullDesktopPath = home + "/.config/autostart/conky.desktop";
         
-        // Check if full path to desktop file is listed in .order file
+        if (!QFile::exists(desktopFile)) {
+            return false;
+        }
+        
+        // Read the desktop file and check if Hidden=true
+        QFile file(desktopFile);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            return false;
+        }
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine().trimmed();
+            if (line.startsWith("Hidden=", Qt::CaseInsensitive)) {
+                QString value = line.mid(7).trimmed(); // Remove "Hidden=" prefix
+                if (value.compare("true", Qt::CaseInsensitive) == 0) {
+                    return false; // Autostart is disabled
+                }
+            }
+        }
+        file.close();
+        
+        // Check if conky.desktop is listed in .order file
         QFile orderFile(e17DesktopFile);
         if (!orderFile.exists() || !orderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
             return false;
@@ -743,15 +768,39 @@ bool ConkyManager::isAutostartEnabled() const
         QTextStream orderIn(&orderFile);
         while (!orderIn.atEnd()) {
             QString line = orderIn.readLine().trimmed();
-            if (line == fullDesktopPath) {
+            if (line == "conky.desktop") {
                 return true;
             }
         }
         
         return false; // Not found in .order file
-    }
+    } else {
+        // Standard XDG autostart check
+        QString desktopFile = home + "/.config/autostart/conky.desktop";
 
-    return true; // File exists and Hidden is not true
+        if (!QFile::exists(desktopFile)) {
+            return false;
+        }
+
+        // Read the desktop file and check if Hidden=true
+        QFile file(desktopFile);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            return false;
+        }
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine().trimmed();
+            if (line.startsWith("Hidden=", Qt::CaseInsensitive)) {
+                QString value = line.mid(7).trimmed(); // Remove "Hidden=" prefix
+                if (value.compare("true", Qt::CaseInsensitive) == 0) {
+                    return false; // Autostart is disabled
+                }
+            }
+        }
+
+        return true; // File exists and Hidden is not true
+    }
 }
 
 QString ConkyManager::copyFolderToUserConky(const QString &sourcePath)
