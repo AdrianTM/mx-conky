@@ -504,24 +504,42 @@ otherwise this setting will not have any effect</source>
     </message>
 </context>
 <context>
+    <name>ConkyListWidget</name>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="313"/>
+        <source>Total: 0 conkies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="542"/>
+        <source>Total: %1 conkies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="545"/>
+        <source>Showing: %1 of %2 conkies</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="487"/>
+        <location filename="../conkylistwidget.cpp" line="494"/>
         <source>No Conky Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="489"/>
+        <location filename="../conkylistwidget.cpp" line="496"/>
         <source>Select a conky from the list to see its preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="508"/>
+        <location filename="../conkylistwidget.cpp" line="515"/>
         <source>Preview image could not be loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="511"/>
+        <location filename="../conkylistwidget.cpp" line="518"/>
         <source>No preview image available</source>
         <translation type="unfinished"></translation>
     </message>

@@ -225,27 +225,27 @@ Autorisations insuffisantes.</translation>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1353"/>
         <source>Horizontal Gap</source>
-        <translation type="unfinished"/>
+        <translation>Écart horizontal</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1354"/>
         <source>[GAP_X] Horizontal distance from window border (in pixels)</source>
-        <translation type="unfinished"/>
+        <translation>[GAP_X] Distance horizontale par rapport au bord de la fenêtre (en pixels)</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1366"/>
         <source>Vertical Gap</source>
-        <translation type="unfinished"/>
+        <translation>Écart vertical</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1367"/>
         <source>[GAP_Y] Vertical distance from window border (in pixels)</source>
-        <translation type="unfinished"/>
+        <translation>[GAP_Y] Distance verticale par rapport au bord de la fenêtre (en pixels)</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1379"/>
         <source>Desktop</source>
-        <translation>Environnement de bureau</translation>
+        <translation>Bureau</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1382"/>
@@ -260,39 +260,41 @@ Autorisations insuffisantes.</translation>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1395"/>
         <source>Location</source>
-        <translation type="unfinished"/>
+        <translation>Emplacement</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1407"/>
         <source>Width should be larger than the size of window contents,
 otherwise this setting will not have any effect</source>
-        <translation type="unfinished"/>
+        <translation>La largeur doit être supérieure à la taille du contenu de la fenêtre,
+sinon ce paramètre n’aura aucun effet</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1411"/>
         <source>Minimum Width</source>
-        <translation type="unfinished"/>
+        <translation>Largeur minimale</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1426"/>
         <source>Height should be larger than the size of window contents,
 otherwise this setting will not have any effect</source>
-        <translation type="unfinished"/>
+        <translation>La hauteur doit être supérieure à la taille du contenu de la fenêtre,
+sinon ce paramètre n’aura aucun effet.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1428"/>
         <source>Minimum Height</source>
-        <translation type="unfinished"/>
+        <translation>Hauteur minimale</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1442"/>
         <source>Increases the window height by adding empty lines at the end of the Conky config file</source>
-        <translation type="unfinished"/>
+        <translation>Augmente la hauteur de la fenêtre en ajoutant des lignes vides à la fin du fichier de configuration Conky</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1443"/>
         <source>Height Padding</source>
-        <translation type="unfinished"/>
+        <translation>Marge intérieure en hauteur</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1458"/>
@@ -302,39 +304,41 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1471"/>
         <source>Transparency Type</source>
-        <translation type="unfinished"/>
+        <translation>Type de transparence</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1476"/>
         <source>Opaque</source>
-        <translation type="unfinished"/>
+        <translation>Opaque</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1477"/>
         <source>Transparent</source>
-        <translation type="unfinished"/>
+        <translation>Transparent</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1478"/>
         <source>Pseudo-Transparent</source>
-        <translation type="unfinished"/>
+        <translation>Pseudo-Transparent</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1479"/>
         <source>Semi-Transparent</source>
-        <translation type="unfinished"/>
+        <translation>Semi-Transparent</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1484"/>
         <source>Opacity (%)</source>
-        <translation type="unfinished"/>
+        <translation>Opacité (%)</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1485"/>
         <source>Window Opacity
 
 0 = Fully Transparent, 100 = Fully Opaque</source>
-        <translation type="unfinished"/>
+        <translation>Opacité de la fenêtre
+
+0 = Complètement transparent, 100 = Complètement opaque</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1499"/>
@@ -344,17 +348,17 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1504"/>
         <source>Choose Color</source>
-        <translation type="unfinished"/>
+        <translation>Choisir la couleur</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1524"/>
         <source>Setting Type to &quot;Transparent&quot; will make the whole window transparent (including any images). Use &quot;Pseudo-Transparent&quot; if you want the images to be opaque.</source>
-        <translation type="unfinished"/>
+        <translation>Si vous réglez le type sur « Transparent », toute la fenêtre deviendra transparente (y compris les images). Utilisez « Pseudo-transparent » si vous souhaitez que les images restent opaques.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1534"/>
         <source>Setting Type to &quot;Pseudo-Transparent&quot; will make the window transparent but the window will have a shadow. The shadow can be disabled by configuring your window manager.</source>
-        <translation type="unfinished"/>
+        <translation>Si vous réglez le type sur « pseudo-transparent », la fenêtre deviendra transparente, mais elle aura une ombre. Vous pouvez désactiver l’ombre en configurant votre gestionnaire de fenêtres.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1545"/>
@@ -411,12 +415,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1605"/>
         <source>12 Hour</source>
-        <translation type="unfinished"/>
+        <translation>12 heures</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1606"/>
         <source>24 Hour</source>
-        <translation type="unfinished"/>
+        <translation>24 heures</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1621"/>
@@ -431,22 +435,22 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1642"/>
         <source>WiFi</source>
-        <translation type="unfinished"/>
+        <translation>WiFi</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1645"/>
         <source>WiFi Network</source>
-        <translation type="unfinished"/>
+        <translation>Réseau WiFi</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1648"/>
         <source>LAN</source>
-        <translation type="unfinished"/>
+        <translation>LAN</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1651"/>
         <source>Wired LAN Network</source>
-        <translation type="unfinished"/>
+        <translation>Réseau local câblé</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1665"/>
@@ -464,12 +468,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkylistwidget.cpp" line="63"/>
         <source>Running</source>
-        <translation type="unfinished"/>
+        <translation>Actif</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="63"/>
         <source>Stopped</source>
-        <translation type="unfinished"/>
+        <translation>Arrêté</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="115"/>
@@ -484,7 +488,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkylistwidget.cpp" line="120"/>
         <source>Customize</source>
-        <translation type="unfinished"/>
+        <translation>Personnaliser</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="125"/>
@@ -517,12 +521,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkylistwidget.cpp" line="508"/>
         <source>Preview image could not be loaded</source>
-        <translation type="unfinished"/>
+        <translation>L’image de prévisualisation n’a pas pu être chargée</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="511"/>
         <source>No preview image available</source>
-        <translation type="unfinished"/>
+        <translation>Aucune image de prévisualisation disponible</translation>
     </message>
 </context>
 <context>
@@ -541,7 +545,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="232"/>
         <source>About...</source>
-        <translation>À propos ...</translation>
+        <translation>À propos …</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="239"/>
@@ -561,7 +565,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="149"/>
         <source>Loading Conky configurations...</source>
-        <translation type="unfinished"/>
+        <translation>Chargement des configurations Conky …</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="172"/>
@@ -571,7 +575,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="174"/>
         <source>Configure conky search paths</source>
-        <translation type="unfinished"/>
+        <translation>Configurer les chemins de recherche de Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="176"/>
@@ -581,47 +585,47 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="178"/>
         <source>Refresh conky list</source>
-        <translation type="unfinished"/>
+        <translation>Rafraîchir la liste Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="180"/>
         <source>Start All</source>
-        <translation type="unfinished"/>
+        <translation>Tout démarrer</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="182"/>
         <source>Start all enabled conkies</source>
-        <translation type="unfinished"/>
+        <translation>Démarrer tous les conkies activés</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="184"/>
         <source>Stop All</source>
-        <translation type="unfinished"/>
+        <translation>Tout arrêter</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="186"/>
         <source>Stop all running conkies</source>
-        <translation type="unfinished"/>
+        <translation>Arrêter tous les conkies en cours d’exécution</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="940"/>
         <source>Running</source>
-        <translation type="unfinished"/>
+        <translation>Actif</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="941"/>
         <source>Stopped</source>
-        <translation type="unfinished"/>
+        <translation>Arrêté</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="194"/>
         <source>Search conky by name...</source>
-        <translation type="unfinished"/>
+        <translation>Rechercher Conky par le nom …</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="196"/>
         <source>Search conkies by name (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Rechercher des conkies par leur nom (Ctrl+F)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="241"/>
@@ -632,36 +636,37 @@ otherwise this setting will not have any effect</source>
         <location filename="../mainwindow.cpp" line="417"/>
         <location filename="../mainwindow.cpp" line="593"/>
         <source>Copy Conky</source>
-        <translation type="unfinished"/>
+        <translation>Copier Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="463"/>
         <location filename="../mainwindow.cpp" line="641"/>
         <source>Conky Copied</source>
-        <translation type="unfinished"/>
+        <translation>Conky copié</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="464"/>
         <source>Conky has been copied to your personal folder for editing:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Conky a été copié dans votre répertoire personnel pour être modifié:
+%1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="466"/>
         <location filename="../mainwindow.cpp" line="644"/>
         <source>Copy Failed</source>
-        <translation type="unfinished"/>
+        <translation>La copie a échoué</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="466"/>
         <location filename="../mainwindow.cpp" line="644"/>
         <source>Failed to copy conky to your personal folder.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de copier conky dans votre dossier personnel.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="528"/>
         <source>Delete Conky</source>
-        <translation type="unfinished"/>
+        <translation>Supprimer Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="642"/>
