@@ -672,22 +672,23 @@ sinon ce paramètre n’aura aucun effet.</translation>
         <location filename="../mainwindow.cpp" line="642"/>
         <source>Conky has been copied to your personal folder for customization:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Conky a été copié dans votre dossier personnel pour que vous puissiez le personnaliser:
+%1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="561"/>
         <source>Delete Successful</source>
-        <translation type="unfinished"/>
+        <translation>Suppression réussie</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="168"/>
         <source>Previews</source>
-        <translation type="unfinished"/>
+        <translation>Aperçus</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="170"/>
         <source>Generate preview images for conkies</source>
-        <translation type="unfinished"/>
+        <translation>Générer des images d’aperçu pour les conkies</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="190"/>
@@ -700,13 +701,13 @@ sinon ce paramètre n’aura aucun effet.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="191"/>
         <source>Filter conkies by running status or location</source>
-        <translation type="unfinished"/>
+        <translation>Filtrer les conkies par état de fonctionnement ou emplacement</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="413"/>
         <location filename="../mainwindow.cpp" line="589"/>
         <source>Enter a name for the copy:</source>
-        <translation type="unfinished"/>
+        <translation>Entrez un nom pour la copie:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="414"/>

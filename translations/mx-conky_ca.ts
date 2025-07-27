@@ -774,23 +774,24 @@ Aquesta acció no es pot desfer..</translation>
     <message>
         <location filename="../mainwindow.cpp" line="651"/>
         <source>Customize Conky</source>
-        <translation type="unfinished"/>
+        <translation>Personalitza el Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="652"/>
         <source>This conky file is read-only and requires administrator privileges to customize.
 Do you want to customize it with elevated privileges?</source>
-        <translation type="unfinished"/>
+        <translation>Aquest fitxer conky és de només lectura i necessita privilegis d&apos;administrador per personalitzar-lo.
+Voleu personalitzar-lo amb privilegis superiors?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
         <source>Editor Error</source>
-        <translation type="unfinished"/>
+        <translation>Error d&apos;editor</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
         <source>Cannot start editor for file: %1</source>
-        <translation type="unfinished"/>
+        <translation>No puc engegar l&apos;editor per al fitxer: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="813"/>
@@ -844,32 +845,32 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="50"/>
         <source>Generate Preview</source>
-        <translation type="unfinished"/>
+        <translation>Genera previsualització</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="75"/>
         <source>Generate preview images for</source>
-        <translation type="unfinished"/>
+        <translation>Genera imatges de previsualització per</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="78"/>
         <source>Selected Widget</source>
-        <translation type="unfinished"/>
+        <translation>Giny seleccionat</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="79"/>
         <source>All Widgets with Missing Previews</source>
-        <translation type="unfinished"/>
+        <translation>Tots els ginys sense previsualització</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="80"/>
         <source>All Widgets (Overwrite Existing Images)</source>
-        <translation type="unfinished"/>
+        <translation>Tots els ginys (Sobreescriu les imatges existents)</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="85"/>
         <source>No conky is currently selected</source>
-        <translation type="unfinished"/>
+        <translation>Ara no hi ha cap conky seleccionat</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="93"/>
@@ -879,12 +880,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="96"/>
         <source>High quality images (PNG)</source>
-        <translation type="unfinished"/>
+        <translation>Imatges d&apos;alta qualitat (PNG)</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="97"/>
         <source>Generate preview images in PNG format instead of JPEG</source>
-        <translation type="unfinished"/>
+        <translation>Genera imatges de previsualització en format PNG en comptes de JPEG</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="114"/>
