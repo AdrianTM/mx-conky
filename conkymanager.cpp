@@ -505,7 +505,7 @@ void ConkyManager::scanDirectory(const QString &path)
 
 void ConkyManager::scanConkyDirectory(const QString &path)
 {
-    static const QStringList allowedExtensions = {".conf"};
+    static const QStringList allowedExtensions = {".conf", ".conky", ".conkyrc", ".cmtheme"};
     static const QStringList skipNames = {"Changelog", "Notes", "README", "README!!", "OPTIONS"};
 
     QDir dir(path);
