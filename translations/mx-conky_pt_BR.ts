@@ -522,17 +522,17 @@ nenhum efeito</translation>
     <message>
         <location filename="../conkylistwidget.cpp" line="313"/>
         <source>Total: 0 conkies</source>
-        <translation type="unfinished"/>
+        <translation>Total: 0 Conkies</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="542"/>
         <source>Total: %1 conkies</source>
-        <translation type="unfinished"/>
+        <translation>Total: %1 Conkies</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="545"/>
         <source>Showing: %1 of %2 conkies</source>
-        <translation type="unfinished"/>
+        <translation>Exibindo: %1 de %2 Conkies</translation>
     </message>
 </context>
 <context>
@@ -624,7 +624,7 @@ nenhum efeito</translation>
     <message>
         <location filename="../mainwindow.cpp" line="182"/>
         <source>Start all enabled conkies</source>
-        <translation>Iniciar todos os Conkys que estão ativados</translation>
+        <translation>Iniciar todos os Conkies que estão ativados</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="184"/>
@@ -634,7 +634,7 @@ nenhum efeito</translation>
     <message>
         <location filename="../mainwindow.cpp" line="186"/>
         <source>Stop all running conkies</source>
-        <translation>Parar todos os Conkys que estão em execução</translation>
+        <translation>Parar todos os Conkies que estão em execução</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="940"/>
@@ -717,7 +717,7 @@ nenhum efeito</translation>
     <message>
         <location filename="../mainwindow.cpp" line="170"/>
         <source>Generate preview images for conkies</source>
-        <translation>Gerar as imagens de pré-visualização dos Conkys</translation>
+        <translation>Gerar as imagens de pré-visualização dos Conkies</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="190"/>
@@ -730,21 +730,21 @@ nenhum efeito</translation>
     <message>
         <location filename="../mainwindow.cpp" line="191"/>
         <source>Filter conkies by running status or location</source>
-        <translation>Filtrar os Conkys por estado de execução ou por sua localização</translation>
+        <translation>Filtrar os Conkies por estado de execução ou por sua localização</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="413"/>
         <location filename="../mainwindow.cpp" line="589"/>
         <source>Enter a name for the copy:</source>
-        <translation>Insira um nome para a cópia:</translation>
+        <translation>Insira um nome para fazer a cópia:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="414"/>
         <location filename="../mainwindow.cpp" line="590"/>
         <source>In order for you to edit and save a conky, it must first be copied to ~/.conky where you have permission.
 Enter a name for the copy.</source>
-        <translation>Para editar e salvar um Conky, primeiro copie o arquivo para a pasta ‘~/.conky’ (/home/nome do usuário/.conky), onde você tem permissões para modificar o arquivo.
-Insira um nome para a cópia.</translation>
+        <translation>Para editar e salvar um Conky, primeiro copie o arquivo para a pasta ‘~/.conky’ (/home/nome do usuário/.conky), onde você tem as permissões para modificar o arquivo.
+Insira um nome para fazer a cópia.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="431"/>
@@ -894,7 +894,7 @@ Você quer personalizá-lo com as permissões de administrador?</translation>
     <message>
         <location filename="../previewdialog.cpp" line="80"/>
         <source>All Widgets (Overwrite Existing Images)</source>
-        <translation type="unfinished"/>
+        <translation>Todos as Ferramentas (Substituir as Imagens Existentes)</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="85"/>
@@ -935,12 +935,12 @@ ao invés do formato JPEG</translation>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No conky widgets need preview generation.</source>
-        <translation type="unfinished"/>
+        <translation>Não tem uma ferramenta para a geração da pré-visualização do Conky.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="155"/>
         <source>Starting preview generation...</source>
-        <translation type="unfinished"/>
+        <translation>Iniciando a geração da pré-visualização...</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="159"/>
@@ -950,7 +950,7 @@ ao invés do formato JPEG</translation>
     <message>
         <location filename="../previewdialog.cpp" line="198"/>
         <source>Generating preview for: %1</source>
-        <translation>Gerando a pré-visualização da imagem para %1</translation>
+        <translation>Gerando a pré-visualização da imagem para o %1</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="419"/>
@@ -989,7 +989,7 @@ Foi gerado a imagem %1 para a pré-visualização.</translation>
     <message>
         <location filename="../main.cpp" line="109"/>
         <source>You must run this program as normal user</source>
-        <translation>Você tem que executar este programa como usuário normal</translation>
+        <translation>Você tem de que executar este programa com o usuário normal</translation>
     </message>
 </context>
 <context>
@@ -998,32 +998,32 @@ Foi gerado a imagem %1 para a pré-visualização.</translation>
         <location filename="../settingsdialog.cpp" line="40"/>
         <location filename="../settingsdialog.cpp" line="62"/>
         <source>Select Conky Directory</source>
-        <translation type="unfinished"/>
+        <translation>Selecionar o Diretório do Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="83"/>
         <source>MX Conky Settings</source>
-        <translation type="unfinished"/>
+        <translation>Configurações do Conky do MX</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="89"/>
         <source>Conky Search Paths</source>
-        <translation type="unfinished"/>
+        <translation>Caminhos para a Pesquisa do Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="95"/>
         <source>Add Path</source>
-        <translation type="unfinished"/>
+        <translation>Adicionar o Caminho</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="98"/>
         <source>Remove Path</source>
-        <translation type="unfinished"/>
+        <translation>Remover o Caminho</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="101"/>
         <source>Edit Path</source>
-        <translation type="unfinished"/>
+        <translation>Editar o Caminho</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="113"/>

@@ -79,27 +79,27 @@ add_definitions(-DQT_DEPRECATED_WARNINGS)
 
 # Source files
 set(SOURCES
-    main.cpp
-    mainwindow.cpp
-    cmd.cpp
-    conkyitem.cpp
-    conkymanager.cpp
-    conkylistwidget.cpp
-    settingsdialog.cpp
-    conkycustomizedialog.cpp
-    previewdialog.cpp
+    src/main.cpp
+    src/mainwindow.cpp
+    src/cmd.cpp
+    src/conkyitem.cpp
+    src/conkymanager.cpp
+    src/conkylistwidget.cpp
+    src/settingsdialog.cpp
+    src/conkycustomizedialog.cpp
+    src/previewdialog.cpp
 )
 
 # Header files
 set(HEADERS
-    mainwindow.h
-    cmd.h
-    conkyitem.h
-    conkymanager.h
-    conkylistwidget.h
-    settingsdialog.h
-    conkycustomizedialog.h
-    previewdialog.h
+    src/mainwindow.h
+    src/cmd.h
+    src/conkyitem.h
+    src/conkymanager.h
+    src/conkylistwidget.h
+    src/settingsdialog.h
+    src/conkycustomizedialog.h
+    src/previewdialog.h
 )
 
 # Translation files - dynamically find all .ts files
@@ -112,6 +112,9 @@ set(RESOURCES
 
 # Create the executable
 add_executable(mx-conky ${SOURCES} ${HEADERS} ${RESOURCES})
+
+# Add include directories
+target_include_directories(mx-conky PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Link Qt6 libraries
 target_link_libraries(mx-conky Qt6::Core Qt6::Widgets)
@@ -132,3 +135,20 @@ endforeach()
 
 add_custom_target(translations ALL DEPENDS ${QM_FILES})
 add_dependencies(mx-conky translations)
+
+# Add cleanup target to remove .qm files before lupdate
+add_custom_target(clean-translations
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_SOURCE_DIR}/translations/*.qm
+    COMMENT "Cleaning translation files"
+)
+
+# Add lupdate target for updating translation files
+add_custom_target(lupdate
+    COMMAND Qt6::lupdate ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h -ts ${TS_FILES}
+    DEPENDS clean-translations
+    COMMENT "Updating translation files with lupdate"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# Installation
+install(TARGETS mx-conky DESTINATION bin)

@@ -11,8 +11,8 @@ Build-Depends: debhelper-compat (= 13), cmake, qt6-base-dev, qt6-base-dev-tools,
 Package-List:
  mx-conky deb admin optional arch=any
 Checksums-Sha1:
- 8c0d38b3c0800d15e1aa51729477516f5f488d61 159104 mx-conky_25.07.35.tar.xz
+ 3ae3de7c7900d15f30c8880f46af3268b7000810 159480 mx-conky_25.07.35.tar.xz
 Checksums-Sha256:
- fc04f2da34cd20d2ddad717f9e9e813365f3b16f3f32dec48f6fb2b6f84e06db 159104 mx-conky_25.07.35.tar.xz
+ 92c69005075f91eb57129f99702da24facdb605841a727155f49c7fc199718ae 159480 mx-conky_25.07.35.tar.xz
 Files:
- 01069d1b89086fd8dc4b94299d8dea35 159104 mx-conky_25.07.35.tar.xz
+ 1ae4c4b168d0f3de69d9544bf04fd027 159480 mx-conky_25.07.35.tar.xz
