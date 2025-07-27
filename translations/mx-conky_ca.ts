@@ -109,7 +109,7 @@
         <source>Cannot write to file: %1
 Insufficient permissions.</source>
         <translation>No puc escriure al fitxer: %1
-No tinc prou permisos.</translation>
+No teniu prou permisos.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="801"/>
@@ -124,7 +124,7 @@ No tinc prou permisos.</translation>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="874"/>
         <source>Backup Config File</source>
-        <translation>Fitxer de configuració de còpia de seguretat</translation>
+        <translation>Còpia de seguretat del fitxer de configuració </translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="874"/>
@@ -149,7 +149,7 @@ No tinc prou permisos.</translation>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="900"/>
         <source>Failed to create a backup file.</source>
-        <translation>Ha fallat en crear una còpia de seguretat.</translation>
+        <translation>Ha fallat en crear la còpia de seguretat.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="973"/>
@@ -507,24 +507,42 @@ altrament aquest paràmetre no tindrà cap efecte</translation>
     </message>
 </context>
 <context>
+    <name>ConkyListWidget</name>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="313"/>
+        <source>Total: 0 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="542"/>
+        <source>Total: %1 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="545"/>
+        <source>Showing: %1 of %2 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="487"/>
+        <location filename="../conkylistwidget.cpp" line="494"/>
         <source>No Conky Selected</source>
         <translation>No s&apos;ha triat cap Conky</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="489"/>
+        <location filename="../conkylistwidget.cpp" line="496"/>
         <source>Select a conky from the list to see its preview</source>
         <translation>Trieu un Conky de la llista per fer la previsualització</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="508"/>
+        <location filename="../conkylistwidget.cpp" line="515"/>
         <source>Preview image could not be loaded</source>
         <translation>No puc carregar la imatge de previsualització</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="511"/>
+        <location filename="../conkylistwidget.cpp" line="518"/>
         <source>No preview image available</source>
         <translation>No hi ha imatge de previsualització</translation>
     </message>
@@ -900,17 +918,17 @@ Voleu personalitzar-lo amb privilegis superiors?</translation>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No Items</source>
-        <translation type="unfinished"/>
+        <translation>Sense ítems</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No conky widgets need preview generation.</source>
-        <translation type="unfinished"/>
+        <translation>No hi ha ginys conky que necessitin generació de previsualització.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="155"/>
         <source>Starting preview generation...</source>
-        <translation type="unfinished"/>
+        <translation>Començant la generació de previsualitzacions...</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="159"/>
@@ -920,12 +938,12 @@ Voleu personalitzar-lo amb privilegis superiors?</translation>
     <message>
         <location filename="../previewdialog.cpp" line="198"/>
         <source>Generating preview for: %1</source>
-        <translation type="unfinished"/>
+        <translation>Generant previsualització per: %1</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="419"/>
         <source>Preview generation complete! Generated %1 previews.</source>
-        <translation type="unfinished"/>
+        <translation>Generació de previsualitzacions completada! Generades %1 previsualitzacions.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="423"/>
@@ -935,12 +953,12 @@ Voleu personalitzar-lo amb privilegis superiors?</translation>
     <message>
         <location filename="../previewdialog.cpp" line="426"/>
         <source>Preview Generation Complete</source>
-        <translation type="unfinished"/>
+        <translation>Generació de previsualitzacions acomplerta</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="427"/>
         <source>Successfully generated %1 preview images.</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;han generat amb èxit %1 imatges de previsualització.</translation>
     </message>
 </context>
 <context>
@@ -967,32 +985,32 @@ Voleu personalitzar-lo amb privilegis superiors?</translation>
         <location filename="../settingsdialog.cpp" line="40"/>
         <location filename="../settingsdialog.cpp" line="62"/>
         <source>Select Conky Directory</source>
-        <translation type="unfinished"/>
+        <translation>Trieu el directori del Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="83"/>
         <source>MX Conky Settings</source>
-        <translation type="unfinished"/>
+        <translation>Paràmetres de MX Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="89"/>
         <source>Conky Search Paths</source>
-        <translation type="unfinished"/>
+        <translation>Camins de cerca del Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="95"/>
         <source>Add Path</source>
-        <translation type="unfinished"/>
+        <translation>Afegiu camí</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="98"/>
         <source>Remove Path</source>
-        <translation type="unfinished"/>
+        <translation>Elimineu camí</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="101"/>
         <source>Edit Path</source>
-        <translation type="unfinished"/>
+        <translation>Editeu camí</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="113"/>
@@ -1002,12 +1020,12 @@ Voleu personalitzar-lo amb privilegis superiors?</translation>
     <message>
         <location filename="../settingsdialog.cpp" line="117"/>
         <source>Start conky at system startup</source>
-        <translation type="unfinished"/>
+        <translation>Engega el Conky en arrencar el sistema</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="121"/>
         <source>Startup delay (seconds):</source>
-        <translation type="unfinished"/>
+        <translation>Retard d&apos;engegada (segons): </translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="134"/>

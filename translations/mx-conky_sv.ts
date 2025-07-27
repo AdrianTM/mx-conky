@@ -507,24 +507,42 @@ annars har denna inställning inte någon effekt</translation>
     </message>
 </context>
 <context>
+    <name>ConkyListWidget</name>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="313"/>
+        <source>Total: 0 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="542"/>
+        <source>Total: %1 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="545"/>
+        <source>Showing: %1 of %2 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="487"/>
+        <location filename="../conkylistwidget.cpp" line="494"/>
         <source>No Conky Selected</source>
         <translation>Ingen Conky vald</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="489"/>
+        <location filename="../conkylistwidget.cpp" line="496"/>
         <source>Select a conky from the list to see its preview</source>
         <translation>Välj en conky från listan för att se en förhandsbild</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="508"/>
+        <location filename="../conkylistwidget.cpp" line="515"/>
         <source>Preview image could not be loaded</source>
         <translation>Förhandsbilden kunde inte laddas</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="511"/>
+        <location filename="../conkylistwidget.cpp" line="518"/>
         <source>No preview image available</source>
         <translation>Ingen förhandsbild tillgänglig</translation>
     </message>

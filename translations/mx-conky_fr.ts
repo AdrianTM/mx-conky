@@ -507,24 +507,42 @@ sinon ce paramètre n’aura aucun effet.</translation>
     </message>
 </context>
 <context>
+    <name>ConkyListWidget</name>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="313"/>
+        <source>Total: 0 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="542"/>
+        <source>Total: %1 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="545"/>
+        <source>Showing: %1 of %2 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="487"/>
+        <location filename="../conkylistwidget.cpp" line="494"/>
         <source>No Conky Selected</source>
         <translation>Aucun Conky sélectionné</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="489"/>
+        <location filename="../conkylistwidget.cpp" line="496"/>
         <source>Select a conky from the list to see its preview</source>
         <translation>Sélectionner un conky dans la liste pour voir son aperçu</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="508"/>
+        <location filename="../conkylistwidget.cpp" line="515"/>
         <source>Preview image could not be loaded</source>
         <translation>L’image de prévisualisation n’a pas pu être chargée</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="511"/>
+        <location filename="../conkylistwidget.cpp" line="518"/>
         <source>No preview image available</source>
         <translation>Aucune image de prévisualisation disponible</translation>
     </message>
@@ -714,31 +732,34 @@ sinon ce paramètre n’aura aucun effet.</translation>
         <location filename="../mainwindow.cpp" line="590"/>
         <source>In order for you to edit and save a conky, it must first be copied to ~/.conky where you have permission.
 Enter a name for the copy.</source>
-        <translation type="unfinished"/>
+        <translation>Pour pouvoir modifier et enregistrer un conky, vous devez d’abord le copier dans ~/.conky, où vous disposez des droits d’accès nécessaires.
+Entrez un nom pour la copie.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="431"/>
         <location filename="../mainwindow.cpp" line="609"/>
         <source>Directory Exists</source>
-        <translation type="unfinished"/>
+        <translation>Le répertoire existe</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="432"/>
         <location filename="../mainwindow.cpp" line="610"/>
         <source>A conky with the name '%1' already exists in your personal folder.
 Do you want to overwrite it?</source>
-        <translation type="unfinished"/>
+        <translation>Un conky nommé « %1 » existe déjà dans votre dossier personnel.
+Voulez-vous le remplacer ?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="499"/>
         <source>Edit Conky</source>
-        <translation type="unfinished"/>
+        <translation>Modifier Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="500"/>
         <source>This conky file is read-only and requires administrator privileges to edit.
 Do you want to edit it with elevated privileges?</source>
-        <translation type="unfinished"/>
+        <translation>Ce fichier conky est en lecture seule et nécessite des privilèges d’administrateur pour être modifié.
+Voulez-vous le modifier avec des privilèges élevés ?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="529"/>
@@ -746,44 +767,49 @@ Do you want to edit it with elevated privileges?</source>
 %1
 
 This action cannot be undone.</source>
-        <translation type="unfinished"/>
+        <translation>Êtes-vous sûr de vouloir supprimer le fichier conky :
+%1
+
+Cette action ne peut pas être annulée.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="561"/>
         <source>Conky file deleted successfully.</source>
-        <translation type="unfinished"/>
+        <translation>Fichier Conky supprimé avec succès.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="563"/>
         <source>Delete Failed</source>
-        <translation type="unfinished"/>
+        <translation>La suppression a échoué</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="563"/>
         <source>Failed to delete conky file:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de supprimer le fichier conky :
+%1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="651"/>
         <source>Customize Conky</source>
-        <translation type="unfinished"/>
+        <translation>Personnaliser Conky</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="652"/>
         <source>This conky file is read-only and requires administrator privileges to customize.
 Do you want to customize it with elevated privileges?</source>
-        <translation type="unfinished"/>
+        <translation>Ce fichier conky est en lecture seule et nécessite des privilèges d’administrateur pour être personnalisé.
+Souhaitez-vous le personnaliser avec des privilèges élevés ?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
         <source>Editor Error</source>
-        <translation type="unfinished"/>
+        <translation>Erreur de l’éditeur</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
         <source>Cannot start editor for file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de démarrer l’éditeur pour le fichier : %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="813"/>
@@ -793,7 +819,7 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../mainwindow.cpp" line="815"/>
         <source>Version: </source>
-        <translation>Version :</translation>
+        <translation>Version : </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="816"/>
@@ -829,7 +855,7 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../mainwindow.cpp" line="875"/>
         <source>MX Conky Help</source>
-        <translation>Aide de MX Conky</translation>
+        <translation>Aide MX Conky</translation>
     </message>
 </context>
 <context>
@@ -837,12 +863,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="50"/>
         <source>Generate Preview</source>
-        <translation type="unfinished"/>
+        <translation>Générer un aperçu</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="75"/>
         <source>Generate preview images for</source>
-        <translation type="unfinished"/>
+        <translation>Générer des images d’aperçu pour</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="78"/>
@@ -852,17 +878,17 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="79"/>
         <source>All Widgets with Missing Previews</source>
-        <translation type="unfinished"/>
+        <translation>Tous les widgets dont l’aperçu est manquant</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="80"/>
         <source>All Widgets (Overwrite Existing Images)</source>
-        <translation type="unfinished"/>
+        <translation>Tous les widgets (remplacer les images existantes)</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="85"/>
         <source>No conky is currently selected</source>
-        <translation>Aucun conky n’est actuellement sélectionné.</translation>
+        <translation>Aucun conky n’est actuellement sélectionné</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="93"/>
@@ -872,12 +898,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="96"/>
         <source>High quality images (PNG)</source>
-        <translation type="unfinished"/>
+        <translation>Images de haute qualité (PNG)</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="97"/>
         <source>Generate preview images in PNG format instead of JPEG</source>
-        <translation type="unfinished"/>
+        <translation>Générer des images d’aperçu au format PNG au lieu du format JPEG</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="114"/>
@@ -892,17 +918,17 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No Items</source>
-        <translation type="unfinished"/>
+        <translation>Aucun élément</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No conky widgets need preview generation.</source>
-        <translation type="unfinished"/>
+        <translation>Aucun widget Conky nécessite la génération d’un aperçu.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="155"/>
         <source>Starting preview generation...</source>
-        <translation type="unfinished"/>
+        <translation>Lancement de la génération de l’aperçu…</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="159"/>
@@ -912,12 +938,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="198"/>
         <source>Generating preview for: %1</source>
-        <translation type="unfinished"/>
+        <translation>Génération de l’aperçu pour : %1</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="419"/>
         <source>Preview generation complete! Generated %1 previews.</source>
-        <translation type="unfinished"/>
+        <translation>Génération de l’aperçu terminée ! %1 aperçus générés.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="423"/>
@@ -927,12 +953,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="426"/>
         <source>Preview Generation Complete</source>
-        <translation type="unfinished"/>
+        <translation>Génération de l’aperçu terminée</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="427"/>
         <source>Successfully generated %1 preview images.</source>
-        <translation type="unfinished"/>
+        <translation>%1 images d’aperçu ont été générées avec succès.</translation>
     </message>
 </context>
 <context>
@@ -964,27 +990,27 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../settingsdialog.cpp" line="83"/>
         <source>MX Conky Settings</source>
-        <translation type="unfinished"/>
+        <translation>Paramètres MX Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="89"/>
         <source>Conky Search Paths</source>
-        <translation type="unfinished"/>
+        <translation>Chemins de recherche Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="95"/>
         <source>Add Path</source>
-        <translation type="unfinished"/>
+        <translation>Ajouter un chemin</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="98"/>
         <source>Remove Path</source>
-        <translation type="unfinished"/>
+        <translation>Supprimer le chemin</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="101"/>
         <source>Edit Path</source>
-        <translation type="unfinished"/>
+        <translation>Modifier le chemin</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="113"/>
@@ -994,12 +1020,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../settingsdialog.cpp" line="117"/>
         <source>Start conky at system startup</source>
-        <translation type="unfinished"/>
+        <translation>Démarrer Conky au démarrage du système</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="121"/>
         <source>Startup delay (seconds):</source>
-        <translation type="unfinished"/>
+        <translation>Délai de démarrage (en secondes) :</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="134"/>

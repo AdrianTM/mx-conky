@@ -507,24 +507,42 @@ anders heeft deze instelling geen effect.</translation>
     </message>
 </context>
 <context>
+    <name>ConkyListWidget</name>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="313"/>
+        <source>Total: 0 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="542"/>
+        <source>Total: %1 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conkylistwidget.cpp" line="545"/>
+        <source>Showing: %1 of %2 conkies</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ConkyPreviewWidget</name>
     <message>
-        <location filename="../conkylistwidget.cpp" line="487"/>
+        <location filename="../conkylistwidget.cpp" line="494"/>
         <source>No Conky Selected</source>
         <translation>Geen Conky Geselecteerd</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="489"/>
+        <location filename="../conkylistwidget.cpp" line="496"/>
         <source>Select a conky from the list to see its preview</source>
         <translation>Selecteer een conky uit de lijst om het voorbeeld te zien</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="508"/>
+        <location filename="../conkylistwidget.cpp" line="515"/>
         <source>Preview image could not be loaded</source>
         <translation>Voorbeeldafbeelding kan niet worden geladen</translation>
     </message>
     <message>
-        <location filename="../conkylistwidget.cpp" line="511"/>
+        <location filename="../conkylistwidget.cpp" line="518"/>
         <source>No preview image available</source>
         <translation>Geen voorbeeldafbeelding beschikbaar</translation>
     </message>
