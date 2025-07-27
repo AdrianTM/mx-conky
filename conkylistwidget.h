@@ -110,6 +110,7 @@ private slots:
 private:
     ConkyManager *m_manager;
     QTreeWidget *m_treeWidget;
+    QLabel *m_countLabel;
     QHash<ConkyItem *, ConkyItemWidget *> m_itemWidgets;
     QHash<ConkyItem *, QTreeWidgetItem *> m_treeItems;
     bool m_hasAutoSelected = false;
@@ -123,6 +124,7 @@ private:
     void removeConkyItem(ConkyItem *item);
     void applyFilters();
     bool itemMatchesFilters(ConkyItem *item) const;
+    void updateCountLabel();
 };
 
 class ConkyPreviewWidget : public QWidget

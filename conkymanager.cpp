@@ -505,8 +505,7 @@ void ConkyManager::scanDirectory(const QString &path)
 
 void ConkyManager::scanConkyDirectory(const QString &path)
 {
-    static const QStringList skipExtensions
-        = {".sh", ".png", ".jpg", ".jpeg", ".txt", ".bak", ".zip", ".ttf", ".md", ".py", ".lua", ".cmtheme", ".xpm", ".gif", ".bmp", ".svg", ".ico", ".tiff", ".tif", ".webp", ".avif", ".pdf", ".doc", ".docx", ".odt", ".rtf", ".xml", ".json", ".ini", ".log"};
+    static const QStringList allowedExtensions = {".conf"};
     static const QStringList skipNames = {"Changelog", "Notes", "README", "README!!", "OPTIONS"};
 
     QDir dir(path);
@@ -531,28 +530,40 @@ void ConkyManager::scanConkyDirectory(const QString &path)
             continue;
         }
 
-        bool skip = false;
-        for (const QString &ext : skipExtensions) {
-            if (fileName.endsWith(ext, Qt::CaseInsensitive)) {
-                skip = true;
-                break;
-            }
-        }
-        if (skip) {
+        if (fileInfo.isDir()) {
             continue;
         }
 
+        // Skip known non-conky files
+        bool skipFile = false;
         for (const QString &skipName : skipNames) {
             if (fileName.compare(skipName, Qt::CaseInsensitive) == 0) {
-                skip = true;
+                skipFile = true;
                 break;
             }
         }
-        if (skip) {
+        if (skipFile) {
             continue;
         }
 
-        if (fileInfo.isDir()) {
+        // Check if file is a potential conky config
+        bool isConkyFile = false;
+        
+        // Files without extension (common for conky configs)
+        if (!fileName.contains('.')) {
+            isConkyFile = true;
+        }
+        // Files with .conf extension
+        else {
+            for (const QString &ext : allowedExtensions) {
+                if (fileName.endsWith(ext, Qt::CaseInsensitive)) {
+                    isConkyFile = true;
+                    break;
+                }
+            }
+        }
+
+        if (!isConkyFile) {
             continue;
         }
 

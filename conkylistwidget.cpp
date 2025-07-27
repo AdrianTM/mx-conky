@@ -307,7 +307,13 @@ void ConkyListWidget::setupUI()
 
     connect(m_treeWidget, &QTreeWidget::currentItemChanged, this, &ConkyListWidget::onItemSelectionChanged);
 
+    m_countLabel = new QLabel;
+    m_countLabel->setAlignment(Qt::AlignLeft);
+    m_countLabel->setStyleSheet("font-size: 12px; color: #666; padding: 5px;");
+    m_countLabel->setText(tr("Total: 0 conkies"));
+
     layout->addWidget(m_treeWidget);
+    layout->addWidget(m_countLabel);
 }
 
 void ConkyListWidget::addConkyItem(ConkyItem *item)
@@ -361,6 +367,7 @@ void ConkyListWidget::applyFilters()
         bool visible = itemMatchesFilters(item);
         treeItem->setHidden(!visible);
     }
+    updateCountLabel();
 }
 
 bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
@@ -510,4 +517,33 @@ void ConkyPreviewWidget::updatePreview()
     } else {
         m_previewLabel->setText(tr("No preview image available"));
     }
+}
+
+void ConkyListWidget::updateCountLabel()
+{
+    if (!m_countLabel) {
+        return;
+    }
+
+    int totalCount = 0;
+    int visibleCount = 0;
+
+    for (auto it = m_treeItems.begin(); it != m_treeItems.end(); ++it) {
+        totalCount++;
+        QTreeWidgetItem *treeItem = it.value();
+        if (!treeItem->isHidden()) {
+            visibleCount++;
+        }
+    }
+
+    QString countText;
+    if (m_statusFilter == "All" && m_searchText.isEmpty()) {
+        // No filtering applied
+        countText = tr("Total: %1 conkies").arg(totalCount);
+    } else {
+        // Filtering applied
+        countText = tr("Showing: %1 of %2 conkies").arg(visibleCount).arg(totalCount);
+    }
+
+    m_countLabel->setText(countText);
 }
