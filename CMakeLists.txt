@@ -53,6 +53,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR USE_CLANG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=return-stack-address")
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=return-local-addr")
+    # Suppress false positive LTO warnings with Qt6 QHash
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-alloc-size-larger-than")
 endif()
 
 # Handle different build types
