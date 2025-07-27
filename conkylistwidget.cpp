@@ -376,11 +376,11 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
         return false;
     }
 
-    // Apply status filter
-    if (m_statusFilter == tr("Running") && !item->isRunning()) {
+    // Apply status filter (using internal keys)
+    if (m_statusFilter == "Running" && !item->isRunning()) {
         return false;
     }
-    if (m_statusFilter == tr("Stopped") && item->isRunning()) {
+    if (m_statusFilter == "Stopped" && item->isRunning()) {
         return false;
     }
 
@@ -389,7 +389,7 @@ bool ConkyListWidget::itemMatchesFilters(ConkyItem *item) const
     QString folderName = QFileInfo(item->directory()).fileName();
 
     // Check if filter is a folder name from search paths
-    if (m_statusFilter != tr("All") && m_statusFilter != tr("Running") && m_statusFilter != tr("Stopped")) {
+    if (m_statusFilter != "All" && m_statusFilter != "Running" && m_statusFilter != "Stopped") {
         // This is a folder-based filter
         QStringList searchPaths = m_manager->searchPaths();
         bool matchesFolder = false;
@@ -537,7 +537,7 @@ void ConkyListWidget::updateCountLabel()
     }
 
     QString countText;
-    if (m_statusFilter == tr("All") && m_searchText.isEmpty()) {
+    if (m_statusFilter == "All" && m_searchText.isEmpty()) {
         // No filtering applied
         countText = tr("Total: %1 conkies").arg(totalCount);
     } else {

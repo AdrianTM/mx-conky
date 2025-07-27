@@ -908,7 +908,20 @@ void MainWindow::onFilterChanged()
         return;
     }
     QString filter = m_filterComboBox->currentText();
-    m_conkyListWidget->setStatusFilter(filter);
+    
+    // Convert translated text to internal key
+    QString filterKey;
+    if (filter == tr("All")) {
+        filterKey = "All";
+    } else if (filter == tr("Running")) {
+        filterKey = "Running";
+    } else if (filter == tr("Stopped")) {
+        filterKey = "Stopped";
+    } else {
+        filterKey = filter; // For folder-based filters
+    }
+    
+    m_conkyListWidget->setStatusFilter(filterKey);
 }
 
 void MainWindow::onSearchTextChanged()
