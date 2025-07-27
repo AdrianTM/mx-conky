@@ -4,7 +4,7 @@
     <message>
         <location filename="../conkycustomizedialog.cpp" line="56"/>
         <source>Customize Conky - %1</source>
-        <translation type="unfinished"/>
+        <translation>Personalització del Conky - %1</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="77"/>
@@ -97,12 +97,12 @@
     <message>
         <location filename="../conkycustomizedialog.cpp" line="684"/>
         <source>Select Color</source>
-        <translation type="unfinished"/>
+        <translation>Trieu el color</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="790"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"/>
+        <translation>Permís denegat</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="791"/>

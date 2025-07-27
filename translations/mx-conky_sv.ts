@@ -139,7 +139,7 @@ otillräckliga rättigheter .</translation>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="898"/>
         <source>The original configuration was backed up to %1</source>
-        <translation type="unfinished"/>
+        <translation>Originalkonfigurationen blev uppbackad till %1</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="900"/>
@@ -160,7 +160,7 @@ otillräckliga rättigheter .</translation>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="973"/>
         <source>Failed to restore from backup file.</source>
-        <translation type="unfinished"/>
+        <translation>Misslyckades med att återställa från backupfil.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="976"/>
@@ -266,7 +266,8 @@ otillräckliga rättigheter .</translation>
         <location filename="../conkycustomizedialog.cpp" line="1407"/>
         <source>Width should be larger than the size of window contents,
 otherwise this setting will not have any effect</source>
-        <translation type="unfinished"/>
+        <translation>Bredden ska vara större än storleken på fönstrets innehåll,
+annars har denna inställning inte någon effekt</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1411"/>
@@ -277,7 +278,8 @@ otherwise this setting will not have any effect</source>
         <location filename="../conkycustomizedialog.cpp" line="1426"/>
         <source>Height should be larger than the size of window contents,
 otherwise this setting will not have any effect</source>
-        <translation type="unfinished"/>
+        <translation>Höjden ska vara större än storleken på fönstrets innehåll,
+annars har denna inställning inte någon effekt</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1428"/>
@@ -287,12 +289,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1442"/>
         <source>Increases the window height by adding empty lines at the end of the Conky config file</source>
-        <translation type="unfinished"/>
+        <translation>Ökar fönsterhöjden genom att lägga till tomma rader i slutet av Conky konfigurationsfil</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1443"/>
         <source>Height Padding</source>
-        <translation type="unfinished"/>
+        <translation>Höjdfyllnad</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1458"/>
@@ -327,14 +329,16 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1484"/>
         <source>Opacity (%)</source>
-        <translation>Ogenomskinlighet (%)</translation>
+        <translation>Opacitet (%)</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1485"/>
         <source>Window Opacity
 
 0 = Fully Transparent, 100 = Fully Opaque</source>
-        <translation type="unfinished"/>
+        <translation>Fönsteropacitet
+
+0 = Helt Transparent, 100 = Helt Ogenomskinligt</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1499"/>
@@ -349,12 +353,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1524"/>
         <source>Setting Type to &quot;Transparent&quot; will make the whole window transparent (including any images). Use &quot;Pseudo-Transparent&quot; if you want the images to be opaque.</source>
-        <translation type="unfinished"/>
+        <translation>Att sätta Typ till &quot;Transparent&quot; kommer att göra hela fönstret transparent (inklusive blder). Använd &quot;Pseudo-Transparent&quot; om du vill att bilder ska vara ogenomskinliga.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1534"/>
         <source>Setting Type to &quot;Pseudo-Transparent&quot; will make the window transparent but the window will have a shadow. The shadow can be disabled by configuring your window manager.</source>
-        <translation type="unfinished"/>
+        <translation>Att sätta Typ till &quot;Pseudo-Transparent&quot; kommer att göra fönstret transparent men fönstret kommer att ha en skugga. Skuggan kan stängas av genom att konfigurera din fönsterhanterare.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1545"/>
@@ -571,7 +575,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="174"/>
         <source>Configure conky search paths</source>
-        <translation>Konfigurera Conky sökvägar</translation>
+        <translation>Konfigurera conky sökvägar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="176"/>
@@ -581,7 +585,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="178"/>
         <source>Refresh conky list</source>
-        <translation type="unfinished"/>
+        <translation>Uppdatera conkylista</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="180"/>
@@ -591,7 +595,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="182"/>
         <source>Start all enabled conkies</source>
-        <translation type="unfinished"/>
+        <translation>Starta alla aktiverade conkies</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="184"/>
@@ -601,7 +605,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="186"/>
         <source>Stop all running conkies</source>
-        <translation type="unfinished"/>
+        <translation>Stoppa alla conkies som körs</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="940"/>
@@ -616,12 +620,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="194"/>
         <source>Search conky by name...</source>
-        <translation type="unfinished"/>
+        <translation>Sök conky på namn...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="196"/>
         <source>Search conkies by name (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Sök conky på namn (Ctrl+F)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="241"/>
@@ -644,7 +648,8 @@ otherwise this setting will not have any effect</source>
         <location filename="../mainwindow.cpp" line="464"/>
         <source>Conky has been copied to your personal folder for editing:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Conky har kopierats till din personliga katalog för redigering:
+%1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="466"/>
@@ -656,7 +661,7 @@ otherwise this setting will not have any effect</source>
         <location filename="../mainwindow.cpp" line="466"/>
         <location filename="../mainwindow.cpp" line="644"/>
         <source>Failed to copy conky to your personal folder.</source>
-        <translation type="unfinished"/>
+        <translation>Misslyckades med att kopiera conky till din personliga katalog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="528"/>
@@ -667,7 +672,8 @@ otherwise this setting will not have any effect</source>
         <location filename="../mainwindow.cpp" line="642"/>
         <source>Conky has been copied to your personal folder for customization:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Conky har kopierats till din personliga katalog för anpassning:
+%1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="561"/>
@@ -682,7 +688,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="170"/>
         <source>Generate preview images for conkies</source>
-        <translation>Generera förhandsbilder för Conkies</translation>
+        <translation>Generera förhandsbilder för conkies</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="190"/>
@@ -695,7 +701,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../mainwindow.cpp" line="191"/>
         <source>Filter conkies by running status or location</source>
-        <translation type="unfinished"/>
+        <translation>Filtrera conkies efter körstatus eller plats</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="413"/>
@@ -708,7 +714,8 @@ otherwise this setting will not have any effect</source>
         <location filename="../mainwindow.cpp" line="590"/>
         <source>In order for you to edit and save a conky, it must first be copied to ~/.conky where you have permission.
 Enter a name for the copy.</source>
-        <translation type="unfinished"/>
+        <translation>För att du ska kunna redigera och spara en conky, måste den först kopieras till ~/.conky där du har rättigheter.
+Skriv in ett namn på kopian.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="431"/>
@@ -721,7 +728,8 @@ Enter a name for the copy.</source>
         <location filename="../mainwindow.cpp" line="610"/>
         <source>A conky with the name '%1' already exists in your personal folder.
 Do you want to overwrite it?</source>
-        <translation type="unfinished"/>
+        <translation>En conky med namnet &apos;%1&apos; finns redan i din personliga katalog.
+Vill du skriva över den?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="499"/>
@@ -732,7 +740,8 @@ Do you want to overwrite it?</source>
         <location filename="../mainwindow.cpp" line="500"/>
         <source>This conky file is read-only and requires administrator privileges to edit.
 Do you want to edit it with elevated privileges?</source>
-        <translation type="unfinished"/>
+        <translation>Denna conkyfil är read-only och kräver administratörsrättigheter för att redigera.
+Vill du redigera med utökade privilegier?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="529"/>
@@ -740,23 +749,27 @@ Do you want to edit it with elevated privileges?</source>
 %1
 
 This action cannot be undone.</source>
-        <translation type="unfinished"/>
+        <translation>Är du säker på att du vill ta bort conkyfil:
+%1
+
+Denna handling kan inte göras ogjord.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="561"/>
         <source>Conky file deleted successfully.</source>
-        <translation type="unfinished"/>
+        <translation>Conkyfil har framgångsrikt borttagits.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="563"/>
         <source>Delete Failed</source>
-        <translation type="unfinished"/>
+        <translation>Borttagning Misslyckades</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="563"/>
         <source>Failed to delete conky file:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Misslyckades med borttagning av conkyfil:
+%1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="651"/>
@@ -767,7 +780,8 @@ This action cannot be undone.</source>
         <location filename="../mainwindow.cpp" line="652"/>
         <source>This conky file is read-only and requires administrator privileges to customize.
 Do you want to customize it with elevated privileges?</source>
-        <translation type="unfinished"/>
+        <translation>Denna conkyfil är read-only och kräver administratörsrättigheter för att anpassa.
+Vill du anpassa den med utökade privilegier?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
@@ -777,7 +791,7 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
         <source>Cannot start editor for file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kan inte starta redigerare för fil: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="813"/>
@@ -846,17 +860,17 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="79"/>
         <source>All Widgets with Missing Previews</source>
-        <translation type="unfinished"/>
+        <translation>Alla Widgets som saknar Förhandsbilder</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="80"/>
         <source>All Widgets (Overwrite Existing Images)</source>
-        <translation type="unfinished"/>
+        <translation>Alla Widgets (Skriv över befintliga bilder)</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="85"/>
         <source>No conky is currently selected</source>
-        <translation type="unfinished"/>
+        <translation>Ingen conky är för nuvarande vald</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="93"/>
@@ -886,17 +900,17 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No Items</source>
-        <translation type="unfinished"/>
+        <translation>Inga poster</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="145"/>
         <source>No conky widgets need preview generation.</source>
-        <translation type="unfinished"/>
+        <translation>Inga conky widgets behöver genering av förhandsbilder.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="155"/>
         <source>Starting preview generation...</source>
-        <translation type="unfinished"/>
+        <translation>Startar förhandsbildsgenerering...</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="159"/>
@@ -911,7 +925,7 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="419"/>
         <source>Preview generation complete! Generated %1 previews.</source>
-        <translation type="unfinished"/>
+        <translation>Generering av förhandsbilder komplett! Genererade %1 förhandsbilder.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="423"/>
@@ -921,12 +935,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="426"/>
         <source>Preview Generation Complete</source>
-        <translation type="unfinished"/>
+        <translation>Generering av förhandsbilder komplett</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="427"/>
         <source>Successfully generated %1 preview images.</source>
-        <translation type="unfinished"/>
+        <translation>Genererade framgångsrikt %1 förhandsbilder.</translation>
     </message>
 </context>
 <context>
@@ -953,7 +967,7 @@ Do you want to customize it with elevated privileges?</source>
         <location filename="../settingsdialog.cpp" line="40"/>
         <location filename="../settingsdialog.cpp" line="62"/>
         <source>Select Conky Directory</source>
-        <translation type="unfinished"/>
+        <translation>Välj Conky Katalog</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="83"/>
@@ -973,12 +987,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../settingsdialog.cpp" line="98"/>
         <source>Remove Path</source>
-        <translation type="unfinished"/>
+        <translation>Ta bort sökväg</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="101"/>
         <source>Edit Path</source>
-        <translation type="unfinished"/>
+        <translation>Redigera Sökväg</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="113"/>
@@ -988,12 +1002,12 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../settingsdialog.cpp" line="117"/>
         <source>Start conky at system startup</source>
-        <translation type="unfinished"/>
+        <translation>Starta conky vid systemstart</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="121"/>
         <source>Startup delay (seconds):</source>
-        <translation type="unfinished"/>
+        <translation>Startfördröjning (sekunder):</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="134"/>

@@ -4,7 +4,7 @@
     <message>
         <location filename="../conkycustomizedialog.cpp" line="56"/>
         <source>Customize Conky - %1</source>
-        <translation type="unfinished"/>
+        <translation>Personnaliser Conky - %1</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="77"/>
@@ -36,27 +36,27 @@
     <message>
         <location filename="../conkycustomizedialog.cpp" line="121"/>
         <source>Color0</source>
-        <translation type="unfinished"/>
+        <translation>Couleur0</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="121"/>
         <source>Color1</source>
-        <translation type="unfinished"/>
+        <translation>Couleur1</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="121"/>
         <source>Color2</source>
-        <translation type="unfinished"/>
+        <translation>Couleur2</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="121"/>
         <source>Color3</source>
-        <translation type="unfinished"/>
+        <translation>Couleur3</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="121"/>
         <source>Color4</source>
-        <translation type="unfinished"/>
+        <translation>Couleur4</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="122"/>
@@ -97,74 +97,75 @@
     <message>
         <location filename="../conkycustomizedialog.cpp" line="684"/>
         <source>Select Color</source>
-        <translation type="unfinished"/>
+        <translation>Sélectionner la couleur</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="790"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"/>
+        <translation>Accès refusé</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="791"/>
         <source>Cannot write to file: %1
 Insufficient permissions.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d’écrire dans le fichier: %1
+Autorisations insuffisantes.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="801"/>
         <source>Write Error</source>
-        <translation type="unfinished"/>
+        <translation>Erreur d’écriture</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="801"/>
         <source>Cannot write to file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d’écrire dans le fichier: %1</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="874"/>
         <source>Backup Config File</source>
-        <translation type="unfinished"/>
+        <translation>Fichier de configuration de la sauvegarde</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="874"/>
         <source>Do you want to preserve the original file?</source>
-        <translation type="unfinished"/>
+        <translation>Voulez-vous conserver le fichier d’origine?</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="897"/>
         <source>Backed Up Config File</source>
-        <translation type="unfinished"/>
+        <translation>Fichier de configuration sauvegardé</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="898"/>
         <source>The original configuration was backed up to %1</source>
-        <translation type="unfinished"/>
+        <translation>La configuration d’origine a été sauvegardée sur %1</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="900"/>
         <source>Backup Failed</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de sauvegarder</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="900"/>
         <source>Failed to create a backup file.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de créer un fichier de sauvegarde.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="973"/>
         <location filename="../conkycustomizedialog.cpp" line="976"/>
         <source>Restore Failed</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de restaurer</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="973"/>
         <source>Failed to restore from backup file.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d’effectuer la restauration à partir du fichier de sauvegarde.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="976"/>
         <source>Backup file does not exist.</source>
-        <translation type="unfinished"/>
+        <translation>Le fichier de sauvegarde n’existe pas.</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1328"/>
@@ -174,52 +175,52 @@ Insufficient permissions.</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1335"/>
         <source>Alignment</source>
-        <translation type="unfinished"/>
+        <translation>Alignement</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1340"/>
         <source>Top Left</source>
-        <translation type="unfinished"/>
+        <translation>En haut à gauche</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1341"/>
         <source>Top Right</source>
-        <translation type="unfinished"/>
+        <translation>En haut à droite</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1342"/>
         <source>Top Middle</source>
-        <translation type="unfinished"/>
+        <translation>En haut au milieu</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1343"/>
         <source>Bottom Left</source>
-        <translation type="unfinished"/>
+        <translation>En bas à gauche</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1344"/>
         <source>Bottom Right</source>
-        <translation type="unfinished"/>
+        <translation>En bas à droite</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1345"/>
         <source>Bottom Middle</source>
-        <translation type="unfinished"/>
+        <translation>En bas au milieu</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1346"/>
         <source>Middle Left</source>
-        <translation type="unfinished"/>
+        <translation>Au milieu à gauche</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1347"/>
         <source>Middle Right</source>
-        <translation type="unfinished"/>
+        <translation>Au milieu à droite</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1348"/>
         <source>Middle Middle</source>
-        <translation type="unfinished"/>
+        <translation>Milieu Milieu</translation>
     </message>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1353"/>
@@ -455,7 +456,7 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkycustomizedialog.cpp" line="1928"/>
         <source>Select Background Color</source>
-        <translation type="unfinished"/>
+        <translation>Sélectionner la couleur du fond d’écran</translation>
     </message>
 </context>
 <context>
@@ -506,12 +507,12 @@ otherwise this setting will not have any effect</source>
     <message>
         <location filename="../conkylistwidget.cpp" line="487"/>
         <source>No Conky Selected</source>
-        <translation type="unfinished"/>
+        <translation>Aucun Conky sélectionné</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="489"/>
         <source>Select a conky from the list to see its preview</source>
-        <translation type="unfinished"/>
+        <translation>Sélectionner un conky dans la liste pour voir son aperçu</translation>
     </message>
     <message>
         <location filename="../conkylistwidget.cpp" line="508"/>
@@ -840,7 +841,7 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="78"/>
         <source>Selected Widget</source>
-        <translation type="unfinished"/>
+        <translation>Widget sélectionné</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="79"/>
@@ -855,7 +856,7 @@ Do you want to customize it with elevated privileges?</source>
     <message>
         <location filename="../previewdialog.cpp" line="85"/>
         <source>No conky is currently selected</source>
-        <translation type="unfinished"/>
+        <translation>Aucun conky n’est actuellement sélectionné.</translation>
     </message>
     <message>
         <location filename="../previewdialog.cpp" line="93"/>
@@ -952,7 +953,7 @@ Do you want to customize it with elevated privileges?</source>
         <location filename="../settingsdialog.cpp" line="40"/>
         <location filename="../settingsdialog.cpp" line="62"/>
         <source>Select Conky Directory</source>
-        <translation type="unfinished"/>
+        <translation>Sélectionner le répertoire Conky</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="83"/>
